@@ -4,7 +4,7 @@ export default function Holidaypackage() {
   return (
     <div className='h-screen mt-[100px] bg-[gray] flex items-center justify-center'>
       <div className='container relative mx-auto px-4'>
-        <div className='w-full left-0.5 right-0.5  bottom-[110%] absolute h-[150px] md:h-[200px] bg-red-300'></div>
+        <div className='w-[90%] left-[5%] right-[5%] bottom-[120%] absolute h-40 md:h-[200px] bg-red-300'></div>
 
         <div className='mt-[50px] w-full flex justify-center'>
           <div className="flex flex-col text-center items-center">
@@ -23,7 +23,7 @@ export default function Holidaypackage() {
 
             <form className="relative mb-6 w-full max-w-sm">
               <input
-                className='border-2 border-white bg-transparent w-full h-[60px] px-3 focus:outline-none focus:border-white'
+                className='border-2 border-white bg-transparent w-full h-[60px] px-3 focus:outline-none focus:border-white placeholder:text-white'
                 type="text"
                 placeholder="Enter your details"
               />

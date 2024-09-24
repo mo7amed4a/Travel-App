@@ -86,7 +86,7 @@ export default function Secondpart() {
           </div>
 
           {/* العمود الجديد ذو العرض الكامل */}
-          <div className="flex flex-col w-[95vw]">
+          <div className="flex flex-col w-[95vw] md:w-[500px]">
             {/* عنصر الصورة الثالث */}
             <div
               className="bg-green-500 text-white shadow-lg overflow-hidden flex items-end relative"

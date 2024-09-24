@@ -2,7 +2,7 @@ import React from 'react';
 
 const GalleryPage = () => {
     return (
-        <div className="mt-[80px] gap-8 flex items-center justify-center flex-wrap px-4 mx-auto container">
+        <div className="my-10 gap-8 flex items-center justify-center flex-wrap px-4 mx-auto container">
      <div className="flex flex-col text-center md:text-left items-center md:items-start">
     <div className="flex items-center justify-center md:justify-start mb-4">
         <div className="w-16 bg-red-500 h-[2px] inline-block"></div>
