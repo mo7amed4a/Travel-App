@@ -12,7 +12,7 @@ export default function ForgotPasswordPage() {
                     </a>
                 </h1>
                 <div className="flex flex-col ">
-                    <label for="first_name1" className='text-sm pb-1 text-gray-700'>User Name</label>
+                    <label for="first_name1" className='text-sm pb-1 text-gray-700'>User Name app</label>
                     <input id='first_name1' type="text" />
                 </div>
                 <div className="w-full pt-2 flex justify-center">
