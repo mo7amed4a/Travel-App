@@ -1,7 +1,6 @@
 import React from "react";
 import img from "../../../images/wall122.jpg";
 import { Link } from "react-router-dom";
-import PackageComponnet from "../../packegs/packageComponnet";
 
 export default function Thirdpart() {
   let carts = [
