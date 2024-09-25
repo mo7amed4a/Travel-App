@@ -1,5 +1,6 @@
 import {
   Button,
+  DarkThemeToggle,
   Dropdown,
   Label,
   MegaMenu,
@@ -128,14 +129,15 @@ export default function HeaderApp({ scrollPage }) {
           <Navbar.Brand href="/">
             <img
               alt=""
-              src="http://192.168.1.2:3000/assets/images/Asset%203_2x.png"
+              src="/images/logoapp.png"
               className="mr-3 h-6 sm:h-9"
             />
           </Navbar.Brand>
-          <div className="order-2 hidden items-center md:flex">
-            <Button className="bg-primary rounded-none">BOOK NOW</Button>
+          <div className="flex md:order-1 items-center gap-x-2">
+            {/* <DarkThemeToggle /> */}
+            <Button className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none">BOOK NOW</Button>
+            <Navbar.Toggle />
           </div>
-          <Navbar.Toggle />
           <Navbar.Collapse
             className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase bg-white md:bg-transparent ${
               scrollPage

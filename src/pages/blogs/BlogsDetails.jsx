@@ -9,7 +9,7 @@ export default function BlogDetailsPage() {
               <a href="#">
                 <img
                   className="w-full h-[50vh] md:h-[60vh]"
-                  src="http://192.168.1.2:3000/assets/images/img17.jpg"
+                  src="/images/img17.jpg"
                   alt=""
                 />
               </a>

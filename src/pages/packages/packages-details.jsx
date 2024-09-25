@@ -11,7 +11,7 @@ export default function PackagesDetailsPage() {
         className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
         style={{
           backgroundImage:
-            "url(http://192.168.1.2:3000/assets/images/slider-pattern.png)",
+            "url(/images/slider-pattern.png)",
         }}
       >
         <h1 className="text-5xl">Package Detail</h1>
@@ -26,7 +26,7 @@ export default function PackagesDetailsPage() {
               <a href="#">
                 <img
                   className="w-full"
-                  src="http://localhost:3000/assets/images/img27.jpg"
+                  src="/images/img27.jpg"
                   alt=""
                 />
               </a>

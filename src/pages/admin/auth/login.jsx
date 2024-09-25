@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 
 export default function LoginPage() {
   return (
-    <div className="h-screen w-screen flex justify-center items-center" style={{backgroundImage: "url(http://192.168.1.2:3000/admin/assets/images/bg.jpg)"}}>
+    <div className="h-screen w-screen flex justify-center items-center" style={{backgroundImage: "url(/images/admin/bg.jpg)"}}>
         <div className="shadow-2xl rounded bg-white p-4 w-full mx-4 md:w-3/4 lg:w-2/4 xl:w-1/4">
             <form className="flex flex-col space-y-5">
                 <h1 className="flex justify-center py-5">
                     <a href="#">
-                        <img src="http://192.168.1.2:3000/admin/assets/images/logo.png" alt="" />
+                        <img src="/images/admin/logo.png" alt="" />
                     </a>
                 </h1>
                 <div className="flex flex-col ">
