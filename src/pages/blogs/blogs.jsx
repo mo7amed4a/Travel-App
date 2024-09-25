@@ -12,7 +12,7 @@ function BlogsPage() {
               <figure className="w-full bg-blue-500">
                 <a href="#">
                   <img className="w-full h-[290px]"
-                    src="http://192.168.1.2:3000/assets/images/img17.jpg"
+                    src="/images/img17.jpg"
                     alt=""
                   />
                 </a>

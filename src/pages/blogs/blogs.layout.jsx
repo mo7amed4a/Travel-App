@@ -10,7 +10,7 @@ export default function BLogsLayout() {
         className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
         style={{
           backgroundImage:
-            "url(http://192.168.1.2:3000/assets/images/slider-pattern.png)",
+            "url(/images/slider-pattern.png)",
         }}
       >
         <h1 className="text-5xl">Archive</h1>
@@ -34,7 +34,7 @@ export default function BLogsLayout() {
                     <figure className="avatar mb-4">
                       <a href="#">
                         <img
-                          src="http://192.168.1.2:3000/assets/images/img21.jpg"
+                          src="/images/img21.jpg"
                           alt=""
                           className="rounded-full w-32 h-32 mx-auto"
                         />
@@ -119,7 +119,7 @@ export default function BLogsLayout() {
                       <figure className="">
                         <a href="#">
                           <img
-                            src="http://192.168.1.2:3000/assets/images/img17.jpg"
+                            src="/images/img17.jpg"
                             alt=""
                             className="rounded-lg w-32 h-full"
                           />

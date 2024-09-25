@@ -4,7 +4,7 @@ export default function Holidaypackage() {
   return (
     <div className='h-screen mt-[100px] bg-[gray] flex items-center justify-center'>
       <div className='container relative mx-auto px-4'>
-        <div className='w-[90%] left-[5%] right-[5%] bottom-[120%] absolute h-40 md:h-[200px] bg-red-300'></div>
+        <div className='w-[90%] left-[5%] right-[5%] bottom-[120%] absolute h-40 md:h-[200px] bg-secondary'></div>
 
         <div className='mt-[50px] w-full flex justify-center'>
           <div className="flex flex-col text-center items-center">

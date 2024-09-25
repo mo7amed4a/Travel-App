@@ -8,7 +8,7 @@ export default function PackagesPage() {
           className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
           style={{
             backgroundImage:
-              "url(http://192.168.1.2:3000/assets/images/slider-pattern.png)",
+              "url(/images/slider-pattern.png)",
           }}
         >
           <h1 className="text-5xl">Tour Packages</h1>
@@ -26,7 +26,7 @@ export default function PackagesPage() {
                 <a href="#">
                   <img
                     className="w-full h-80"
-                    src="http://192.168.1.2:3000/assets/images/img17.jpg"
+                    src="/images/img17.jpg"
                     alt=""
                   />
                 </a>
@@ -91,119 +91,7 @@ export default function PackagesPage() {
             </div>
           ))}
         </section>
-        <section className="flex flex-col justify-center items-center space-y-4">
-          <h3 className="flex items-center text-lg font-bold text-primary">
-            <span className="w-20 h-0.5 inline-block bg-primary me-2"></span>TRAVEL
-            BY ACTIVITY
-          </h3>
-          <h1 className="text-3xl font-bold">ADVENTURE & ACTIVITY</h1>
-          <p className="text-gray-800 w-3/4 md:w-2/4 text-center">
-            Mollit voluptatem perspiciatis convallis elementum corporis quo
-            veritatis aliquid blandit, blandit torquent, odit placeat.
-            Adipiscing repudiandae eius cursus? Nostrum magnis maxime curae
-            placeat.
-          </p>
-        </section>
-        <section>
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 container-app py-10">
-            <div className="flex flex-col items-center border p-10">
-              <div className="">
-                <a href="#">
-                  <img
-                    src="http://192.168.1.2:3000/assets/images/icon6.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <h4 className="font-bold">
-                  <a href="#">Adventure</a>
-                </h4>
-                <p className="text-sm">15 Destination</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center border p-10">
-              <div className="activity-icon">
-                <a href="#">
-                  <img
-                    src="http://192.168.1.2:3000/assets/images/icon10.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <h4 className="font-bold">
-                  <a href="#">Trekking</a>
-                </h4>
-                <p>12 Destination</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center border p-10">
-              <div className="activity-icon">
-                <a href="#">
-                  <img
-                    src="http://192.168.1.2:3000/assets/images/icon9.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <h4 className="font-bold">
-                  <a href="#">Camp Fire</a>
-                </h4>
-                <p>7 Destination</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center border p-10">
-              <div className="activity-icon">
-                <a href="#">
-                  <img
-                    src="http://192.168.1.2:3000/assets/images/icon8.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <h4 className="font-bold">
-                  <a href="#">Off Road</a>
-                </h4>
-                <p>15 Destination</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center border p-10">
-              <div className="activity-icon">
-                <a href="#">
-                  <img
-                    src="http://192.168.1.2:3000/assets/images/icon7.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <h4 className="font-bold">
-                  <a href="#">Camping</a>
-                </h4>
-                <p>13 Destination</p>
-              </div>
-            </div>
-            <div className="flex flex-col items-center border p-10">
-              <div className="activity-icon">
-                <a href="#">
-                  <img
-                    src="http://192.168.1.2:3000/assets/images/icon11.png"
-                    alt=""
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col items-center">
-                <h4 className="font-bold">
-                  <a href="#">Exploring</a>
-                </h4>
-                <p>25 Destination</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        
       </div>
     </div>
   );

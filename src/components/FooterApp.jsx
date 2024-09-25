@@ -2,7 +2,7 @@ import { Button, Footer, Label, TextInput } from "flowbite-react";
 
 export default function FooterApp() {
   return (
-    <Footer bgDark container>
+    <Footer bgDark container className="rounded-none">
       <div className="w-full text-center container-app">
         <div className="w-full justify-between sm:flex items-start sm:justify-between space-y-10 md:space-y-0">
           <div className="text-white text-start space-y-4 w-full">

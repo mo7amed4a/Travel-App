@@ -2,7 +2,9 @@ import React from 'react'
 
 export default function NotFoundPage() {
   return (
-    <div className='w-screen h-screen bg-blue-900/70 flex justify-center items-center'>
+    <div className='flex justify-center items-center -mt-36'>
+      <div className='w-screen h-screen bg-blue-900/70 flex justify-center items-center'>
+
         <div className='relative text-center md:text-start w-full md:w-auto'>
             <h6 className='text-[150px] md:text-[240px] font-bold text-white text-opacity-35'>404</h6>
             <p className='w-full -mt-10 md:mt-0 xl:w-[160%] md:absolute md:-left-5 md:top-2/4 font-bold text-white text-xl md:text-3xl'>Oops! That page can't be found</p>
@@ -10,6 +12,7 @@ export default function NotFoundPage() {
                 <a href='/' className='text-primary hover:underline font-bold'>Go to Home</a>
             </div>
         </div>
+      </div>
     </div>
   )
 }
