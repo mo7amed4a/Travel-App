@@ -11,6 +11,8 @@ import NotFoundPage from '../pages/not-found/NotFound'
 export default function AppLayout() {
     const [scrollPage, setScrollPage] = useState(false);
   useEffect(() => {
+
+
     const handleScroll = () => {
       setScrollPage(window.scrollY > 10);
     };

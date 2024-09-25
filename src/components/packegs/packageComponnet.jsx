@@ -48,10 +48,10 @@ export default function PackageComponnet() {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit luctus nec
             ullam. Ut elit tellus, luctus nec ullam elit tellpus.
           </p>
-          <div className="flex justify-between bottom-1">
+          <div className="flex justify-between bottom-1 divide-x-2">
             <a
               href="#"
-              className="w-full text-center p-3 border-t border-e flex items-center gap-x-2 justify-center group hover:text-secondary"
+              className="w-full text-center p-3 border-t flex items-center gap-x-2 justify-center group hover:text-secondary"
             >
               Book Now
               <i className="fas fa-arrow-right text-primary group-hover:text-secondary"></i>
