@@ -1,7 +1,8 @@
 import React from 'react'
+import DashboardPackege from '../../components/DashboardPackege/DashboardPackege'
 
 export default function DashoardPage() {
   return (
-    <div>DashoardPage</div>
+    <DashboardPackege></DashboardPackege>
   )
 }

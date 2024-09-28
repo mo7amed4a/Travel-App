@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
                     <input id='first_name1' type="text" />
                 </div>
                 <div className="w-full pt-2 flex justify-center">
-                    <a className="py-3 px-4 bg-secondary w-full text-center text-white font-semibold hover:bg-secondary/90 duration-100" href="dashboard.html">Submit</a>
+                    <a className="py-3 px-4 bg-secondary w-full text-center  text-white font-semibold hover:bg-secondary/90 duration-100" href="dashboard.html">Submit</a>
                 </div>
                 <div className='flex justify-end w-full text-secondary'>
                     <Link to="/admin/login">Do you have account?</Link>
