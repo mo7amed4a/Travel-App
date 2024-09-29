@@ -7,6 +7,7 @@ import PackagesPage from '../pages/packages/packages'
 import PackagesDetailsPage from '../pages/packages/packages-details'
 import HomePage from '../pages/Home/home'
 import NotFoundPage from '../pages/not-found/NotFound'
+import Users from '../components/dashboard/Users/Users'
 
 export default function AppLayout() {
     const [scrollPage, setScrollPage] = useState(false);
@@ -31,6 +32,8 @@ export default function AppLayout() {
             <Route path="/blogs/*" element={<BLogsLayout />} />
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/packages/:id" element={<PackagesDetailsPage />} />
+            {/* <Route path="/users" element={<Users></Users>} /> */}
+
             <Route path="/*" element={<NotFoundPage />} />
         </Routes>
         <FooterApp />

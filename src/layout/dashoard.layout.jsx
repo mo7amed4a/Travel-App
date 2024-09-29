@@ -7,6 +7,7 @@ import NotFoundPage from "../pages/not-found/NotFound";
 import DashboardPackege from "../components/DashboardPackege/DashboardPackege";
 import NavbarAdmin from "../components/dashboard/Header/NavbarAdmin";
 import SidenavAdmin from "../components/dashboard/Header/SidenavAdmin";
+import Users from "../components/dashboard/Users/Users";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
@@ -25,13 +26,17 @@ export default function DashoardLayout() {
         )}
       <main className="flex">
         <SidenavAdmin asideToggle={asideToggle} setAsideToggle={setAsideToggle} />
-        <Routes>
-          <Route path="/" element={<DashoardPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/*" element={<NotFoundPage />} />
-          <Route path="/dashboardPackege" element={<DashboardPackege />} />
-        </Routes>
+        {/* <div className="px-4 flex"> */}
+          <Routes>
+            <Route path="/" element={<DashoardPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/*" element={<NotFoundPage />} />
+            <Route path="/dashboardPackege" element={<DashboardPackege />} />
+            <Route path="/users" element={<Users />} />
+
+          </Routes>
+        {/* </div> */}
       </main>
       {location.pathname !== "/admin/login" &&
         location.pathname !== "/admin/forgot-password" &&
