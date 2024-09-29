@@ -1,7 +1,9 @@
 {
-  "name": "my-project",
+  "name": "travel-app",
+  "description": "Travel App",
+  "author": "Webbing Agency, Rawan, Mohamed",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "start": "vite --host --port 3001",

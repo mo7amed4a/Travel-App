@@ -8,7 +8,7 @@ export default function App() {
 
   return(
     <>
-      <BrowserRouter>
+      <BrowserRouter> 
         <Routes>
           <Route path="/*" element={<AppLayout />} />
           <Route path="/admin/*" element={<DashoardLayout />} />

@@ -6,3 +6,8 @@
 .container-app {
     @apply container max-w-screen-xl mx-auto px-4
 }
+
+
+.side-link {
+    @apply rounded-none h-12  
+}

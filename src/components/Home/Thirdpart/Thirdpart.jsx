@@ -1,7 +1,6 @@
 import React from "react";
 import img from "../../../images/wall122.jpg";
 import { Link } from "react-router-dom";
-import PackageComponnet from "../../packegs/packageComponnet";
 
 export default function Thirdpart() {
   let carts = [
@@ -58,7 +57,66 @@ export default function Thirdpart() {
 
       <div className="container mx-auto p-4 flex gap-4 justify-center items-center  flex-wrap">
         {carts.map((cart, index) => (
-          <PackageComponnet key={index}/>
+          // <PackageComponnet key={index}/>
+          <div className="flex flex-col md:flex-row" key={index}>
+            <div className="md:w-[350px] shadow-lg relative">
+              <div>
+                <img src={cart.img1} alt="destination" className="" />
+                <div className="absolute top-1 right-1 bg-primary text-white px-4 py-2 rounded sm:text-sm md:text-base lg:text-lg">
+                  <span className="font-bold">${cart.price}</span>
+                  <span className="text-xs md:text-sm"> / per person</span>
+                </div>
+                <div className="w-[95%] bg-secondary relative bottom-[30px]  left-[2%] right-[2%]">
+                  <div
+                    className="flex text-white py-2 justify-around"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>
+                        <i className="fa-regular fa-clock"></i>{" "}
+                        <span>{cart.clock}</span>
+                      </span>
+                      <div className="w-[2px] bg-[#ffffff] h-[25px]"></div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span>
+                        <i className="fa-regular fa-user"></i>{" "}
+                        <span className="ml-2">People: {cart.people}</span>
+                      </span>
+                      <div className="w-[2px] bg-[#ffffff] h-[25px]"></div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span>
+                        <i className="fa-solid fa-location-dot"></i>{" "}
+                        <span className="ml-2">{cart.location}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="px-4 -mt-10">
+                <h2
+                  className="mt-4"
+                  style={{ fontSize: "25px", fontWeight: "bold" }}
+                >
+                  {cart.title}
+                </h2>
+                <p>{cart.details}</p>
+                <div
+                  className="flex font-bold divide-x mt-5 divide-gray-300 border-t border-t-gray-300"
+                  style={{ justifyContent: "space-around" }}
+                >
+                  <Link className="pointer-events-auto p-3">
+                    Book Now{" "}
+                    <i className="fa-solid text-red-500 fa-arrow-right"></i>
+                  </Link>
+                  <Link className="ps-10 p-3">
+                    Wish List{" "}
+                    <i className="fa-regular text-red-500 fa-heart"></i>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
 
