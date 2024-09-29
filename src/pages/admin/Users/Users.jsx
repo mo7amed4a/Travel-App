@@ -1,57 +1,57 @@
 import React from 'react';
 
-const users = [
-  {
-    id: 1,
-    name: "Kathy Brown",
-    phone: "+01 3214 6522",
-    email: "chadengle@dummy.com",
-    country: "Australia",
-    listings: "02",
-    avatar: "https://dummyimage.com/50x50"
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    phone: "+01 1234 5678",
-    email: "johndoe@dummy.com",
-    country: "USA",
-    listings: "03",
-    avatar: "https://dummyimage.com/50x50"
-  },
-  ,
-  {
-    id: 2,
-    name: "John Doe",
-    phone: "+01 1234 5678",
-    email: "johndoe@dummy.com",
-    country: "USA",
-    listings: "03",
-    avatar: "https://dummyimage.com/50x50"
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    phone: "+01 1234 5678",
-    email: "johndoe@dummy.com",
-    country: "USA",
-    listings: "03",
-    avatar: "https://dummyimage.com/50x50"
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    phone: "+01 1234 5678",
-    email: "johndoe@dummy.com",
-    country: "USA",
-    listings: "03",
-    avatar: "https://dummyimage.com/50x50"
-  }
-];
+const UsersPage = () => {
 
-const Users = () => {
+  const users = [
+    {
+      id: 1,
+      name: "Kathy Brown",
+      phone: "+01 3214 6522",
+      email: "chadengle@dummy.com",
+      country: "Australia",
+      listings: "02",
+      avatar: "https://dummyimage.com/50x50"
+    },
+    {
+      id: 2,
+      name: "John Doe",
+      phone: "+01 1234 5678",
+      email: "johndoe@dummy.com",
+      country: "USA",
+      listings: "03",
+      avatar: "https://dummyimage.com/50x50"
+    },
+    ,
+    {
+      id: 2,
+      name: "John Doe",
+      phone: "+01 1234 5678",
+      email: "johndoe@dummy.com",
+      country: "USA",
+      listings: "03",
+      avatar: "https://dummyimage.com/50x50"
+    },
+    {
+      id: 2,
+      name: "John Doe",
+      phone: "+01 1234 5678",
+      email: "johndoe@dummy.com",
+      country: "USA",
+      listings: "03",
+      avatar: "https://dummyimage.com/50x50"
+    },
+    {
+      id: 2,
+      name: "John Doe",
+      phone: "+01 1234 5678",
+      email: "johndoe@dummy.com",
+      country: "USA",
+      listings: "03",
+      avatar: "https://dummyimage.com/50x50"
+    }
+  ];
   return (
-    <div className="bg-gray-50 min-h-screen p-6 w-full">
+    <div className="bg-gray-50 min-h-screen w-full">
       <div className="container mx-auto bg-white rounded-lg  shadow-lg">
         <div className="p-4 border-b border-gray-200">
           <h2 className="text-2xl font-semibold text-gray-800">USER DETAILS</h2>
@@ -59,7 +59,7 @@ const Users = () => {
         </div>
 
         {/* Responsive table container */}
-        <div className="overflow-x-auto w-full ">
+        <div className="overflow-x-auto w-full">
           <table className="min-w-full bg-white table-auto">
             <thead className="bg-gray-100 border-b">
               <tr>
@@ -75,7 +75,7 @@ const Users = () => {
               </tr>
             </thead>
             <tbody className="text-gray-700">
-              {users.map((user) => (
+              {users?.map((user) => (
                 <tr key={user.id} className="border-b hover:bg-gray-100">
                   <td className="py-3 px-4">
                     <div className="flex items-center">
@@ -114,4 +114,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UsersPage;
