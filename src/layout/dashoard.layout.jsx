@@ -24,7 +24,7 @@ export default function DashoardLayout() {
             onClick={() => setAsideToggle((e) => !e)}
           />
         )}
-      <main className="flex">
+      <main className="flex bg-[#e8edf2]">
         {authPAge  && <SidenavAdmin asideToggle={asideToggle} setAsideToggle={setAsideToggle} />}
         <div className={`flex  w-full ${authPAge && "px-4"}`}>
           <Routes>

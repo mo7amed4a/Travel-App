@@ -15,7 +15,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
       <div className="flex md:order-2">
         <div>
           <button className="block md:hidden  hover:text-secondary/90 py-2 px-4 hover:bg-gray-300/50 h-full">
-            <i class="fa fa-search text-2xl" aria-hidden="true"></i>
+            <i className="fa fa-search text-2xl" aria-hidden="true"></i>
           </button>
           <input
             className="md:block hidden h-full border-2 m-0.5 px-2"
@@ -31,7 +31,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
               <span className="absolute top-0.5 right-2 z-10 text-white bg-primary rounded-full px-1.5 text-[10px] font-bold py-0.5">
                 3
               </span>
-              <i class="far fa-envelope text-4xl" aria-hidden="true"></i>
+              <i className="far fa-envelope text-4xl" aria-hidden="true"></i>
             </div>
           }
         >
@@ -62,7 +62,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
               <span className="absolute top-0.5 right-2 z-10 text-white bg-primary rounded-full px-1.5 text-[10px] font-bold py-0.5">
                 3
               </span>
-              <i class="far fa-bell text-4xl" aria-hidden="true"></i>
+              <i className="far fa-bell text-4xl" aria-hidden="true"></i>
             </div>
           }
         >
