@@ -1,7 +1,10 @@
 import { Sidebar } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7a2497b8f0d1f0a18a138d45dae57611c5301b13
 export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
   return (
     <>
@@ -57,9 +60,11 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
               <Sidebar.Item as={Link} to="/admin/packages"  className="side-link hover:bg-gray-300/20">
               packages
               </Sidebar.Item>
-              <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
-                Users
-              </Sidebar.Item>
+  <Sidebar.Item as={Link} to="/admin/users" className="side-link hover:bg-gray-300/20">
+    Users
+  </Sidebar.Item>
+
+           
               <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
                 Products
               </Sidebar.Item>
