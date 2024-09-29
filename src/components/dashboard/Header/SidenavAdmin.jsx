@@ -1,5 +1,6 @@
 import { Sidebar } from "flowbite-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
   return (
@@ -11,7 +12,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
         ></div>
       )}
       <aside
-        className={`bg-[#292929] text-white shadow-md w-80 h-screen fixed left-0 top-0 lg:relative lg:-translate-x-0 duration-200 ${
+        className={`bg-[#292929] text-white shadow-md w-96 h-screen fixed left-0 top-0 lg:relative lg:-translate-x-0 duration-200 ${
           asideToggle ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -21,18 +22,18 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
         >
           <Sidebar.Items className="w-[100%]">
             <Sidebar.ItemGroup className="[&>*>*>*]:text-white  [&>*>*>*>*]:text-white w-full">
-              <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
+              <Sidebar.Item as={Link} to="/admin" className="side-link hover:bg-gray-300/20">
                 Dashboard
               </Sidebar.Item>
               <Sidebar.Collapse
-                label="E-commerce"
+                label="Users"
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                  href="#"
+                as={Link} to="/admin/users" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  Products
+                  users
                 </Sidebar.Item>
                 <Sidebar.Item
                   href="#"
@@ -53,8 +54,8 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   Shipping
                 </Sidebar.Item>
               </Sidebar.Collapse>
-              <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
-                Inbox
+              <Sidebar.Item as={Link} to="/admin/packages"  className="side-link hover:bg-gray-300/20">
+              packages
               </Sidebar.Item>
               <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
                 Users

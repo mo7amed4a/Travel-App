@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function NotFoundPage() {
+export default function NotFoundPage({page}) {
   return (
-    <div className='flex justify-center items-center -mt-36'>
-      <div className='w-screen h-screen bg-blue-900/70 flex justify-center items-center'>
+    <div className='flex justify-center items-center -mt-36 w-full'>
+      <div className={`h-screen bg-blue-900/70 flex justify-center items-center ${page === 'dashboard' ? 'w-full mt-40' : 'w-screen'}`}>
 
         <div className='relative text-center md:text-start w-full md:w-auto'>
             <h6 className='text-[150px] md:text-[240px] font-bold text-white text-opacity-35'>404</h6>

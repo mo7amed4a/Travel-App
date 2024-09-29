@@ -11,3 +11,21 @@
 .side-link {
     @apply rounded-none h-12  
 }
+
+body {
+    font-size: 15px;
+    color: #383838;
+    background-color: #ffffff;
+    font-family: "Open Sans", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    word-wrap: break-word;
+  }
+  @media screen and (max-width: 575px) {
+    body {
+      font-size: 14px;
+    }
+  }
+  
