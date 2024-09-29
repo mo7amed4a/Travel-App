@@ -7,6 +7,7 @@ import DashboardPackege from "../pages/admin/DashboardPackege/DashboardPackege";
 import NavbarAdmin from "../components/dashboard/Header/NavbarAdmin";
 import SidenavAdmin from "../components/dashboard/Header/SidenavAdmin";
 import UsersPage from "../pages/admin/Users/Users";
+import { Footer } from "flowbite-react";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
@@ -37,7 +38,11 @@ export default function DashoardLayout() {
           </Routes>
         </div>
       </main>
-      {authPAge && <div>footer</div>}
+      {authPAge && <Footer container>
+      <div className="w-full text-center">
+        <Footer.Copyright href="https://webbing-agency.com/" by="Webbing Agency" year={2022} />
+      </div>
+    </Footer>}
     </div>
   );
 }

@@ -36,39 +36,110 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   users
                 </Sidebar.Item>
                 <Sidebar.Item
-                  href="#"
+                  as={Link} to="/admin/edit-user" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  Sales
+                  Edit User
                 </Sidebar.Item>
                 <Sidebar.Item
-                  href="#"
+                as={Link} to="/admin/new-user" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  Refunds
-                </Sidebar.Item>
-                <Sidebar.Item
-                  href="#"
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  Shipping
+                  New User
                 </Sidebar.Item>
               </Sidebar.Collapse>
-              <Sidebar.Item as={Link} to="/admin/packages"  className="side-link hover:bg-gray-300/20">
-              packages
-              </Sidebar.Item>
-                  <Sidebar.Item as={Link} to="/admin/users" className="side-link hover:bg-gray-300/20">
-                    Users
-                  </Sidebar.Item>
-              <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
-                Products
-              </Sidebar.Item>
-              <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
-                Sign In
-              </Sidebar.Item>
-              <Sidebar.Item href="#" className="side-link hover:bg-gray-300/20">
-                Sign Up
-              </Sidebar.Item>
+              <Sidebar.Collapse
+                label="packages"
+                className="side-link hover:bg-gray-300/20"
+              >
+                <Sidebar.Item
+                as={Link} to="/admin/packages" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  packages
+                </Sidebar.Item>
+                <Sidebar.Item
+                  as={Link} to="/admin/edit-package" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Edit package
+                </Sidebar.Item>
+                <Sidebar.Item
+                as={Link} to="/admin/new-package" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  New package
+                </Sidebar.Item>
+              </Sidebar.Collapse>
+              <Sidebar.Collapse
+                label="Blogs"
+                className="side-link hover:bg-gray-300/20"
+              >
+                <Sidebar.Item
+                as={Link} to="/admin/blogs" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Blogs
+                </Sidebar.Item>
+                <Sidebar.Item
+                  as={Link} to="/admin/edit-blog" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Edit blog
+                </Sidebar.Item>
+                <Sidebar.Item
+                as={Link} to="/admin/new-blog" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  New blog
+                </Sidebar.Item>
+              </Sidebar.Collapse>
+              <Sidebar.Collapse
+                label="Faqs"
+                className="side-link hover:bg-gray-300/20"
+              >
+                <Sidebar.Item
+                as={Link} to="/admin/faq" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Faq
+                </Sidebar.Item>
+                <Sidebar.Item
+                  as={Link} to="/admin/edit-faq" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Edit faq
+                </Sidebar.Item>
+                <Sidebar.Item
+                as={Link} to="/admin/new-faq" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  New Faq
+                </Sidebar.Item>
+              </Sidebar.Collapse>
+              <Sidebar.Collapse
+                label="Bookings"
+                className="side-link hover:bg-gray-300/20"
+              >
+                <Sidebar.Item
+                as={Link} to="/admin/bookings" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Bookings
+                </Sidebar.Item>
+                <Sidebar.Item
+                  as={Link} to="/admin/edit-booking" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Edit booking
+                </Sidebar.Item>
+                <Sidebar.Item
+                as={Link} to="/admin/new-booking" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  New booking
+                </Sidebar.Item>
+              </Sidebar.Collapse>
             </Sidebar.ItemGroup>
           </Sidebar.Items>
         </Sidebar>
