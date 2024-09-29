@@ -35,18 +35,6 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 >
                   users
                 </Sidebar.Item>
-                <Sidebar.Item
-                  as={Link} to="/admin/edit-user" 
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  Edit User
-                </Sidebar.Item>
-                <Sidebar.Item
-                as={Link} to="/admin/new-user" 
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  New User
-                </Sidebar.Item>
               </Sidebar.Collapse>
               <Sidebar.Collapse
                 label="packages"
@@ -99,22 +87,22 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/faq" 
+                as={Link} to="/admin/faqs" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  Faq
+                  All
                 </Sidebar.Item>
                 <Sidebar.Item
                   as={Link} to="/admin/edit-faq" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  Edit faq
+                  Edit
                 </Sidebar.Item>
                 <Sidebar.Item
                 as={Link} to="/admin/new-faq" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  New Faq
+                  pending
                 </Sidebar.Item>
               </Sidebar.Collapse>
               <Sidebar.Collapse
@@ -132,12 +120,6 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   className="side-link hover:bg-gray-300/20"
                 >
                   Edit booking
-                </Sidebar.Item>
-                <Sidebar.Item
-                as={Link} to="/admin/new-booking" 
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  New booking
                 </Sidebar.Item>
               </Sidebar.Collapse>
             </Sidebar.ItemGroup>
