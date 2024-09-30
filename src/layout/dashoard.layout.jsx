@@ -9,6 +9,7 @@ import UsersPage from "../pages/admin/Users/Users";
 import { Footer } from "flowbite-react";
 import BlogsDashboard from "../pages/admin/blogs/blogs";
 import PackegeEdit from "../pages/admin/packege/packege-edit";
+import PackegeAdd from "../pages/admin/packege/packege-add";
 import PackageDashboard from "../pages/admin/packege/packege";
 import BlogsAdd from "../pages/admin/blogs/blogs-add";
 // import BlogsEdit from "../pages/admin/blogs/blogs-edit";
@@ -35,6 +36,7 @@ export default function DashoardLayout() {
           <Routes>
             <Route path="/" element={<DashoardPage />} />
             <Route path="/packages" element={<PackageDashboard />} />
+            <Route path="/new-package" element={<PackegeAdd />} />
             <Route path="/packages/:id" element={<PackegeEdit />} />
             <Route path="/blogs" element={<BlogsDashboard />} />
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />

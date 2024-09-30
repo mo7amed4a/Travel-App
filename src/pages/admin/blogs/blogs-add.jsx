@@ -24,15 +24,18 @@ export default function BlogsAdd() {
       <div className="flex flex-wrap justify-between gap-6 my-10">
         <section className="w-full">
           <div className="flex flex-col gap-4 my-5">
-            <div >
+            <div>
               <div>
-                <Label htmlFor="file-upload-helper-text" value="Upload Image blog" />
+                <Label
+                  htmlFor="file-upload-helper-text"
+                  value="Upload Image blog"
+                />
               </div>
               <div className="flex w-full gap-x-5">
-              <FileInput
-                id="file-upload-helper-text"
-                helperText="SVG, PNG, JPG or GIF (MAX. 800x400px)."
-              />
+                <FileInput
+                  id="file-upload-helper-text"
+                  helperText="SVG, PNG, JPG or GIF (MAX. 800x400px)."
+                />
                 <Button>Upload Image</Button>
               </div>
             </div>
@@ -49,15 +52,14 @@ export default function BlogsAdd() {
                   className="p-2 border border-gray-300 rounded"
                 />
               </div>
+              <MarkdownEditor
+                className="min-h-[40vh]"
+                onChange={(value) => {
+                  console.log(value);
+                }}
+              />
 
-              <MarkdownEditor className="min-h-[40vh]"
-      // value={mdStr}
-      onChange={(value) => {
-        console.log(value);
-      }}
-    />
-
-              <Button type="submit" >Save</Button>
+              <Button type="submit">Save</Button>
             </form>
           </Card>
         </section>
