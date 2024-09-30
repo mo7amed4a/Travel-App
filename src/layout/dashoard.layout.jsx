@@ -15,6 +15,7 @@ import BlogsAdd from "../pages/admin/blogs/blogs-add";
 // import BlogsEdit from "../pages/admin/blogs/blogs-edit";
 import Allfaqs from "../pages/admin/Faq/Allfaqs";
 import Answer from "../pages/admin/Faq/Answer";
+import ImagesPage from "../pages/admin/images/ImagesPage";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
@@ -33,7 +34,7 @@ export default function DashoardLayout() {
         )}
       <main className="flex bg-[#e8edf2]">
         {authPAge  && <SidenavAdmin asideToggle={asideToggle} setAsideToggle={setAsideToggle} />}
-        <div className={`flex  w-full ${authPAge && "px-4"}`}>
+        <div className={`flex  w-full ${authPAge && "p-4"}`}>
           <Routes>
             <Route path="/" element={<DashoardPage />} />
             <Route path="/packages" element={<PackageDashboard />} />
@@ -44,7 +45,8 @@ export default function DashoardLayout() {
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/login" element={<LoginPage />} />
-              <Route path="/Allfaqs" element={<Allfaqs></Allfaqs>} />
+            <Route path="/blog-images" element={<ImagesPage />} />
+            <Route path="/Allfaqs" element={<Allfaqs></Allfaqs>} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/*" element={<DashoardPage />} />
           </Routes>
