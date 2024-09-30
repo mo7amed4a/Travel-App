@@ -1,58 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const UsersPage = () => {
+const users = [
+  {
+    id: 1,
+    name: "Kathy Brown",
+    phone: "+01 3214 6522",
+    email: "chadengle@dummy.com",
+    country: "Australia",
+    listings: "02",
+    avatar: "https://dummyimage.com/50x50"
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    phone: "+01 1234 5678",
+    email: "johndoe@dummy.com",
+    country: "USA",
+    listings: "03",
+    avatar: "https://dummyimage.com/50x50"
+  }
+];
 
-  const users = [
-    {
-      id: 1,
-      name: "Kathy Brown",
-      phone: "+01 3214 6522",
-      email: "chadengle@dummy.com",
-      country: "Australia",
-      listings: "02",
-      avatar: "https://dummyimage.com/50x50"
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      phone: "+01 1234 5678",
-      email: "johndoe@dummy.com",
-      country: "USA",
-      listings: "03",
-      avatar: "https://dummyimage.com/50x50"
-    },
-    ,
-    {
-      id: 2,
-      name: "John Doe",
-      phone: "+01 1234 5678",
-      email: "johndoe@dummy.com",
-      country: "USA",
-      listings: "03",
-      avatar: "https://dummyimage.com/50x50"
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      phone: "+01 1234 5678",
-      email: "johndoe@dummy.com",
-      country: "USA",
-      listings: "03",
-      avatar: "https://dummyimage.com/50x50"
-    },
-    {
-      id: 2,
-      name: "John Doe",
-      phone: "+01 1234 5678",
-      email: "johndoe@dummy.com",
-      country: "USA",
-      listings: "03",
-      avatar: "https://dummyimage.com/50x50"
-    }
-  ];
+const Users = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  // Function to open modal and set user data
+  const handleEditClick = (user) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  // Function to close modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedUser(null);
+  };
+
   return (
-    <div className="bg-gray-50 min-h-screen w-full">
-      <div className="container mx-auto bg-white rounded-lg  shadow-lg">
+    <div className="bg-gray-50 min-h-screen p-6 w-full">
+      <div className="container mx-auto bg-white rounded-lg shadow-lg">
         <div className="p-4 border-b border-gray-200">
           <h2 className="text-2xl font-semibold text-gray-800">USER DETAILS</h2>
           <p className="text-gray-500">Airport Hotels The Right Way To Start A Short Break Holiday</p>
@@ -95,7 +82,10 @@ const UsersPage = () => {
                     </button>
                   </td>
                   <td className="py-3 px-4 text-center">
-                    <button className="bg-green-500 text-white w-8 h-8 flex items-center justify-center rounded-full">
+                    <button 
+                      className="bg-green-500 text-white w-8 h-8 flex items-center justify-center rounded-full"
+                      onClick={() => handleEditClick(user)}
+                    >
                       ✏️
                     </button>
                   </td>
@@ -109,9 +99,28 @@ const UsersPage = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Modal */}
+        {isModalOpen && selectedUser && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
+              <h3 className="text-xl font-semibold mb-4">Edit User</h3>
+              <p><strong>Name:</strong> {selectedUser.name}</p>
+              <p><strong>Phone:</strong> {selectedUser.phone}</p>
+              <p><strong>Email:</strong> {selectedUser.email}</p>
+              <p><strong>Country:</strong> {selectedUser.country}</p>
+              <button
+                className="mt-4 bg-red-500 text-white px-4 py-2 rounded-full"
+                onClick={closeModal}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default UsersPage;
+export default Users;

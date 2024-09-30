@@ -10,33 +10,34 @@ export default function Secondpart() {
         style={{ marginTop: "200px" }}
       >
         <div>
-          <div className="flex items-center">
-            <div className="w-24 bg-red-500 h-[3px] inline-block"></div>
-            <p className="ml-2  " style={{ color: "red" }}>
-              POPULAR DESTINATION
-            </p>
-          </div>
-          <div
-            className="w-[90%] flex  mb-[50px]"
-            style={{ justifyContent: "space-between" }}
-          >
-            <h2
-              className="font-bold"
-              style={{
-                fontSize: "40px",
-                fontWeight: "",
-              }}
-            >
-              TOP NOTCH DESTINATION
-            </h2>
+  <div className="flex items-center justify-center sm:justify-start">
+    <div className="w-24 bg-red-500 h-[3px] inline-block"></div>
+    <p className="ml-2" style={{ color: "red" }}>
+      POPULAR DESTINATION
+    </p>
+  </div>
+  
+  <div
+    className="w-[90%] flex flex-col sm:flex-row mb-[50px] text-center sm:text-left items-center sm:items-start"
+    style={{ justifyContent: "space-between" }}
+  >
+    <h2
+      className="font-bold mb-4 sm:mb-0"
+      style={{
+        fontSize: "40px",
+      }}
+    >
+      TOP NOTCH DESTINATION
+    </h2>
 
-            <p>
-              Aperiam sociosqu urna praesent, tristique, corrupti <br />{" "}
-              condimentum asperiores platea ipsum ad arcu. Nostrud. Aut <br />{" "}
-              nostrum, ornare quas provident laoreet nesciunt.
-            </p>
-          </div>
-        </div>
+    <p>
+      Aperiam sociosqu urna praesent, tristique, corrupti <br /> condimentum
+      asperiores platea ipsum ad arcu. Nostrud. Aut <br /> nostrum, ornare quas
+      provident laoreet nesciunt.
+    </p>
+  </div>
+</div>
+
 
         <div className="grid grid-cols-12 gap-6">
           {/* عنصر الصورة الأول */}

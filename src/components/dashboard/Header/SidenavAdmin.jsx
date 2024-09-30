@@ -81,7 +81,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/faqs" 
+                as={Link} to="/admin/Allfaqs" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   All
