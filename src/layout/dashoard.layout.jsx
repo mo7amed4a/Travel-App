@@ -14,6 +14,7 @@ import PackageDashboard from "../pages/admin/packege/packege";
 import BlogsAdd from "../pages/admin/blogs/blogs-add";
 // import BlogsEdit from "../pages/admin/blogs/blogs-edit";
 import Allfaqs from "../pages/admin/Faq/Allfaqs";
+import Answer from "../pages/admin/Faq/Answer";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
@@ -38,6 +39,7 @@ export default function DashoardLayout() {
             <Route path="/packages" element={<PackageDashboard />} />
             <Route path="/new-package" element={<PackegeAdd />} />
             <Route path="/packages/:id" element={<PackegeEdit />} />
+            <Route path="/Answer" element={<Answer></Answer>} />
             <Route path="/blogs" element={<BlogsDashboard />} />
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />
             <Route path="/users" element={<UsersPage />} />
