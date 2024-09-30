@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, FileInput, Label } from "flowbite-react";
 
-export default function DashboardPackege() {
+export default function PackegeEdit() {
   const [days, setDays] = useState(0);
   const [nights, setNights] = useState(0);
   const [tripDuration, setTripDuration] = useState(0);

@@ -4,6 +4,7 @@ import React from "react";
 export default function TableBooking({
   title,
   description,
+  Buttons,
   values = [
     {
       select: true,
@@ -40,18 +41,16 @@ export default function TableBooking({
       <div className="overflow-x-auto">
         <Table striped={true} hoverable>
           <Table.Head>
-            {/* عرض العناوين من أول عنصر في المصفوفة */}
             {Object.keys(values[0]).map((key, index) => (
               <Table.HeadCell key={index}>{key}</Table.HeadCell>
             ))}
+            {Buttons && <Table.HeadCell>Control</Table.HeadCell>}
           </Table.Head>
           <Table.Body>
-            {/* التنقل عبر كل عنصر في المصفوفة */}
             {values.map((item, rowIndex) => (
               <Table.Row key={rowIndex}>
                 {Object.entries(item).map(([key, value], index) => (
                   <Table.Cell key={index} className={`${(key === "avatar" || key === "select") && "w-16"}`}>
-                    {/* عرض Checkbox إذا كانت قيمة select تساوي true */}
                     {key === "select" && value === true ? (
                       <Checkbox />
                     ) : key === "avatar" ? (
@@ -65,11 +64,17 @@ export default function TableBooking({
                       <Badge color="success" className="inline-block">
                         {value}
                       </Badge>
-                    ) : (
+                    ) : key === "content" ? (
+                      <p className="text-sm line-clamp-1 w-24">{value}</p>
+                      ):(
                       <span>{value}</span>
                     )}
                   </Table.Cell>
+                  
                 ))}
+                {Buttons && <Table.Cell className="flex  max-w-44 gap-x-2">
+                  {Buttons}
+                </Table.Cell>}
               </Table.Row>
             ))}
           </Table.Body>

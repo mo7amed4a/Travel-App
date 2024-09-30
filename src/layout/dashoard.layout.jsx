@@ -3,11 +3,14 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import DashoardPage from "../pages/admin/Dashoard";
 import LoginPage from "../pages/admin/auth/login";
 import ForgotPasswordPage from "../pages/admin/auth/ForgotPassword";
-import DashboardPackege from "../pages/admin/DashboardPackege/DashboardPackege";
 import NavbarAdmin from "../components/dashboard/Header/NavbarAdmin";
 import SidenavAdmin from "../components/dashboard/Header/SidenavAdmin";
 import UsersPage from "../pages/admin/Users/Users";
 import { Footer } from "flowbite-react";
+import BlogsDashboard from "../pages/admin/blogs/blogs";
+import PackegeEdit from "../pages/admin/packege/packege-edit";
+import PackageDashboard from "../pages/admin/packege/packege";
+import BlogsEdit from "../pages/admin/blogs/blogs-edit";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
@@ -29,12 +32,14 @@ export default function DashoardLayout() {
         <div className={`flex  w-full ${authPAge && "px-4"}`}>
           <Routes>
             <Route path="/" element={<DashoardPage />} />
-            <Route path="/packages" element={<DashboardPackege />} />
+            <Route path="/packages" element={<PackageDashboard />} />
+            <Route path="/packages/:id" element={<PackegeEdit />} />
+            <Route path="/blogs" element={<BlogsDashboard />} />
+            <Route path="/blogs/:id" element={<BlogsEdit />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/*" element={<DashoardPage />} />
-            <Route path="/dashboardPackege" element={<DashboardPackege />} />
           </Routes>
         </div>
       </main>
