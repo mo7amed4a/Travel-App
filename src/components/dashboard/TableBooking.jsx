@@ -31,7 +31,11 @@ export default function TableBooking({
       enquiry: "15",
     },
   ],
-}) {
+})
+
+
+
+{
   return (
     <div className="rounded bg-white">
       <div className="p-4 space-y-2">
@@ -46,6 +50,10 @@ export default function TableBooking({
             ))}
             {Buttons && <Table.HeadCell>Control</Table.HeadCell>}
           </Table.Head>
+
+
+
+          
           <Table.Body>
             {values.map((item, rowIndex) => (
               <Table.Row key={rowIndex}>

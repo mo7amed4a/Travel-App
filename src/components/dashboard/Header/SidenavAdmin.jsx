@@ -99,10 +99,10 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   Edit
                 </Sidebar.Item>
                 <Sidebar.Item
-                as={Link} to="/admin/new-faq" 
+                as={Link} to="/admin/Answer" 
                   className="side-link hover:bg-gray-300/20"
                 >
-                  pending
+                 Answers
                 </Sidebar.Item>
               </Sidebar.Collapse>
               <Sidebar.Collapse
