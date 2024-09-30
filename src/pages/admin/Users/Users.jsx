@@ -62,7 +62,7 @@ const Users = () => {
               </tr>
             </thead>
             <tbody className="text-gray-700">
-              {users.map((user) => (
+              {users?.map((user) => (
                 <tr key={user.id} className="border-b hover:bg-gray-100">
                   <td className="py-3 px-4">
                     <div className="flex items-center">
@@ -124,14 +124,3 @@ const Users = () => {
 };
 
 export default Users;
-
-// handleEditClick: هذه الدالة تُستدعى عند النقر على زر "Edit"، حيث تقوم بتعيين المستخدم المختار وتفتح المودال.
-// setSelectedUser: يتم تخزين بيانات المستخدم المختار في هذه الحالة لعرضها في المودال.
-// closeModal: هذه الدالة تُغلق المودال وتعيد تعيين حالة المستخدم المختار إلى null.
-// isModalOpen: تُستخدم للتحكم في ظهور المودال.
-// التعديل يظهر نافذة مودال تحتوي على بيانات المستخدم المختار مع زر لإغلاق النافذة
-
-
-
-
-
