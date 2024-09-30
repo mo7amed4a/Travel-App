@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Card, FileInput, Label } from "flowbite-react";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
-export default function BlogsEdit() {
+export default function BlogsAdd() {
   const [days, setDays] = useState(0);
   const [nights, setNights] = useState(0);
   const [tripDuration, setTripDuration] = useState(0);
@@ -32,7 +33,7 @@ export default function BlogsEdit() {
                 id="file-upload-helper-text"
                 helperText="SVG, PNG, JPG or GIF (MAX. 800x400px)."
               />
-                <Button>Update Image</Button>
+                <Button>Upload Image</Button>
               </div>
             </div>
           </div>
@@ -49,19 +50,14 @@ export default function BlogsEdit() {
                 />
               </div>
 
-              <div className="flex flex-col mb-4">
-                <label htmlFor="Description" className="mb-2">
-                  Description
-                </label>
-                <textarea
-                  id="Description"
-                  rows="5"
-                  className="p-2 border border-gray-300 rounded resize-none"
-                  style={{ width: "100%", height: "200px" }}
-                />
-              </div>
+              <MarkdownEditor className="min-h-[40vh]"
+      // value={mdStr}
+      onChange={(value) => {
+        console.log(value);
+      }}
+    />
 
-              <Button >Update</Button>
+              <Button type="submit" >Save</Button>
             </form>
           </Card>
         </section>

@@ -70,13 +70,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   Blogs
                 </Sidebar.Item>
                 <Sidebar.Item
-                  as={Link} to="/admin/blogs/1" 
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  Edit blog
-                </Sidebar.Item>
-                <Sidebar.Item
-                as={Link} to="/admin/new-blog" 
+                as={Link} to="/admin/blogs/new-blog" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   New blog
