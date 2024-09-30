@@ -200,7 +200,7 @@ export default function DashboardPackege() {
 
 
 
-        <section className="w-full md:w-[30%] sm:flex-ro  flex flex-col space-y-9">
+        <section className="w-full md:w-[30%] sm:flex-ro  flex flex-col ">
         <section className="flex flex-col md:flex-row md:space-x-4">
   <Card href="#" className="w-full md:max-w-[15rem] mb-6 min-h-[20rem]">
     <h3 className='font-bold'>Publish</h3>
