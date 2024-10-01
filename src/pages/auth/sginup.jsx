@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function LoginPage() {
+export default function SginUpPage() {
   return (
     <div className="h-screen w-screen flex justify-center items-center" style={{backgroundImage: "url(/images/admin/bg.jpg)"}}>
         <div className="shadow-2xl rounded bg-white p-4 w-full mx-4 md:w-3/4 lg:w-2/4 xl:w-1/4">
@@ -16,14 +16,23 @@ export default function LoginPage() {
                     <input id='first_name1' type="text" />
                 </div>
                 <div className="flex flex-col ">
+                    <label for="first_name1" className='text-sm pb-1 text-gray-700'>Email</label>
+                    <input id='first_name1' type="email" />
+                </div>
+                <div className="flex flex-col ">
                     <label for="last_name" className='text-sm pb-1 text-gray-700'>Password</label>
                     <input id="last_name" type="password"/>
                 </div>
-                <div className="w-full pt-2 flex justify-center">
-                    <a className="py-3 px-4 bg-secondary w-full text-center text-white font-semibold hover:bg-secondary/90 duration-100" href="dashboard.html">Login</a>
+                <div className="flex flex-col ">
+                    <label for="last_name" className='text-sm pb-1 text-gray-700'>Comfort Password</label>
+                    <input id="last_name" type="password"/>
                 </div>
-                <div className='flex justify-end w-full text-secondary'>
-                    <Link to="/admin/forgot-password">Forgot Password?</Link>
+                <div className="w-full pt-2 flex justify-center">
+                    <button type="submit" className="py-3 px-4 bg-secondary w-full text-center text-white font-semibold hover:bg-secondary/90 duration-100" >Sgin Up</button>
+                </div>
+                <div className='flex justify-between w-full text-secondary'>
+                    <Link to="/auth/forgot-password">Forgot Password?</Link>
+                    <Link to={"/auth/login"}>Do you want to login?</Link>
                 </div>
             </form>
         </div>

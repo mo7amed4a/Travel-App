@@ -87,6 +87,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   All
                 </Sidebar.Item>
                 <Sidebar.Item
+                className="side-link hover:bg-gray-300/20"
                 as={Link} to="/admin/Answer" 
                 >
                  Answers
@@ -102,12 +103,12 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 >
                   Bookings
                 </Sidebar.Item>
-                <Sidebar.Item
+                {/* <Sidebar.Item
                   as={Link} to="/admin/edit-booking" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   Edit booking
-                </Sidebar.Item>
+                </Sidebar.Item> */}
               </Sidebar.Collapse>
               <Sidebar.Collapse
                 label="Images"

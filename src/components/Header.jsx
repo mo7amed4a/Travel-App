@@ -162,13 +162,15 @@ export default function HeaderApp({ scrollPage }) {
             <DropdownComponent ButtonLink={<LintForDropdown title={'Dashboard'} to="/admin" />} >
             <ul className="text-black space-y-4">
                 <Navbar.Link as={Link} to="/admin" >Dashboard</Navbar.Link>
-                <Navbar.Link as={Link} to="/admin/login" >Login</Navbar.Link>
-                <Navbar.Link as={Link} to="/admin/forgot-password" >Forgot Password</Navbar.Link>
-              </ul>
+                </ul>
             </DropdownComponent>
 
             <DropdownComponent ButtonLink={<LintForDropdown title={'more pages'} to="/" />} >
             <ul className="text-black space-y-4">
+                <Navbar.Link as={Link} to="/auth/login" >Login</Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/sginup" >Sgin Up</Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/forgot-password" >Forgot Password</Navbar.Link>
+              
                 <Navbar.Link as={Link} to="/faq" >Faq</Navbar.Link>
                 <Navbar.Link as={Link} to="/not-found" >Not Found</Navbar.Link>
               </ul>

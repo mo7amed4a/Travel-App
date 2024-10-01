@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import DashoardPage from "../pages/admin/Dashoard";
-import LoginPage from "../pages/admin/auth/login";
-import ForgotPasswordPage from "../pages/admin/auth/ForgotPassword";
+import LoginPage from "../pages/auth/login";
+import ForgotPasswordPage from "../pages/auth/ForgotPassword";
 import NavbarAdmin from "../components/dashboard/Header/NavbarAdmin";
 import SidenavAdmin from "../components/dashboard/Header/SidenavAdmin";
 import UsersPage from "../pages/admin/Users/Users";
@@ -16,25 +16,21 @@ import BlogsAdd from "../pages/admin/blogs/blogs-add";
 import Allfaqs from "../pages/admin/Faq/Allfaqs";
 import Answer from "../pages/admin/Faq/Answer";
 import ImagesPage from "../pages/admin/images/ImagesPage";
+import BookingDashboard from "../pages/admin/booking/booking";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
-  const location = useLocation();
-
-  const authPAge = (location.pathname !== "/admin/login" && location.pathname !== "/admin/forgot-password" && location.pathname !== "/admin/signup")
 
   return (
-    <div>
-      {authPAge && (
-          <NavbarAdmin
-            setAsideToggle={setAsideToggle}
-            className="h-16 bg-red-400"
-            onClick={() => setAsideToggle((e) => !e)}
-          />
-        )}
+    <div>  
+      <NavbarAdmin
+        setAsideToggle={setAsideToggle}
+        className="h-16 bg-red-400"
+        onClick={() => setAsideToggle((e) => !e)}
+      />
       <main className="flex bg-[#e8edf2]">
-        {authPAge  && <SidenavAdmin asideToggle={asideToggle} setAsideToggle={setAsideToggle} />}
-        <div className={`flex  w-full ${authPAge && "p-4"}`}>
+        <SidenavAdmin asideToggle={asideToggle} setAsideToggle={setAsideToggle} />
+        <div className={`flex  w-full p-4`}>
           <Routes>
             <Route path="/" element={<DashoardPage />} />
             <Route path="/packages" element={<PackageDashboard />} />
@@ -44,19 +40,18 @@ export default function DashoardLayout() {
             <Route path="/blogs" element={<BlogsDashboard />} />
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />
             <Route path="/users" element={<UsersPage />} />
-            <Route path="/login" element={<LoginPage />} />
             <Route path="/blog-images" element={<ImagesPage />} />
-            <Route path="/Allfaqs" element={<Allfaqs></Allfaqs>} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/Allfaqs" element={<Allfaqs/>} />
+            <Route path="/bookings" element={<BookingDashboard/>} />
             <Route path="/*" element={<DashoardPage />} />
           </Routes>
         </div>
       </main>
-      {authPAge && <Footer container>
+      <Footer container>
       <div className="w-full text-center">
         <Footer.Copyright href="https://webbing-agency.com/" by="Webbing Agency" year={2022} />
       </div>
-    </Footer>}
+    </Footer>
     </div>
   );
 }

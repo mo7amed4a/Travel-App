@@ -39,10 +39,10 @@ const ImageSlider = () => {
   ];
 
   return (
-    <div className="relative max-w-[100vw] h-[75vh] md:h-screen  bg-red-400">
+    <div className="relative max-w-[100vw] h-screen  bg-red-400">
       <Slider {...settings} ref={sliderRef}>
         {slides.map((slide, index) => (
-          <div key={index} className="relative h-[75vh] md:h-screen">
+          <div key={index} className="relative h-screen">
             <img
               src={slide.image}
               alt={`slide-${index}`}
