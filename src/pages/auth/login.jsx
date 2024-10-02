@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export default function LoginPage() {
-  // Define validation schema using Yup
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")
@@ -14,7 +13,6 @@ export default function LoginPage() {
       .min(6, "Password must be at least 6 characters"),
   });
 
-  // Initialize Formik
   const formik = useFormik({
     initialValues: {
       email: "",
