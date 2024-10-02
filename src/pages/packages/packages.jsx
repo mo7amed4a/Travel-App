@@ -1,18 +1,11 @@
 import React from "react";
+import SubHeader from "../../components/Sub-Header";
 
 export default function PackagesPage() {
   return (
     <div>
-      <div className="-mt-44 md:-mt-36 space-y-10">
-        <section
-          className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
-          style={{
-            backgroundImage:
-              "url(/images/slider-pattern.png)",
-          }}
-        >
-          <h1 className="text-5xl">Tour Packages</h1>
-        </section>
+      <div className="space-y-10">
+       <SubHeader title="Tour Packages" />
         <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-8 px-4 mx-auto  max-w-[1100px]">
           {[1, 3, 5, 6, 7, 98, 62].map((item, index) => (
             <div key={index}>

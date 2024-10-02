@@ -155,7 +155,7 @@ export default function HeaderApp({ scrollPage }) {
             <DropdownComponent ButtonLink={<LintForDropdown title={'Blogs'} />} >
             <ul className="text-black space-y-4">
                 <Navbar.Link as={Link} to="/blogs" >Blogs</Navbar.Link>
-                <Navbar.Link as={Link} to="/Blogs/1" >Blogs Details</Navbar.Link>
+                <Navbar.Link as={Link} to="/blogs/1" >Blogs Details</Navbar.Link>
               </ul>
             </DropdownComponent>
  
