@@ -14,7 +14,7 @@ export default function AuthLayout() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/sginUp" element={<SginUpPage />} />
+            <Route path="/sginup" element={<SginUpPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/*" element={<LoginPage />} />
           </Routes>

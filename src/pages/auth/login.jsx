@@ -63,7 +63,7 @@ export default function LoginPage() {
             <button type='submit' className="py-3 px-4 bg-secondary w-full text-center text-white font-semibold hover:bg-secondary/90 duration-100">Login</button>
           </div>
           <div className='flex justify-between w-full text-secondary'>
-            <Link to="/auth/signup">You dont have an account?</Link>
+            <Link to="/auth/sginup">You dont have an account?</Link>
             <Link to="/auth/forgot-password">Forgot Password?</Link>
           </div>
         </form>
