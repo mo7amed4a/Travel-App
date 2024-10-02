@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/auth/login";
 import ForgotPasswordPage from "../pages/auth/ForgotPassword";
 import SginUpPage from "../pages/auth/sginup";
@@ -11,7 +10,10 @@ export default function AuthLayout() {
  
   return (
     <div>
-      <main className="flex bg-[#e8edf2]">
+      <main className="flex bg-[#e8edf2] relative">
+        <div className="absolute top-4 start-4">
+          <Link to="/" className="text-secondary font-bold md:text-lg hover:underline">Home</Link>
+        </div>
         <div className={`flex  w-full`}>
           <Routes>
             <Route path="/" element={<LoginPage />} />
