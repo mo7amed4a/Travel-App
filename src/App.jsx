@@ -4,12 +4,14 @@ import AppLayout from "./layout/app.layout";
 import DashoardLayout from "./layout/dashoard.layout";
 import NotFoundPage from "./pages/not-found/NotFound";
 import AuthLayout from "./layout/auth.layout";
+import UserContextProvider from "./components/Context/Usercontext";
 
 export default function App() {
 
   return(
     <>
-      <BrowserRouter> 
+    <UserContextProvider>
+    <BrowserRouter> 
         <Routes>
           <Route path="/*" element={<AppLayout />} />
           <Route path="/auth/*" element={<AuthLayout />} />
@@ -17,13 +19,8 @@ export default function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
-      {/* <BlogsPage /> */}
-      {/* <PackagesPage /> */}
-      {/* <PackagesDetailsPage /> */}
-
-      {/* <LoginPage />  */}
-      {/* <ForgotPasswordPage />  */}
-      {/* <NotFoundPage /> */}
+    </UserContextProvider>
+ 
     </>
   );
 }
