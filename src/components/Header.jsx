@@ -1,7 +1,5 @@
 import {
   Button,
-  DarkThemeToggle,
-  Dropdown,
   Label,
   MegaMenu,
   Modal,
@@ -135,7 +133,7 @@ export default function HeaderApp({ scrollPage }) {
           </Navbar.Brand>
           <div className="flex md:order-1 items-center gap-x-2">
             {/* <DarkThemeToggle /> */}
-            <Button className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none">BOOK NOW</Button>
+            <Button as={Link} to={'/packages'} className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none">BOOK NOW</Button>
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse
@@ -169,6 +167,8 @@ export default function HeaderApp({ scrollPage }) {
             <ul className="text-black space-y-4">
                 <Navbar.Link as={Link} to="/auth/login" >Login</Navbar.Link>
                 <Navbar.Link as={Link} to="/auth/sginup" >Sgin Up</Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/reset-password" >Reset Password</Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/otp" >OTP Page</Navbar.Link>
                 <Navbar.Link as={Link} to="/auth/forgot-password" >Forgot Password</Navbar.Link>
               
                 <Navbar.Link as={Link} to="/faq" >Faq</Navbar.Link>

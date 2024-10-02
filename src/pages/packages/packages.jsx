@@ -1,5 +1,6 @@
 import React from "react";
 import SubHeader from "../../components/Sub-Header";
+import { Link } from "react-router-dom";
 
 export default function PackagesPage() {
   return (
@@ -42,9 +43,11 @@ export default function PackagesPage() {
               </figure>
               <div className="pt-8 px-4">
                 <div className="space-y-3">
-                  <h3 className="font-bold text-xl">
-                    <a href="#">Sunset view of beautiful lakeside resident</a>
-                  </h3>
+                  <Link to={`/packages/1`} >
+                    <h3 className="font-bold text-xl">
+                      Sunset view of beautiful lakeside resident
+                    </h3>
+                  </Link>
                   <div className="flex gap-x-2 text-gray-400 text-xs">
                     <span>(25 reviews)</span>
                     <div className="text-primary" title="Rated 5 out of 5">
@@ -64,13 +67,12 @@ export default function PackagesPage() {
                     tellpus.
                   </p>
                   <div className="flex justify-between bottom-1">
-                    <a
-                      href="#"
+                    <Link to={`/packages/1`} 
                       className="w-full text-center p-3 border-t border-e flex items-center gap-x-2 justify-center group hover:text-secondary"
                     >
                       Book Now
                       <i className="fas fa-arrow-right text-primary group-hover:text-secondary"></i>
-                    </a>
+                    </Link>
                     <a
                       href="#"
                       className="w-full text-center p-3 border-t flex items-center gap-x-2 justify-center group hover:text-secondary"
