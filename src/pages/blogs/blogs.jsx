@@ -11,7 +11,7 @@ function BlogsPage() {
             {[0,2,3,4].map((article, index) => (
                <article className="p-4 w-full" key={index}>
               <figure className="w-full bg-blue-500">
-                <Link to={`/blog/1`}>
+                <Link to={`/blogs/1`}>
                   <img className="w-full h-[290px]"
                     src="/images/img17.jpg"
                     alt=""
@@ -20,7 +20,7 @@ function BlogsPage() {
               </figure>
               <div className="flex flex-col gap-y-2">
                 <h3 className="text-xl hover:text-secondary">
-                  <Link to={`/blog/1`}>Life is a beautiful journey not a destination {article}</Link>
+                  <Link to={`/blogs/1`}>Life is a beautiful journey not a destination {article}</Link>
                 </h3>
                 <div className="flex gap-x-4 text-sm text-gray-500">
                   <span className="hover:text-secondary">
@@ -38,7 +38,7 @@ function BlogsPage() {
                   taciti repudiandae porro dolore facere officia! Natoque
                   mollitia ultrices convallis nisl suscipit
                 </p>
-                <Link to={`/blog/1`} className="text-secondary font-semibold">
+                <Link to={`/blogs/1`} className="text-secondary font-semibold">
                   CONTINUE READING..
                 </Link>
               </div>

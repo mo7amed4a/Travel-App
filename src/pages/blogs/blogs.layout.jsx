@@ -114,7 +114,7 @@ export default function BLogsLayout() {
                   {[0, 1, 2].map((post, index) => (
                     <li className="flex gap-x-2 h-20 pt-2" key={index}>
                       <figure className="">
-                        <Link to={`/blog/1`}>
+                        <Link to={`/blogs/1`}>
                           <img
                             src="/images/img17.jpg"
                             alt=""
@@ -124,7 +124,7 @@ export default function BLogsLayout() {
                       </figure>
                       <div className="flex flex-col justify-around w-full">
                         <h5 className="">
-                          <Link to={`/blog/1`}
+                          <Link to={`/blogs/1`}
                             className="text-gray-800 hover:text-secondary"
                           >
                             Someday I’m going to be free and travel {post}

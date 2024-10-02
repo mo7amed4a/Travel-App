@@ -1,28 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import {UserContext} from "../../components//Context/Usercontext"
 export default function LoginPage() {
+ let {setAuthorization}= useContext(UserContext)
+ let navigate= useNavigate()
+  // Define validation schema using Yup
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string()
+      .email('Invalid email address')
+      .required('Email is required'),
+      password: Yup.string()
       .required("Password is required")
       .min(6, "Password must be at least 6 characters"),
   });
 
+  async function login(values) {
+    try {
+      const response = await axios.post(`http://194.164.77.238:8003/api/v1/auth/login`, values);
+      console.log(response.data);
+   
+      if (response.data.status === "SUCCESS") {
+        setAuthorization(response.data.token );
+        
+        navigate("/");
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log("Form data", values);
-      // Handle form submission, e.g., call your API here
-    },
+    onSubmit: login,
   });
 
   return (
@@ -37,22 +55,17 @@ export default function LoginPage() {
         >
           <h1 className="flex justify-center py-5">
             <a href="#">
-              <img src="/images/admin/logo.png" alt="" />
+              <img src="/images/admin/logo.png" alt="Logo" />
             </a>
           </h1>
           <div className="flex flex-col">
-            <label htmlFor="email" className="text-sm pb-1 text-gray-700">
-              Email
-            </label>
+
+            <label htmlFor="email" className='text-sm pb-1 text-gray-700'>Email</label>
             <input
               id="email"
-              type="text"
-              {...formik.getFieldProps("email")}
-              className={`border ${
-                formik.touched.email && formik.errors.email
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } rounded p-2`}
+              type="email"
+              {...formik.getFieldProps('email')}
+              className={`border ${formik.touched.email && formik.errors.email ? 'border-red-500' : 'border-gray-300'} rounded p-2`}
             />
             {formik.touched.email && formik.errors.email ? (
               <div className="text-red-500 text-sm">{formik.errors.email}</div>
@@ -89,8 +102,8 @@ export default function LoginPage() {
               Login
             </button>
           </div>
-          <div className="flex justify-between w-full text-secondary">
-            <Link to="/auth/sginup">You dont have an account?</Link>
+          <div className='flex justify-between w-full text-secondary'>
+            <Link to="/auth/signup">You don't have an account?</Link>
             <Link to="/auth/forgot-password">Forgot Password?</Link>
           </div>
         </form>

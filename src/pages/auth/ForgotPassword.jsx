@@ -16,8 +16,9 @@ export default function ForgotPasswordPage() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("Form data", values);
-      // Handle form submission, e.g., call your API here
+
+      console.log('Form data', values);
+  
     },
   });
 
