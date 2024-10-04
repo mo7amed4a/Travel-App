@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { Axios, baseURL } from '../../components/Api/Axios';
+
 import {UserContext} from "../../components//Context/Usercontext"
 export default function LoginPage() {
  let {setAuthorization}= useContext(UserContext)
@@ -19,10 +20,13 @@ export default function LoginPage() {
 
   async function login(values) {
     try {
-      const response = await axios.post(`http://194.164.77.238:8003/api/v1/auth/login`, values);
+      const response = await Axios.post(`${baseURL}/api/v1/auth/login`, values);
       console.log(response.data);
    
       if (response.data.status === "SUCCESS") {
+        console.log(response.data.token);
+        localStorage.setItem("Authorization", response.data.token);
+        
         setAuthorization(response.data.token );
         
         navigate("/");
@@ -79,7 +83,7 @@ export default function LoginPage() {
             <button type='submit' className="py-3 px-4 bg-secondary w-full text-center text-white font-semibold hover:bg-secondary/90 duration-100">Login</button>
           </div>
           <div className='flex justify-between w-full text-secondary'>
-            <Link to="/auth/signup">You don't have an account?</Link>
+            <Link to="/auth/sginUp">You don't have an account?</Link>
             <Link to="/auth/forgot-password">Forgot Password?</Link>
           </div>
         </form>

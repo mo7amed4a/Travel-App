@@ -1,9 +1,8 @@
-import axios from 'axios';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
+import { Axios, baseURL } from '../../components/Api/Axios';
 export default function SignUpPage() {
 let navigate=useNavigate()
 
@@ -40,7 +39,7 @@ let navigate=useNavigate()
     validationSchema,
     onSubmit: async (values) => {
         try {
-          const response = await axios.post(`http://194.164.77.238:8003/api/v1/auth/register`, values);
+          const response = await Axios.post(`${baseURL}/api/v1/auth/register`, values);
           console.log(response.data);
       
         
@@ -238,7 +237,7 @@ let navigate=useNavigate()
             </button>
           </div>
           <p className="text-center text-sm">
-            Already have an account? <Link to="/login" className="text-blue-500">Login here</Link>
+            Already have an account? <Link to="/auth/login" className="text-blue-500">Login here</Link>
           </p>
         </form>
       </div>
