@@ -94,18 +94,20 @@ export default function Thirdpart() {
                 </div>
               </div>
               <div className="px-4 -mt-10">
-                <h2
-                  className="mt-4"
-                  style={{ fontSize: "25px", fontWeight: "bold" }}
-                >
-                  {cart.title}
-                </h2>
+                <Link to={`/packages/1`} >
+                  <h2
+                    className="mt-4"
+                    style={{ fontSize: "25px", fontWeight: "bold" }}
+                  >
+                    {cart.title}
+                  </h2>
+                </Link>
                 <p>{cart.details}</p>
                 <div
                   className="flex font-bold divide-x mt-5 divide-gray-300 border-t border-t-gray-300"
                   style={{ justifyContent: "space-around" }}
                 >
-                  <Link className="pointer-events-auto p-3">
+                  <Link to={`/packages/1`}  className="pointer-events-auto p-3">
                     Book Now{" "}
                     <i className="fa-solid text-red-500 fa-arrow-right"></i>
                   </Link>

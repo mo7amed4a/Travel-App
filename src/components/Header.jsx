@@ -1,83 +1,96 @@
 import {
   Button,
-  DarkThemeToggle,
-  Dropdown,
   Label,
   MegaMenu,
   Modal,
   Navbar,
   TextInput,
 } from "flowbite-react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // استيراد useNavigate
 import DropdownComponent from "./DropdownComponent";
-// import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../src/components/Context/Usercontext";
 
 export default function HeaderApp({ scrollPage }) {
+  const { Userdata, setUserdata, setAuthorization } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState("");
-  // const navigate = useNavigate()
+  const navigate = useNavigate(); // تعريف navigate
 
-  const LintForDropdown = ({title, to = ""}) => {
+  const LintForDropdown = ({ title, to = "" }) => {
     return (
-      <Navbar.Link as={Link} to={to === "" ? title : to} className={`cursor-pointer ${scrollPage ? 'text-black' : 'text-black md:text-white'}`}>{title}</Navbar.Link>
-    )
-  }
-  const handleSearch = () => {    
+      <Navbar.Link
+        as={Link}
+        to={to === "" ? title : to}
+        className={`cursor-pointer ${scrollPage ? 'text-black' : 'text-black md:text-white'}`}
+      >
+        {title}
+      </Navbar.Link>
+    );
+  };
+
+  const handleSearch = () => {
     if (searchText.length >= 1) {
-      // navigate(`/blogs?search=${searchText}`)
-      window.location.href = `/blogs?search=${searchText}`
+      window.location.href = `/blogs?search=${searchText}`;
     }
-  }
+  };
+
+  const handleLogout = () => {
+    console.log("Logging out..."); // تحقق مما إذا كانت تظهر في وحدة التحكم
+    localStorage.removeItem("Userdata");
+    localStorage.removeItem("Authorization");
+    setUserdata(null);
+    setAuthorization(null);
+    navigate("/auth/login"); // التأكد من أن المسار صحيح
+  };
+
   return (
     <div className="relative z-50">
       <MegaMenu
-        className={`text-white p-0 ${
-          scrollPage
-            ? "fixed top-0 inset-x-0 bg-white z-50"
-            : "relative  md:bg-transparent"
-        }`}
+        className={`text-white p-0 ${scrollPage ? "fixed top-0 inset-x-0 bg-white z-50" : "relative md:bg-transparent"}`}
       >
         {!scrollPage && (
           <div className="container-app flex justify-between items-center text-gray-500 bg-white md:bg-transparent md:text-white">
+            {/* Contact Information */}
             <ul className="flex gap-x-4 p-4">
               <li>
-                <a href="" className="flex gap-x-1 items-center">
+                <a href="#" className="flex gap-x-1 items-center">
                   <i className="fas fa-phone-alt"></i>
                   <span className="hidden md:block">01010101000</span>
                 </a>
               </li>
               <li>
-                <a href="" className="flex gap-x-1 items-center">
+                <a href="#" className="flex gap-x-1 items-center">
                   <i className="fas fa-envelope"></i>
                   <span className="hidden md:block">3m tourism@3m.com</span>
                 </a>
               </li>
               <li>
-                <a href="" className="flex gap-x-1 items-center">
+                <a href="#" className="flex gap-x-1 items-center">
                   <i className="fas fa-map-marker-alt"></i>
                   <span className="hidden md:block">32 nwe cairo</span>
                 </a>
               </li>
             </ul>
+            {/* Social Media Links and Search Modal */}
             <ul className="flex justify-end gap-x-4 px-4">
               <li>
-                <a href="">
+                <a href="#">
                   <i className="fab fa-facebook-f"></i>
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="#">
                   <i className="fab fa-linkedin"></i>
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="#">
                   <i className="fab fa-twitter"></i>
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="#">
                   <i className="fab fa-instagram"></i>
                 </a>
               </li>
@@ -106,7 +119,6 @@ export default function HeaderApp({ scrollPage }) {
                     onChange={(e) => setSearchText(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter') {
-                        // قم بتنفيذ الإجراء المطلوب عند الضغط على Enter
                         handleSearch();
                       }
                     }}
@@ -123,59 +135,62 @@ export default function HeaderApp({ scrollPage }) {
             </Modal>
           </div>
         )}
-        <div
-          className={`flex container-app flex-wrap items-center justify-between  py-4 md:gap-x-8`}
-        >
+        {/* Main Navbar */}
+        <div className={`flex container-app flex-wrap items-center justify-between py-4 md:gap-x-8`}>
           <Navbar.Brand href="/">
-            <img
-              alt=""
-              src="/images/logoapp.png"
-              className="mr-3 h-6 sm:h-9"
-            />
+            <img alt="" src="/images/logoapp.png" className="mr-3 h-6 sm:h-9" />
           </Navbar.Brand>
           <div className="flex md:order-1 items-center gap-x-2">
-            {/* <DarkThemeToggle /> */}
-            <Button className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none">BOOK NOW</Button>
+            <Button as={Link} to={'/packages'} className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none">
+              BOOK NOW
+            </Button>
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse
-            className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase bg-white md:bg-transparent ${
-              scrollPage
-                ? "[&>*>*>*>a]:text-black [&>*>*>*]:text-black"
-                : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"
-            }`}
+            className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase bg-white md:bg-transparent ${scrollPage ? "[&>*>*>*>a]:text-black [&>*>*>*]:text-black" : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"}`}
           >
             <Navbar.Link as={Link} to='/' href="#">Home</Navbar.Link>
-            <DropdownComponent ButtonLink={<LintForDropdown title={'Packages'}/>} >
-            <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/packages" >Packages</Navbar.Link>
-                <Navbar.Link as={Link} to="/packages/1" >Packages Details</Navbar.Link>
+            <DropdownComponent ButtonLink={<LintForDropdown title={'Packages'} />} >
+              <ul className="text-black space-y-4">
+                <Navbar.Link as={Link} to="/packages">Packages</Navbar.Link>
+                <Navbar.Link as={Link} to="/packages/1">Packages Details</Navbar.Link>
               </ul>
             </DropdownComponent>
             <DropdownComponent ButtonLink={<LintForDropdown title={'Blogs'} />} >
-            <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/blogs" >Blogs</Navbar.Link>
-                <Navbar.Link as={Link} to="/Blogs/1" >Blogs Details</Navbar.Link>
+              <ul className="text-black space-y-4">
+                <Navbar.Link as={Link} to="/blogs">Blogs</Navbar.Link>
+                <Navbar.Link as={Link} to="/blogs/1">Blogs Details</Navbar.Link>
               </ul>
             </DropdownComponent>
- 
-            <DropdownComponent ButtonLink={<LintForDropdown title={'Dashboard'} to="/admin" />} >
-            <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/admin" >Dashboard</Navbar.Link>
+            {/* Conditionally render the Dashboard link */}
+            {Userdata && Userdata.isAdmin && (
+              <DropdownComponent ButtonLink={<LintForDropdown title={'Dashboard'} to="/admin" />} >
+                <ul className="text-black space-y-4">
+                  <Navbar.Link as={Link} to="/admin">Dashboard</Navbar.Link>
                 </ul>
-            </DropdownComponent>
-
+              </DropdownComponent>
+            )}
             <DropdownComponent ButtonLink={<LintForDropdown title={'more pages'} to="/" />} >
-            <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/auth/login" >Login</Navbar.Link>
-                <Navbar.Link as={Link} to="/auth/sginup" >Sgin Up</Navbar.Link>
-                <Navbar.Link as={Link} to="/auth/forgot-password" >Forgot Password</Navbar.Link>
-              
-                <Navbar.Link as={Link} to="/faq" >Faq</Navbar.Link>
-                <Navbar.Link as={Link} to="/not-found" >Not Found</Navbar.Link>
+              <ul className="text-black space-y-4">
+                {Userdata ? (
+                  <li>
+                    <Button onClick={handleLogout} className="text-black">
+                      Logout
+                    </Button>
+                  </li>
+                ) : (
+                  <>
+                    <Navbar.Link as={Link} to="/auth/login">Login</Navbar.Link>
+                    <Navbar.Link as={Link} to="/auth/signup">Sign Up</Navbar.Link> {/* Corrected spelling */}
+                    <Navbar.Link as={Link} to="/auth/reset-password">Reset Password</Navbar.Link>
+                    <Navbar.Link as={Link} to="/auth/otp">OTP Page</Navbar.Link>
+                    <Navbar.Link as={Link} to="/auth/forgot-password">Forgot Password</Navbar.Link>
+                  </>
+                )}
+                <Navbar.Link as={Link} to="/faq">Faq</Navbar.Link>
+                <Navbar.Link as={Link} to="/not-found">Not Found</Navbar.Link>
               </ul>
             </DropdownComponent>
-            
           </Navbar.Collapse>
         </div>
       </MegaMenu>

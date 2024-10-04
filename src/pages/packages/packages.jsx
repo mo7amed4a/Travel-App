@@ -1,18 +1,12 @@
 import React from "react";
+import SubHeader from "../../components/Sub-Header";
+import { Link } from "react-router-dom";
 
 export default function PackagesPage() {
   return (
     <div>
-      <div className="-mt-44 md:-mt-36 space-y-10">
-        <section
-          className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
-          style={{
-            backgroundImage:
-              "url(/images/slider-pattern.png)",
-          }}
-        >
-          <h1 className="text-5xl">Tour Packages</h1>
-        </section>
+      <div className="space-y-10">
+       <SubHeader title="Tour Packages" />
         <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-8 px-4 mx-auto  max-w-[1100px]">
           {[1, 3, 5, 6, 7, 98, 62].map((item, index) => (
             <div key={index}>
@@ -49,9 +43,11 @@ export default function PackagesPage() {
               </figure>
               <div className="pt-8 px-4">
                 <div className="space-y-3">
-                  <h3 className="font-bold text-xl">
-                    <a href="#">Sunset view of beautiful lakeside resident</a>
-                  </h3>
+                  <Link to={`/packages/1`} >
+                    <h3 className="font-bold text-xl">
+                      Sunset view of beautiful lakeside resident
+                    </h3>
+                  </Link>
                   <div className="flex gap-x-2 text-gray-400 text-xs">
                     <span>(25 reviews)</span>
                     <div className="text-primary" title="Rated 5 out of 5">
@@ -71,13 +67,12 @@ export default function PackagesPage() {
                     tellpus.
                   </p>
                   <div className="flex justify-between bottom-1">
-                    <a
-                      href="#"
+                    <Link to={`/packages/1`} 
                       className="w-full text-center p-3 border-t border-e flex items-center gap-x-2 justify-center group hover:text-secondary"
                     >
                       Book Now
                       <i className="fas fa-arrow-right text-primary group-hover:text-secondary"></i>
-                    </a>
+                    </Link>
                     <a
                       href="#"
                       className="w-full text-center p-3 border-t flex items-center gap-x-2 justify-center group hover:text-secondary"

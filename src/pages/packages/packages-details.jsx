@@ -3,19 +3,12 @@ import { TabForPackageDetail } from "../../components/TabForPackageDetail";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { MdOutlineStar } from "react-icons/md";
 import { Checkbox, Datepicker, Label } from "flowbite-react";
+import SubHeader from "../../components/Sub-Header";
 
 export default function PackagesDetailsPage() {
   return (
-    <div className="-mt-44 md:-mt-36 space-y-10">
-      <section
-        className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
-        style={{
-          backgroundImage:
-            "url(/images/slider-pattern.png)",
-        }}
-      >
-        <h1 className="text-5xl">Package Detail</h1>
-      </section>
+    <div className="space-y-10">
+      <SubHeader title="Package Details" />
       <section className="grid grid-cols-1 xl:grid-cols-6 container-app gap-5 pb-10">
         <section className="md:col-span-4 space-y-10">
           <article className="space-y-5">

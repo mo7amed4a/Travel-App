@@ -1,21 +1,18 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import BlogsPage from "./blogs";
 import BlogDetailsPage from "./BlogsDetails";
+import SubHeader from "../../components/Sub-Header";
 
 export default function BLogsLayout() {
+  const location = useLocation();
+  let title = 'Archive'  
+  if (location.pathname.includes('/blogs/1')) {
+    title = 'Blog Details'
+  }
   return (
-    <section className="-mt-44 md:-mt-36">
-      <div
-        className="bg-[#555555] h-[50vh] object-cover bg-no-repeat bg-bottom flex justify-center items-center text-white font-bold"
-        style={{
-          backgroundImage:
-            "url(/images/slider-pattern.png)",
-        }}
-      >
-        <h1 className="text-5xl">Archive</h1>
-      </div>
-
+    <section>
+      <SubHeader title={title} />
       <div className="container-app py-10 grid grid-cols-1 xl:grid-cols-6">
         <Routes>
           <Route path="/" element={<BlogsPage />} />
@@ -117,33 +114,32 @@ export default function BLogsLayout() {
                   {[0, 1, 2].map((post, index) => (
                     <li className="flex gap-x-2 h-20 pt-2" key={index}>
                       <figure className="">
-                        <a href="#">
+                        <Link to={`/blogs/1`}>
                           <img
                             src="/images/img17.jpg"
                             alt=""
                             className="rounded-lg w-32 h-full"
                           />
-                        </a>
+                        </Link>
                       </figure>
                       <div className="flex flex-col justify-around w-full">
                         <h5 className="">
-                          <a
-                            href="#"
+                          <Link to={`/blogs/1`}
                             className="text-gray-800 hover:text-secondary"
                           >
                             Someday I’m going to be free and travel {post}
-                          </a>
+                          </Link>
                         </h5>
                         <div className="flex justify-between text-xs text-gray-500 mt-1">
                           <span className="posted-on">
-                            <a href="#" className="hover:text-secondary">
+                            <span className="hover:text-secondary">
                               August 17, 2021
-                            </a>
+                            </span>
                           </span>
                           <span className="comments-link ml-2">
-                            <a href="#" className="hover:text-secondary">
+                            <span className="hover:text-secondary">
                               No Comments
-                            </a>
+                            </span>
                           </span>
                         </div>
                       </div>

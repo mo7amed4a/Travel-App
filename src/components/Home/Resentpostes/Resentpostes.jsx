@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+import BlogComponentApp from '../../blogs/blogsComponent';
 
 export default function Resentpostes() {
     return (
@@ -19,33 +20,20 @@ export default function Resentpostes() {
             </div>
 
           
-            <div className="container mx-auto p-6 overflow-hidden flex justify-center items-center flex-wrap">
-                <div className='flex flex-col sm-flex-col md:flex-row'>
+            <div className="container-app grid grid-cols-1 md:grid-cols-3">
+            <BlogComponentApp />
+            <BlogComponentApp />
+            <BlogComponentApp />
+
+                {/* <div className='flex flex-col sm-flex-col md:flex-row'>
                     <div className='w-[365px] overflow-hidden bg-gray-300 shadow-lg h-[450px] mb-6 md:mr-4 relative'>
                         <div className='w-[100%] h-[170px] absolute top-[64%] bg-white p-4'>
                             <h3 className="text-lg font-semibold mb-2">Take only memories, leave only footprints</h3>
                             <p className="text-gray-600 text-sm">Demoteam | August 17, 2021 | No Comments</p>
                         </div>
                     </div>
-                </div>
-                <div className='flex flex-col md:flex-row'>
-                    <div className='w-[365px] overflow-hidden bg-gray-300 shadow-lg h-[450px] mb-6 md:mr-4 relative'>
-                   
-                        <div className='w-[100%] h-[170px] absolute top-[64%] bg-white p-4'>
-                            <h3 className="text-lg font-semibold mb-2">Take only memories, leave only footprints</h3>
-                            <p className="text-gray-600 text-sm">Demoteam | August 17, 2021 | No Comments</p>
-                        </div>
-                    </div>
-                </div>
-                <div className='flex flex-col md:flex-row'>
-                    <div className='w-[365px] overflow-hidden bg-gray-300 shadow-lg h-[450px] mb-6 md:mr-4 relative'>
-                   
-                        <div className='w-[100%] h-[170px] absolute top-[64%] bg-white p-4'>
-                            <h3 className="text-lg font-semibold mb-2">Take only memories, leave only footprints</h3>
-                            <p className="text-gray-600 text-sm">Demoteam | August 17, 2021 | No Comments</p>
-                        </div>
-                    </div>
-                </div>
+                </div> */}
+                
             </div>
 
          
