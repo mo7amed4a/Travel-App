@@ -13,7 +13,6 @@ import SliderComponent from '../../components/SliderComponent'
 export default function HomePage() {
   return (
     <div className='-mt-36'>
-      <SliderComponent />
         <ImageSlider />
         <Secondpart />
         <PackageSection />

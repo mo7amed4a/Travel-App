@@ -63,13 +63,13 @@ const ImageSlider = () => {
         ))}
       </Slider>
       <button
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full focus:outline-none z-10"
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white p-4 rounded-full focus:outline-none z-10"
         onClick={prevSlide}
       >
         ❮
       </button>
       <button
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white p-4 rounded-full focus:outline-none z-10"
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white p-4 rounded-full focus:outline-none z-10"
         onClick={nextSlide}
       >
         ❯

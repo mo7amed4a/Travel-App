@@ -147,7 +147,7 @@ export default function HeaderApp({ scrollPage }) {
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse
-            className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase bg-white md:bg-transparent ${scrollPage ? "[&>*>*>*>a]:text-black [&>*>*>*]:text-black" : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"}`}
+            className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase [&>*>*>*]:font-bold bg-white md:bg-transparent ${scrollPage ? "[&>*>*>*>a]:text-black [&>*>*>*]:text-black" : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"}`}
           >
             <Navbar.Link as={Link} to='/' href="#">Home</Navbar.Link>
             <DropdownComponent ButtonLink={<LintForDropdown title={'Packages'} />} >
