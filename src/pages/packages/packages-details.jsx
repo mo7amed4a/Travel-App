@@ -13,7 +13,7 @@ import SliderComponent from "../../components/SliderComponent";
 
 export default function PackagesDetailsPage() {
   const id = useParams().id;
-  const { data, loading, error } = useFetch(`/package/${id}`);
+  const { data, loading, error } = useFetch(`/packages/${id}`);
   const item = data?.data?.package;
 
   return (

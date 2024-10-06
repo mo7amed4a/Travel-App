@@ -15,7 +15,7 @@ export default function PackageComponent({ packageItem }) {
               / per person
             </h6>
           </div>
-          <Link to={`/package/${packageItem._id}`}>
+          <Link to={`/packages/${packageItem._id}`}>
             {packageItem.image.length != 0 ? (
               packageItem.image.length > 1 && (
                 <img
