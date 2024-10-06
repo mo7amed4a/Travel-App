@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import img from "../../../images/wall122.jpg";
 import { Link } from "react-router-dom";
-import { Axios } from "../../Api/Axios";
+import { Axios } from "../../../lib/api/Axios";
 
 export default function PackageSection() {
   const [packages, setPackages] = useState([]);
@@ -94,7 +94,8 @@ export default function PackageSection() {
                 )}
                 <div className="absolute top-1 right-1 bg-primary text-white px-4 py-2 rounded sm:text-sm md:text-base lg:text-lg">
                   <span className="font-bold">${item.price}</span>
-                  <span className="text-xs md:text-sm"> TODO / per person</span>
+                  {/* TODO */}
+                  <span className="text-xs md:text-sm"> 50 / per person</span>
                 </div>
                 <div className="w-[95%] bg-secondary relative bottom-[30px]  left-[2%] right-[2%]">
                   <div className="flex text-white py-2 justify-around flex-wrap">
@@ -136,7 +137,7 @@ export default function PackageSection() {
                   className="flex font-bold divide-x mt-5 divide-gray-300 border-t border-t-gray-300"
                   style={{ justifyContent: "space-around" }}
                 >
-                  <Link to={`/packages/1`} className="pointer-events-auto p-3">
+                  <Link to={`/packages/${item._id}`} className="pointer-events-auto p-3">
                     Book Now{" "}
                     <i className="fa-solid text-red-500 fa-arrow-right"></i>
                   </Link>

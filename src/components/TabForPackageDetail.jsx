@@ -1,35 +1,8 @@
 import { Tabs } from "flowbite-react";
-import { HiAdjustments, HiClipboardList, HiUserCircle } from "react-icons/hi";
-import { MdDashboard } from "react-icons/md";
-import { baseURL } from "./Api/Axios";
+import { baseURL } from "../lib/api/Axios";
+import SliderComponent from "./SliderComponent";
 
 export function TabForPackageDetail({ packageData }) {
-  // const packageData = {
-  //   description:
-  //     "Dolores maiores dicta dolore. Natoque placeat libero sunt sagittis debitis? Egestas non non qui quos, semper aperiam lacinia eum nam! Pede beatae. Soluta, convallis irure accusamus voluptatum ornare saepe cupidatat.",
-  //   days: [
-  //     {
-  //       title: "Ancient Rome Visit",
-  //       decription:
-  //         "Nostra semper ultricies eu leo eros orci porta provident, fugit? Pariatur interdum assumenda, qui aliquip ipsa! Dictum natus potenti pretium.",
-  //     },
-  //     {
-  //       title: "Classic Rome Sightseeing",
-  //       decription:
-  //         "Nostra semper ultricies eu leo eros orci porta provident, fugit? Pariatur interdum assumenda, qui aliquip ipsa! Dictum natus potenti pretium.",
-  //     },
-  //     {
-  //       title: "Vatican City Visit",
-  //       decription:
-  //         "Nostra semper ultricies eu leo eros orci porta provident, fugit? Pariatur interdum assumenda, qui aliquip ipsa! Dictum natus potenti pretium.",
-  //     },
-  //     {
-  //       title: "Italian Food Tour",
-  //       decription:
-  //         "Nostra semper ultricies eu leo eros orci porta provident, fugit? Pariatur interdum assumenda, qui aliquip ipsa! Dictum natus potenti pretium.",
-  //     },
-  //   ],
-  // };
   return (
     <Tabs
       aria-label="Default tabs"
@@ -39,9 +12,7 @@ export function TabForPackageDetail({ packageData }) {
       <Tabs.Item title="DESCRIPTION" className="rounded-none">
         <div className="space-y-3">
           <h4 className="text-lg font-bold">{packageData.title}</h4>
-          <p className="leading-relaxed">
-           {packageData.description}
-          </p>
+          <p className="leading-relaxed">{packageData.description}</p>
         </div>
       </Tabs.Item>
       <Tabs.Item title="PROGRAM">
@@ -71,15 +42,13 @@ export function TabForPackageDetail({ packageData }) {
           </div>
         </div>
       </Tabs.Item>
-      <Tabs.Item disabled title="REVIEW">
+      {/* <Tabs.Item disabled title="REVIEW">
         reviews
-      </Tabs.Item>
-      <Tabs.Item title="Map" >
-        {packageData.mapImages.length > 0 && <div className="grid grid-cols-2 gap-4 mb-4">
-          {packageData?.mapImages?.map((img, index) => (
-            <img key={index} src={baseURL + img.url} className="w-full h-[400px]" alt="" />
-          ))}
-        </div>}
+      </Tabs.Item> */}
+      <Tabs.Item title="Map">
+        {packageData.mapImages.length > 0 && (
+          <SliderComponent slides={packageData.mapImages} />
+        )}
         {/* <iframe
           className="w-full h-[400px]"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3452.5028607982685!2d31.232934515117892!3d30.042821081880927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14583f8ec6a83167%3A0x89e74fbb74002af0!2sCairo%2C%20Egypt!5e0!3m2!1sen!2seg!4v1695569089754!5m2!1sen!2seg"

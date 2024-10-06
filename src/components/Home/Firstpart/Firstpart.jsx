@@ -8,7 +8,7 @@ import img2 from '../../../images/wallpaperflare.com_wallpaper2.jpg';
 const ImageSlider = () => {
   const sliderRef = useRef(null);  
   const settings = {
-    dots: false,            
+    dots: false,
     infinite: true,        
     speed: 500,            
     slidesToShow: 1,       

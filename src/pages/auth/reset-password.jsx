@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Axios, baseURL } from '../../components/Api/Axios';
+import { Axios, baseURL } from '../../lib/api/Axios';
 export default function ResetPasswordPage() {
   let navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await Axios.post(`${baseURL}/auth/reset-password`, {
+        const response = await Axios.post(`/auth/reset-password`, {
           email: values.email,
           password: values.password,
           confirmPassword: values.confirmPassword,

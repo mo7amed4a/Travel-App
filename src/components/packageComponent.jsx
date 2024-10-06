@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { baseURL } from "../lib/api/Axios";
 
 export default function PackageComponent({ packageItem }) {
   return (
@@ -9,7 +10,7 @@ export default function PackageComponent({ packageItem }) {
           <div className="absolute top-[20px] end-0 bg-primary p-1.5 text-white">
             <h6 className="text-sm">
               <span className="font-bold text-xl">
-                ${packageItem.price} TODO{" "}
+                {/* TODO */}${packageItem.price} 50{" "}
               </span>{" "}
               / per person
             </h6>
@@ -18,9 +19,9 @@ export default function PackageComponent({ packageItem }) {
             {packageItem.image.length != 0 ? (
               packageItem.image.length > 1 && (
                 <img
-                  src={packageItem.image[0]}
+                  src={baseURL + packageItem.image[0].url}
                   alt="destination"
-                  className="w-full h-80"
+                  className="w-full h-72 object-contain"
                 />
               )
             ) : (

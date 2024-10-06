@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Axios } from "../components/Api/Axios";
+import { Axios } from "../lib/api/Axios";
 
 export default function useFetch(url, query) {
   const [data, setData] = useState([]);

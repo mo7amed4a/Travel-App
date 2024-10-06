@@ -5,6 +5,7 @@ import DashoardLayout from "./layout/dashoard.layout";
 import NotFoundPage from "./pages/not-found/NotFound";
 import AuthLayout from "./layout/auth.layout";
 import UserContextProvider from "./components/Context/Usercontext";
+import ProtectedRoute from "./Protectroute/Protectroute";
 
 export default function App() {
 
@@ -15,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/*" element={<AppLayout />} />
           <Route path="/auth/*" element={<AuthLayout />} />
-          <Route path="/admin/*" element={<DashoardLayout />} />
+          <Route path="/admin/*" element={<ProtectedRoute><DashoardLayout /></ProtectedRoute>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

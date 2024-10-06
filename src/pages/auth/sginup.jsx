@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Axios, baseURL } from '../../components/Api/Axios';
+import { Axios, baseURL } from '../../lib/api/Axios';
 export default function SignUpPage() {
 let navigate=useNavigate()
 
@@ -39,7 +39,7 @@ let navigate=useNavigate()
     validationSchema,
     onSubmit: async (values) => {
         try {
-          const response = await Axios.post(`${baseURL}/auth/register`, values);
+          const response = await Axios.post(`/auth/register`, values);
           console.log(response.data);
       
         

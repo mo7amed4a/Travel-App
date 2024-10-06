@@ -3,8 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
-import { Axios, baseURL } from '../../components/Api/Axios';
+import { Axios, baseURL } from '../../lib/api/Axios';
 
 export default function OtpPage() {
   let navigate = useNavigate();
@@ -19,7 +18,7 @@ export default function OtpPage() {
       // Make sure the OTP is sent as a number
       const payload = { otp: parseInt(values.otp, 10) };
 
-      const response = await Axios.post(`${baseURL}/auth/verify-otp`, payload);
+      const response = await Axios.post(`/auth/verify-otp`, payload);
       console.log(response.data);
 
       if (response.data.message === "success") {

@@ -9,11 +9,12 @@ import { useParams } from "react-router-dom";
 import EmptyData from "../../components/global/empty";
 import ErrorComponent from "../../components/global/Error";
 import Loading from "../../components/global/Loading";
+import SliderComponent from "../../components/SliderComponent";
 
 export default function PackagesDetailsPage() {
   const id = useParams().id;
   const { data, loading, error } = useFetch(`/package/${id}`);
-  const item = data?.data?.package
+  const item = data?.data?.package;
 
   return (
     <div className="space-y-10">
@@ -27,8 +28,11 @@ export default function PackagesDetailsPage() {
                 {item.title}
               </h1>
               <figure className="w-full bg-blue-500 relative">
-                <a href="#">
-                  <img className="w-full" src="/images/img27.jpg" alt="" />
+                <a href="#" className="relative">
+                  {/* <img className="w-full" src="/images/img27.jpg" alt="" /> */}
+                  {item.image.length > 0 && (
+                    <SliderComponent slides={item.image} />
+                  )}
                 </a>
                 <div className="absolute top-[93%] inset-x-0 z-10 py-3 bg-secondary text-white text-sm flex justify-center items-center">
                   <ul className="flex justify-between [&>li>i]:pe-2 [&>li]:ps-4 divide-x gap-x-4">
@@ -54,7 +58,8 @@ export default function PackagesDetailsPage() {
           <div className="md:col-span-2 space-y-10">
             <div className="bg-primary py-5 flex flex-col justify-center items-center space-y-3 text-white">
               <h3>
-                <span className="text-2xl font-bold">$TODO</span> / per person
+                {/* TODO */}
+                <span className="text-2xl font-bold">$50</span> / per person
               </h3>
               <span className="flex text-xl items-center">
                 <MdOutlineStar />

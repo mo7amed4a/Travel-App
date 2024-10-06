@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {  useNavigate } from 'react-router-dom';
+import { Axios, baseURL } from "../../lib/api/Axios";
 
-import { Axios, baseURL } from '../../components/Api/Axios';
 export default function ForgotPasswordPage() {
   let navigate= useNavigate()
   const validationSchema = Yup.object({
@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
 
   async function forgetpassword(values) {
     try {
-      const response = await Axios.post(`${baseURL}/auth/forget-password`, values);
+      const response = await Axios.post(`/auth/forget-password`, values);
       console.log(response.data);
    
       if (response.data.status === "success") {
