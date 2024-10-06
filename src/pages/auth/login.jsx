@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Axios, baseURL } from '../../components/Api/Axios';
+import { Axios, baseURL } from '../../Lip/Api/Axios';
 import { UserContext } from "../../components/Context/Usercontext";
 
 export default function LoginPage() {
@@ -26,13 +26,14 @@ export default function LoginPage() {
   async function login(values) {
     try {
       const response = await Axios.post(`${baseURL}/api/v1/auth/login`, values);
+      console.log(response);
       
       if (response.data.status === "SUCCESS") {
         localStorage.setItem("Userdata", JSON.stringify(response.data.data.user));
         localStorage.setItem("Authorization", response.data.token);
         setUserdata(response.data.data.user);
         setAuthorization(response.data.token);
-        navigate("/"); // تغيير الصفحة بعد تسجيل الدخول
+        navigate("/"); 
       } else {
         setErrorMessage(response.data.message || "Login failed. Please try again.");
       }

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import {  useNavigate } from 'react-router-dom';
 
-import { Axios, baseURL } from '../../components/Api/Axios';
+import { Axios, baseURL } from '../../Lip/Api/Axios';
 export default function ForgotPasswordPage() {
   let navigate= useNavigate()
   const validationSchema = Yup.object({

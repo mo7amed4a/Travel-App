@@ -3,8 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-
-import { Axios, baseURL } from '../../components/Api/Axios';
+import { Axios, baseURL } from '../../Lip/Api/Axios';
 
 export default function OtpPage() {
   let navigate = useNavigate();
