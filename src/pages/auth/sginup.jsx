@@ -39,7 +39,7 @@ let navigate=useNavigate()
     validationSchema,
     onSubmit: async (values) => {
         try {
-          const response = await Axios.post(`${baseURL}/api/v1/auth/register`, values);
+          const response = await Axios.post(`${baseURL}/auth/register`, values);
           console.log(response.data);
       
         

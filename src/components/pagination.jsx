@@ -4,7 +4,7 @@ export default function PaginationApp({currentPage, setCurrentPage, totalPages=1
   const onPageChange = (page) => setCurrentPage(page);
   return (
     <div className="flex overflow-x-auto sm:justify-center">
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
+      {totalPages > 1 && <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />}
     </div>
   );
 }

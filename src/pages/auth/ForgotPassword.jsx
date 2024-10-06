@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
 
   async function forgetpassword(values) {
     try {
-      const response = await Axios.post(`${baseURL}/api/v1/auth/forget-password`, values);
+      const response = await Axios.post(`${baseURL}/auth/forget-password`, values);
       console.log(response.data);
    
       if (response.data.status === "success") {

@@ -24,7 +24,7 @@ export default function ResetPasswordPage() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await Axios.post(`${baseURL}/api/v1/auth/reset-password`, {
+        const response = await Axios.post(`${baseURL}/auth/reset-password`, {
           email: values.email,
           password: values.password,
           confirmPassword: values.confirmPassword,

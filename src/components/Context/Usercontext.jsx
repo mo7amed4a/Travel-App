@@ -7,9 +7,9 @@ export default function UserContextProvider({ children }) {
     const [Userdata, setUserdata] = useState(null);
 
     // Load user data from localStorage on mount
+    const storedUserData = localStorage.getItem("Userdata");
+    const storedToken = localStorage.getItem("Authorization");
     useEffect(() => {
-        const storedUserData = localStorage.getItem("Userdata");
-        const storedToken = localStorage.getItem("Authorization");
         
         if (storedUserData) {
             setUserdata(JSON.parse(storedUserData));

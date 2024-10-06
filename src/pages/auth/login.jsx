@@ -25,7 +25,7 @@ export default function LoginPage() {
   // وظيفة تسجيل الدخول
   async function login(values) {
     try {
-      const response = await Axios.post(`${baseURL}/api/v1/auth/login`, values);
+      const response = await Axios.post(`${baseURL}/auth/login`, values);
       
       if (response.data.status === "SUCCESS") {
         localStorage.setItem("Userdata", JSON.stringify(response.data.data.user));
