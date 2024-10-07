@@ -81,41 +81,20 @@
 
 //   );
 // }
-
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { Badge } from "flowbite-react";
 import MarkdownEditor from "@uiw/react-markdown-editor";
-import { useParams } from "react-router-dom";
 import Loading from "../../components/global/Loading"; // تأكد من مسار الاستيراد الصحيح
 import ErrorComponent from "../../components/global/Error"; // تأكد من مسار الاستيراد الصحيح
 import EmptyData from "../../components/global/empty"; // تأكد من مسار الاستيراد الصحيح
+import useFetch from "../../hooks/useFetch"; // تأكد من مسار الاستيراد الصحيح
 
 export default function BlogDetailsPage() {
   const { id } = useParams(); // الحصول على معرف المقالة من المعلمات
-  const [post, setPost] = useState(null); // حالة لتخزين بيانات المقالة
-  const [loading, setLoading] = useState(true); // حالة لتحميل البيانات
-  const [error, setError] = useState(null); // حالة لتخزين الأخطاء
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const response = await fetch(`http://194.164.77.238:8003/api/v1/posts/${id}`);
-        const data = await response.json();
-
-        if (data.status === "SUCCESS") {
-          setPost(data.data.post);
-        } else {
-          setError("فشل في جلب بيانات المقالة.");
-        }
-      } catch (error) {
-        setError("حدث خطأ أثناء جلب بيانات المقالة.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPost();
-  }, [id]);
+  // استخدام useFetch لجلب بيانات المقالة
+  const { data: post, loading, error } = useFetch(`http://194.164.77.238:8003/api/v1/posts/${id}`);
 
   if (loading) {
     return <Loading />; // استخدم مكون Loading عند التحميل
@@ -125,19 +104,26 @@ export default function BlogDetailsPage() {
     return <ErrorComponent error={error} small />; // عرض الخطأ إن وجد
   }
 
-  if (!post) {
+  if (!post || post.status !== "SUCCESS") {
     return <EmptyData text="Post not found." />; // عرض رسالة إذا لم توجد مقالة
   }
+
+  // معالجة البيانات المفقودة في المقالة
+  const imageUrl = post.data.post.image || "https://via.placeholder.com/150"; // صورة افتراضية في حال عدم وجود صورة
+  const title = post.data.post.title || "No Title";
+  const description = post.data.post.description || "No Description";
+  const content = post.data.post.content || "No Content Available";
 
   return (
     <div className="md:col-span-4 p-4">
       {/* عرض العنوان */}
-      <h1 className="text-3xl font-bold">{post.title}</h1>
-      <p className="mt-2 text-gray-700">{post.description}</p>
-      
+      <h1 className="text-3xl font-bold">{title}</h1>
+      <p className="mt-2 text-gray-700">{description}</p>
+
       <section className="space-y-4 mt-3">
         <div>
-          <MarkdownEditor.Markdown className='ps-1 pe-4' source={post.content} />
+   
+          <MarkdownEditor.Markdown className='ps-1 pe-4' source={content} />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 [&>a]:w-full text-white my-4">
@@ -145,11 +131,11 @@ export default function BlogDetailsPage() {
             <i className="bg-[#3b5998] px-2 py-3 fab fa-facebook-f w-8"></i>{" "}
             <span className="bg-[#3b5998]/95 p-2 w-full flex items-center">Facebook</span>
           </a>
-          <a href={`https://pinterest.com/pin/create/button/?url=${window.location.href}&media=IMAGE_URL&description=View blog`} target="_blank" className="flex">
+          <a href={`https://pinterest.com/pin/create/button/?url=${window.location.href}&media=${imageUrl}&description=View blog`} target="_blank" className="flex">
             <i className="bg-[#bd081c] px-2 py-3 fab fa-pinterest"></i>{" "}
             <span className="bg-[#bd081c]/95 p-2 w-full flex items-center">Pinterest</span>
           </a>
-          <a href={`https://api.whatsapp.com/send?text=View%20blogout!%20${window.location.href}`} target="_blank" className="flex">
+          <a href={`https://api.whatsapp.com/send?text=View%20blog!%20${window.location.href}`} target="_blank" className="flex">
             <i className="bg-[#25d366] px-2 py-3 fab fa-whatsapp w-8"></i>{" "}
             <span className="bg-[#25d366]/95 p-2 w-full flex items-center">WhatsApp</span>
           </a>
