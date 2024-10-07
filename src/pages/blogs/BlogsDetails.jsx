@@ -85,45 +85,45 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Badge } from "flowbite-react";
 import MarkdownEditor from "@uiw/react-markdown-editor";
-import Loading from "../../components/global/Loading"; // تأكد من مسار الاستيراد الصحيح
-import ErrorComponent from "../../components/global/Error"; // تأكد من مسار الاستيراد الصحيح
-import EmptyData from "../../components/global/empty"; // تأكد من مسار الاستيراد الصحيح
-import useFetch from "../../hooks/useFetch"; // تأكد من مسار الاستيراد الصحيح
+import Loading from "../../components/global/Loading"; 
+import ErrorComponent from "../../components/global/Error"; 
+import EmptyData from "../../components/global/empty"; 
+import useFetch from "../../hooks/useFetch"; 
 
 export default function BlogDetailsPage() {
-  const { id } = useParams(); // الحصول على معرف المقالة من المعلمات
+  const { id } = useParams(); 
 
-  // استخدام useFetch لجلب بيانات المقالة
+
   const { data: post, loading, error } = useFetch(`http://194.164.77.238:8003/api/v1/posts/${id}`);
 
   if (loading) {
-    return <Loading />; // استخدم مكون Loading عند التحميل
+    return <Loading />;
   }
 
   if (error) {
-    return <ErrorComponent error={error} small />; // عرض الخطأ إن وجد
+    return <ErrorComponent error={error} small />; 
   }
 
   if (!post || post.status !== "SUCCESS") {
-    return <EmptyData text="Post not found." />; // عرض رسالة إذا لم توجد مقالة
+    return <EmptyData text="Post not found." />;
   }
 
-  // معالجة البيانات المفقودة في المقالة
-  const imageUrl = post.data.post.image || "https://via.placeholder.com/150"; // صورة افتراضية في حال عدم وجود صورة
+
+  const imageUrl = post.data.post.image || "https://via.placeholder.com/150"; 
   const title = post.data.post.title || "No Title";
   const description = post.data.post.description || "No Description";
   const content = post.data.post.content || "No Content Available";
 
   return (
     <div className="md:col-span-4 p-4">
-      {/* عرض العنوان */}
+  
       <h1 className="text-3xl font-bold">{title}</h1>
       <p className="mt-2 text-gray-700">{description}</p>
 
       <section className="space-y-4 mt-3">
         <div>
    
-          <MarkdownEditor.Markdown className='ps-1 pe-4' source={content} />
+       
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 [&>a]:w-full text-white my-4">
