@@ -28,10 +28,10 @@ export default function PackagesDetailsPage() {
                 {item.title}
               </h1>
               <figure className="w-full bg-blue-500 relative">
-                  {/* <img className="w-full" src="/images/img27.jpg" alt="" /> */}
-                  {item.image.length > 0 && (
-                    <SliderComponent slides={item.image} />
-                  )}
+                {/* <img className="w-full" src="/images/img27.jpg" alt="" /> */}
+                {item.image.length > 0 && (
+                  <SliderComponent slides={item.image} />
+                )}
                 <div className="absolute top-[93%] inset-x-0 z-10 py-3 bg-secondary text-white text-sm flex justify-center items-center">
                   <ul className="flex justify-between [&>li>i]:pe-2 [&>li]:ps-4 divide-x gap-x-4">
                     <li>

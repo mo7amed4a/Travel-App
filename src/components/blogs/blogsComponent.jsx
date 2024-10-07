@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { baseURL } from "../../lib/api/Axios";
+import SliderComponent from "../SliderComponent";
 
 export default function BlogComponentApp({ article }) {
-  // تحقق مما إذا كانت بيانات المقالة موجودة
   if (!article) {
     return <p>Error: Article data is missing.</p>;
   }
@@ -11,12 +11,14 @@ export default function BlogComponentApp({ article }) {
   return (
     <article className="p-4 w-full">
       <figure className="w-full h-[290px] bg-gray-200">
-    
+        {/* {article?.image?.length > 0 && (
+              <SliderComponent slides={article?.image} cover={false} small/>
+          )} */}
         <Link to={`/blogs/${article._id}`}>
           <img
-            className="w-full h-full object-contain"
-            src={(baseURL + article.image[0].url) || "/images/default.jpg"} // صورة افتراضية إذا لم تكن الصورة موجودة
-            alt={article.title || "Default Title"} // عنوان افتراضي إذا لم يكن العنوان موجودًا
+            className="w-full h-full object-center"
+            src={baseURL + article.image[0].url || "/images/default.jpg"} // صورة افتراضية إذا لم تكن الصورة موجودة
+            alt={article.title || "Default Title"}
           />
         </Link>
       </figure>
@@ -38,7 +40,10 @@ export default function BlogComponentApp({ article }) {
         <p className="text-gray-700">
           {article.description || "No description available."}
         </p>
-        <Link to={`/blogs/${article._id}`} className="text-secondary font-semibold">
+        <Link
+          to={`/blogs/${article._id}`}
+          className="text-secondary font-semibold"
+        >
           CONTINUE READING...
         </Link>
       </div>
