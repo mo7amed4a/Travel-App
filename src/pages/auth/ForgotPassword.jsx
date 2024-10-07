@@ -87,7 +87,7 @@ export default function ForgotPasswordPage() {
           </div>
           <div className="flex justify-between w-full text-secondary">
             <Link to={"/auth/login"}>Do you want to login?</Link>
-            <Link to="/auth/sginup">You don't have an account?</Link>
+            <Link to="/auth/signup">You don't have an account?</Link>
           </div>
         </form>
       </div>

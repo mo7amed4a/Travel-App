@@ -1,7 +1,7 @@
 import { Link, Route, Routes } from "react-router-dom";
 import LoginPage from "../pages/auth/login";
 import ForgotPasswordPage from "../pages/auth/ForgotPassword";
-import SginUpPage from "../pages/auth/sginup";
+import SginUpPage from "../pages/auth/signup";
 import ResetPasswordPage from "../pages/auth/reset-password";
 import OtpPage from "../pages/auth/otpPage";
 
@@ -18,7 +18,7 @@ export default function AuthLayout() {
           <Routes>
             <Route path="/" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/sginup" element={<SginUpPage />} />
+            <Route path="/signup" element={<SginUpPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/otp" element={<OtpPage />} />

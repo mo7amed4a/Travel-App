@@ -3,21 +3,11 @@ import { createContext, useState, useEffect } from "react";
 export let UserContext = createContext();
 
 export default function UserContextProvider({ children }) {
-    const [Authorization, setAuthorization] = useState(null);
-    const [Userdata, setUserdata] = useState(null);
-
-    // Load user data from localStorage on mount
     const storedUserData = localStorage.getItem("Userdata");
     const storedToken = localStorage.getItem("Authorization");
-    useEffect(() => {
-        
-        if (storedUserData) {
-            setUserdata(JSON.parse(storedUserData));
-        }
-        if (storedToken) {
-            setAuthorization(storedToken);
-        }
-    }, []);
+
+    const [Authorization, setAuthorization] = useState(storedToken || null);
+    const [Userdata, setUserdata] = useState(JSON.parse(storedUserData || null));
 
     return (
         <UserContext.Provider value={{ Authorization, setAuthorization, setUserdata, Userdata }}>

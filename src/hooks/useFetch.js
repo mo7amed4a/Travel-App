@@ -5,6 +5,8 @@ export default function useFetch(url, query) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reload, setReload] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,7 +24,7 @@ export default function useFetch(url, query) {
     };
 
     fetchData();
-  }, [url, query]);
+  }, [url, query, reload]);
 
-  return { data, loading, error };
+  return { data, loading, error, setReload};
 }

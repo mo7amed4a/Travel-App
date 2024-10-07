@@ -107,7 +107,7 @@ export default function LoginPage() {
           </div>
 
           <div className='flex justify-between w-full text-secondary'>
-            <Link to="/auth/sginup">You don't have an account?</Link>
+            <Link to="/auth/signup">You don't have an account?</Link>
             <Link to="/auth/forgot-password">Forgot Password?</Link>
           </div>
         </form>

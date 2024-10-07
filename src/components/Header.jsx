@@ -1,5 +1,7 @@
 import {
+  Avatar,
   Button,
+  Dropdown,
   Label,
   MegaMenu,
   Modal,
@@ -15,14 +17,16 @@ export default function HeaderApp({ scrollPage }) {
   const { Userdata, setUserdata, setAuthorization } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate(); // تعريف navigate
+  const navigate = useNavigate(); 
 
   const LintForDropdown = ({ title, to = "" }) => {
     return (
       <Navbar.Link
         as={Link}
         to={to === "" ? title : to}
-        className={`cursor-pointer ${scrollPage ? 'text-black' : 'text-black md:text-white'}`}
+        className={`cursor-pointer ${
+          scrollPage ? "text-black" : "text-black md:text-white"
+        }`}
       >
         {title}
       </Navbar.Link>
@@ -36,18 +40,22 @@ export default function HeaderApp({ scrollPage }) {
   };
 
   const handleLogout = () => {
-    console.log("Logging out..."); // تحقق مما إذا كانت تظهر في وحدة التحكم
+    console.log("Logging out...");
     localStorage.removeItem("Userdata");
     localStorage.removeItem("Authorization");
     setUserdata(null);
     setAuthorization(null);
-    navigate("/auth/login"); // التأكد من أن المسار صحيح
+    navigate("/auth/login");
   };
 
   return (
     <div className="relative z-50">
       <MegaMenu
-        className={`text-white p-0 ${scrollPage ? "fixed top-0 inset-x-0 bg-white z-50" : "relative md:bg-transparent"}`}
+        className={`text-white p-0 ${
+          scrollPage
+            ? "fixed top-0 inset-x-0 bg-white z-50"
+            : "relative md:bg-transparent"
+        }`}
       >
         {!scrollPage && (
           <div className="container-app flex justify-between items-center text-gray-500 bg-white md:bg-transparent md:text-white">
@@ -118,7 +126,7 @@ export default function HeaderApp({ scrollPage }) {
                     placeholder="Search.."
                     onChange={(e) => setSearchText(e.target.value)}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === "Enter") {
                         handleSearch();
                       }
                     }}
@@ -136,59 +144,105 @@ export default function HeaderApp({ scrollPage }) {
           </div>
         )}
         {/* Main Navbar */}
-        <div className={`flex container-app flex-wrap items-center justify-between py-4 md:gap-x-8`}>
-          <Navbar.Brand href="/">
+        <div
+          className={`flex container-app flex-wrap items-center justify-between py-4 md:gap-x-8`}
+        >
+          <Navbar.Brand as={Link} to="/packages">
             <img alt="" src="/images/logoapp.png" className="mr-3 h-6 sm:h-9" />
           </Navbar.Brand>
-          <div className="flex md:order-1 items-center gap-x-2">
-            <Button as={Link} to={'/packages'} className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none">
+          {/* <div className="flex md:order-1 items-center gap-x-2"> */}
+            <div className="flex md:order-2 gap-x-2">
+            <Button
+              as={Link}
+              to={"/packages"}
+              className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none"
+            >
               BOOK NOW
             </Button>
-            <Navbar.Toggle />
-          </div>
+              {Userdata && <Dropdown
+                arrowIcon={false}
+                inline
+                className="w-44"
+                label={
+                  <Avatar
+                    alt={Userdata.firstName}
+                    img={Userdata.profilePhoto}
+                    rounded
+                  />
+                }
+              >
+                <Dropdown.Header>
+                  <span className="block text-sm truncate font-bold">{`${Userdata.firstName} ${Userdata.lastName}`}</span>
+                  <span className="block truncate text-xs font-medium">
+                    {Userdata.email}
+                  </span>
+                </Dropdown.Header>
+                {Userdata?.isAdmin && <Dropdown.Item as={Link} to={"/admin"}>Dashboard</Dropdown.Item>}
+                <Dropdown.Item as={Link} to={"/profile"}>Profile</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
+              </Dropdown>}
+              <Navbar.Toggle />
+            </div>
           <Navbar.Collapse
-            className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase [&>*>*>*]:font-bold bg-white md:bg-transparent ${scrollPage ? "[&>*>*>*>a]:text-black [&>*>*>*]:text-black" : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"}`}
+            className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase [&>*>*>*]:font-bold bg-white md:bg-transparent ${
+              scrollPage
+                ? "[&>*>*>*>a]:text-black [&>*>*>*]:text-black"
+                : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"
+            }`}
           >
-            <Navbar.Link as={Link} to='/' href="#">Home</Navbar.Link>
-            <DropdownComponent ButtonLink={<LintForDropdown title={'Packages'} />} >
+            <Navbar.Link as={Link} to="/" href="#">
+              Home
+            </Navbar.Link>
+            <DropdownComponent
+              ButtonLink={<LintForDropdown title={"Packages"} />}
+            >
               <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/packages">Packages</Navbar.Link>
-                <Navbar.Link as={Link} to="/packages/1">Packages Details</Navbar.Link>
+                <Navbar.Link as={Link} to="/packages">
+                  Packages
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/packages/1">
+                  Packages Details
+                </Navbar.Link>
               </ul>
             </DropdownComponent>
-            <DropdownComponent ButtonLink={<LintForDropdown title={'Blogs'} />} >
+            <DropdownComponent ButtonLink={<LintForDropdown title={"Blogs"} />}>
               <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/blogs">Blogs</Navbar.Link>
-                <Navbar.Link as={Link} to="/blogs/1">Blogs Details</Navbar.Link>
+                <Navbar.Link as={Link} to="/blogs">
+                  Blogs
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/blogs/1">
+                  Blogs Details
+                </Navbar.Link>
               </ul>
             </DropdownComponent>
-            {/* Conditionally render the Dashboard link */}
-            {Userdata && Userdata.isAdmin && (
-              <DropdownComponent ButtonLink={<LintForDropdown title={'Dashboard'} to="/admin" />} >
-                <ul className="text-black space-y-4">
-                  <Navbar.Link as={Link} to="/admin">Dashboard</Navbar.Link>
-                </ul>
-              </DropdownComponent>
-            )}
-            <DropdownComponent ButtonLink={<LintForDropdown title={'more pages'} to="/" />} >
+            
+            <DropdownComponent
+              ButtonLink={<LintForDropdown title={"more pages"} to="/" />}
+            >
               <ul className="text-black space-y-4">
-                {Userdata ? (
-                  <li>
-                    <Button onClick={handleLogout} className="text-black">
-                      Logout
-                    </Button>
-                  </li>
-                ) : (
-                  <>
-                    <Navbar.Link as={Link} to="/auth/login">Login</Navbar.Link>
-                    <Navbar.Link as={Link} to="/auth/signup">Sign Up</Navbar.Link> {/* Corrected spelling */}
-                    <Navbar.Link as={Link} to="/auth/reset-password">Reset Password</Navbar.Link>
-                    <Navbar.Link as={Link} to="/auth/otp">OTP Page</Navbar.Link>
-                    <Navbar.Link as={Link} to="/auth/forgot-password">Forgot Password</Navbar.Link>
-                  </>
-                )}
-                <Navbar.Link as={Link} to="/faq">Faq</Navbar.Link>
-                <Navbar.Link as={Link} to="/not-found">Not Found</Navbar.Link>
+                <Navbar.Link as={Link} to="/faq">
+                  Faq
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/not-found">
+                  Not Found
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/login">
+                  Login
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/signup">
+                  Sign Up
+                </Navbar.Link>{" "}
+                {/* Corrected spelling */}
+                <Navbar.Link as={Link} to="/auth/reset-password">
+                  Reset Password
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/otp">
+                  OTP Page
+                </Navbar.Link>
+                <Navbar.Link as={Link} to="/auth/forgot-password">
+                  Forgot Password
+                </Navbar.Link>
               </ul>
             </DropdownComponent>
           </Navbar.Collapse>

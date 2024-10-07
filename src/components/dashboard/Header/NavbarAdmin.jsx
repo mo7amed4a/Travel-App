@@ -1,9 +1,20 @@
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../Context/Usercontext";
+import { useContext } from "react";
 
 export default function NavbarAdmin({ setAsideToggle }) {
+  const { Userdata, setAuthorization, setUserdata } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  return (
+  const handleLogout = () => {
+    localStorage.removeItem("Userdata");
+    localStorage.removeItem("Authorization");
+    setUserdata(null);
+    setAuthorization(null);
+    navigate("/auth/login");
+  };
+  return Userdata && (
     <Navbar fluid rounded className="py-0">
       <Navbar.Brand as={Link} to="/" className="py-2">
         <img
@@ -89,40 +100,31 @@ export default function NavbarAdmin({ setAsideToggle }) {
           inline
           label={
             <Avatar
-              alt="User settings"
+              alt={`${Userdata?.firstName}`}
               className="hover:bg-gray-300 py-2 px-2 pe-0 rounded-none"
-              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              img={Userdata.profilePhoto}
               rounded
             >
-              <span className="font-bold hidden md:block">My Account</span>
+              <span className="font-bold hidden md:block">{`${Userdata?.firstName}`}</span>
             </Avatar>
           }
         >
           <Dropdown.Header>
-            <span className="block text-sm font-semibold">Ali</span>
-            <span className="block truncate text-sm font-medium">
-              email@mail.com
+          <span className="block text-sm truncate font-bold">{`${Userdata?.firstName} ${Userdata?.lastName}`}</span>
+          <span className="block truncate text-sm font-medium">
+              {Userdata?.email}
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>Profile</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/">Home</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/admin/profile">Profile</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle
           className="px-3 rounded-none  block lg:hidden "
           onClick={() => setAsideToggle((e) => !e)}
         />
       </div>
-      {/* <Navbar.Collapse>
-        <Navbar.Link href="#" active>
-          Home
-        </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Services</Navbar.Link>
-        <Navbar.Link href="#">Pricing</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
-      </Navbar.Collapse> */}
     </Navbar>
   );
 }

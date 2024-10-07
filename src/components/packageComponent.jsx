@@ -21,7 +21,7 @@ export default function PackageComponent({ packageItem }) {
                 <img
                   src={baseURL + packageItem.image[0].url}
                   alt="destination"
-                  className="w-full h-72 object-contain"
+                  className="w-full h-72 object-cover"
                 />
               )
             ) : (

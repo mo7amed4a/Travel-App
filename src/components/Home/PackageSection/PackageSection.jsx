@@ -38,7 +38,7 @@ export default function PackageSection() {
         </p>
       </div>
 
-      <div className="container mx-auto p-4 flex gap-4 justify-center items-center  flex-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-8 px-4 mx-auto  max-w-[1100px]">
         {packages?.map((item, index) => (
           <PackageComponent packageItem={item} key={index}/>
           // <div className="flex flex-col md:flex-row" key={index}>
