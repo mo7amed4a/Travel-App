@@ -112,7 +112,6 @@ export default function BlogDetailsPage() {
       {loading && <Loading />}
       {error && <ErrorComponent error={error} small />}
       {!post || post.status !== "SUCCESS" && <EmptyData text="Post not found." />}
-
       <h1 className="text-3xl font-bold">{title}</h1>
       <p className="mt-2 text-gray-700">{description}</p>
 

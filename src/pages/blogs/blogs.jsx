@@ -29,7 +29,6 @@ function BlogsPage() {
           totalPages={data?.data?.totalPages || 1}
         />
       </div>
-
     </div>
   );
 }

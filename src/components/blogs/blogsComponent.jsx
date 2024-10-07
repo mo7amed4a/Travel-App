@@ -10,7 +10,6 @@ export default function BlogComponentApp({ article }) {
 
   return (
     <article className="p-4 w-full">
-
       <figure className="w-full h-[290px] bg-gray-200">
     
         <Link to={`/blogs/${article._id}`}>
