@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./layout/app.layout";
-import DashoardLayout from "./layout/dashoard.layout";
+import DashboardLayout from "./layout/dashboard.layout";
 import NotFoundPage from "./pages/not-found/NotFound";
 import AuthLayout from "./layout/auth.layout";
 import UserContextProvider from "./components/Context/Usercontext";
-import ProtectedRoute from "./Protectroute/Protectroute";
+import ProtectedRouteAdmin from "./Protectroute/Protectroute-admin";
+import ProtectedRouteAuthNotRequired from "./Protectroute/Protectroute-auth";
 
 export default function App() {
 
@@ -15,8 +16,8 @@ export default function App() {
     <BrowserRouter> 
         <Routes>
           <Route path="/*" element={<AppLayout />} />
-          <Route path="/auth/*" element={<AuthLayout />} />
-          <Route path="/admin/*" element={<ProtectedRoute><DashoardLayout /></ProtectedRoute>} />
+          <Route path="/auth/*" element={<ProtectedRouteAuthNotRequired><AuthLayout /></ProtectedRouteAuthNotRequired>} />
+          <Route path="/admin/*" element={<ProtectedRouteAdmin><DashboardLayout /></ProtectedRouteAdmin>} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

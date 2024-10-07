@@ -107,10 +107,11 @@ export default function ResetPasswordPage() {
             </button>
           </div>
 
-          <p className="text-center text-sm">
-            Already have an account? <Link to="/login" className="text-blue-500">Login here</Link>
-          </p>
         </form>
+        <div className="flex justify-between w-full text-secondary">
+          <Link to={"/auth/login"}>Do you want to login?</Link>
+          <Link to="/auth/signup">You don't have an account?</Link>
+        </div>
       </div>
     </div>
   );

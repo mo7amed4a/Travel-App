@@ -1,7 +1,46 @@
 import { Accordion, Card } from "flowbite-react";
-import React from "react";
+import React, { useState } from "react";
+import useFetch from "../../hooks/useFetch";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { Axios } from "../../lib/api/Axios";
 
 export default function FaqPage() {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data, loading, error } = useFetch(
+    `/faq?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
+  );
+
+  const faqs = data?.data?.faqs;
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required("Name is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    number: Yup.number().required("Number is required"),
+    question: Yup.string().required("Question is required"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      number: "",
+      question: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const res = await Axios.post(`/faq`, {
+        name: values.name,
+        email: values.email,
+        number: values.number,
+        question: values.question,
+      });
+    },
+  });
+
   return (
     <div className="-mt-36">
       <div
@@ -19,7 +58,9 @@ export default function FaqPage() {
               <span className="w-10 h-0.5 inline-block bg-primary me-2"></span>
               ANY QUESTIONS
             </h3>
-            <h1 className="text-xl md:text-4xl font-bold">FREQUENTLY ASKED QUESTIONS</h1>
+            <h1 className="text-xl md:text-4xl font-bold">
+              FREQUENTLY ASKED QUESTIONS
+            </h1>
             <p className="text-gray-800 text-sm">
               Mollit voluptatem perspiciatis convallis elementum corporis quo
               veritatis aliquid blandit, blandit torquent, odit placeat.
@@ -29,18 +70,17 @@ export default function FaqPage() {
           </section>
           <section>
             <Accordion>
-              <Accordion.Panel>
-                <Accordion.Title>What is this?</Accordion.Title>
-                <Accordion.Content>
-                  <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Corrupti exercitationem assumenda voluptas voluptatibus,
-                    repellendus porro error ratione quia in quidem pariatur
-                    neque sunt vero ipsa voluptatum incidunt! Doloribus, nostrum
-                    veniam.
-                  </p>
-                </Accordion.Content>
-              </Accordion.Panel>
+              {faqs &&
+                faqs.map((faq) => (
+                  <Accordion.Panel key={faq._id}>
+                    <Accordion.Title>{faq.question}</Accordion.Title>
+                    <Accordion.Content>
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">
+                        {faq.answer}
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Panel>
+                ))}
             </Accordion>
           </section>
         </div>
@@ -53,18 +93,78 @@ export default function FaqPage() {
               libero quaerat!
             </p>
 
-            <form className="flex flex-col space-y-5 py-2">
-              <input type="text" name="name" placeholder="Your Name*" />
-              <input type="email" name="email" placeholder="Your Email*" />
-              <input type="number" name="number" placeholder="Your Number*" />
-              <textarea placeholder="Enter your message"></textarea>
+            <form
+              onSubmit={formik.handleSubmit}
+              className="flex flex-col space-y-5 py-2 [&>div>input]:text-black [&>div>textarea]:text-black"
+            >
+              <div className="text-start">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name*"
+                  onChange={formik.handleChange}
+                  value={formik.values.name}
+                  className={`w-full ${formik.errors.name && formik.touched.name && 'border border-red-500'}`}
+              
+                />
+                {formik.touched.name && formik.errors.name ? (
+                  <div className="text-red-500 text-sm pt-1">
+                    {formik.errors.name}
+                  </div>
+                ) : null}
+              </div>
+              <div className="text-start">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your email*"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  className={`w-full ${formik.errors.email && formik.touched.email && 'border border-red-500'}`}
+              
+                />
+                {formik.touched.email && formik.errors.email ? (
+                  <div className="text-red-500 text-sm pt-1">
+                    {formik.errors.email}
+                  </div>
+                ) : null}
+              </div>
+              <div className="text-start">
+                <input
+                  type="number"
+                  name="number"
+                  placeholder="Your number*"
+                  onChange={formik.handleChange}
+                  value={formik.values.number}
+                  className={`w-full ${formik.errors.number && formik.touched.number && 'border border-red-500'}`}
+              
+                />
+                {formik.touched.number && formik.errors.number ? (
+                  <div className="text-red-500 text-sm pt-1">
+                    {formik.errors.number}
+                  </div>
+                ) : null}
+              </div>
+              <div className="text-start">
+                <textarea
+                  name="question"
+                  placeholder="Enter your question*"
+                  onChange={formik.handleChange}
+                  value={formik.values.question}
+                  className={`w-full ${formik.errors.question && formik.touched.question && 'border border-red-500'}`}
+              
+                ></textarea>
+                {formik.touched.question && formik.errors.question ? (
+                  <div className="text-red-500 text-sm pt-1">
+                    {formik.errors.question}
+                  </div>
+                ) : null}
+              </div>
               <div className="flex justify-start">
-              <input
-                type="submit"
-                className="bg-primary text-white inline-block p-3 cursor-pointer"
-                name="submit"
-                value="SUBMIT QUESTIONS"
-              />
+                <button
+                  type="submit"
+                  className="bg-primary text-white inline-block font-bold p-3 cursor-pointer"
+                >SUBMIT QUESTIONS</button>
               </div>
             </form>
           </div>
@@ -76,7 +176,11 @@ export default function FaqPage() {
             <img src="/images/img27.jpg" className="h-full w-full" alt="" />
             <div className="bg-primary md:w-11/12 p-4 md:absolute -bottom-10 left-0">
               <i className="text-5xl fas fa-quote-left"></i>
-              <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."</p>
+              <p>
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus
+                leo."
+              </p>
             </div>
           </div>
         </div>
@@ -86,22 +190,23 @@ export default function FaqPage() {
               <span className="w-10 h-0.5 inline-block bg-primary me-2"></span>
               QUESTIONS/ANSWERS
             </h3>
-            <h1 className="text-xl md:text-4xl font-bold">BENEFITS & WHAT WE DO?</h1>
+            <h1 className="text-xl md:text-4xl font-bold">
+              BENEFITS & WHAT WE DO?
+            </h1>
           </section>
           <section>
             <Accordion>
-              <Accordion.Panel>
-                <Accordion.Title>What is this?</Accordion.Title>
-                <Accordion.Content>
-                  <p className="mb-2 text-gray-500 dark:text-gray-400">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Corrupti exercitationem assumenda voluptas voluptatibus,
-                    repellendus porro error ratione quia in quidem pariatur
-                    neque sunt vero ipsa voluptatum incidunt! Doloribus, nostrum
-                    veniam.
-                  </p>
-                </Accordion.Content>
-              </Accordion.Panel>
+              {faqs &&
+                faqs.map((faq, index) => (
+                  <Accordion.Panel key={index}>
+                    <Accordion.Title>{faq.question}</Accordion.Title>
+                    <Accordion.Content>
+                      <p className="mb-2 text-gray-500 dark:text-gray-400">
+                        {faq.answer}
+                      </p>
+                    </Accordion.Content>
+                  </Accordion.Panel>
+                ))}
             </Accordion>
           </section>
         </div>

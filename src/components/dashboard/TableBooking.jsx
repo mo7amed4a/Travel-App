@@ -5,37 +5,31 @@ export default function TableBooking({
   title,
   description,
   Buttons,
-  values = [
-    {
-      select: true,
-      avatar: "/images/comment4.jpg",
-      name: "John Doe",
-      date: "12 may",
-      city: "Japan",
-      enquiry: "15",
-    },
-    {
-      select: true,
-      avatar: "/images/comment4.jpg",
-      name: "John Doe",
-      date: "12 may",
-      city: "Japan",
-      enquiry: "15",
-    },
-    {
-      select: true,
-      avatar: "/images/comment4.jpg",
-      name: "John Doe",
-      date: "12 may",
-      city: "Japan",
-      enquiry: "15",
-    },
-  ],
-})
-
-
-
-{
+  values = [{
+    select: true,
+    avatar: "/images/comment4.jpg",
+    name: "John Doe",
+    date: "12 may",
+    city: "Japan",
+    enquiry: "15",
+  },
+  {
+    select: true,
+    avatar: "/images/comment4.jpg",
+    name: "John Doe",
+    date: "12 may",
+    city: "Japan",
+    enquiry: "15",
+  },
+  {
+    select: true,
+    avatar: "/images/comment4.jpg",
+    name: "John Doe",
+    date: "12 may",
+    city: "Japan",
+    enquiry: "15",
+  }],
+}) {
   return (
     <div className="rounded bg-white">
       <div className="p-4 space-y-2">
@@ -51,9 +45,6 @@ export default function TableBooking({
             {Buttons && <Table.HeadCell>Control</Table.HeadCell>}
           </Table.Head>
 
-
-
-          
           <Table.Body>
             {values.map((item, rowIndex) => (
               <Table.Row key={rowIndex}>
@@ -78,10 +69,9 @@ export default function TableBooking({
                       <span>{value}</span>
                     )}
                   </Table.Cell>
-                  
                 ))}
-                {Buttons && <Table.Cell className="flex  max-w-44 gap-x-2">
-                  {Buttons}
+                {Buttons && <Table.Cell className="flex max-w-44 gap-x-2">
+                  {Buttons(item)}
                 </Table.Cell>}
               </Table.Row>
             ))}

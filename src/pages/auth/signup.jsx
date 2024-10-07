@@ -236,9 +236,10 @@ let navigate=useNavigate()
               Sign Up
             </button>
           </div>
-          <p className="text-center text-sm">
-            Already have an account? <Link to="/auth/login" className="text-blue-500">Login here</Link>
-          </p>
+          <div className="flex justify-between w-full text-secondary">
+            <Link to="/auth/forgot-password">Forgot Password?</Link>
+            <Link to={"/auth/login"}>Already have an account?</Link>
+          </div>
         </form>
       </div>
     </div>

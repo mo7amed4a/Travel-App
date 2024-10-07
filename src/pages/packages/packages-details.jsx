@@ -13,7 +13,7 @@ import SliderComponent from "../../components/SliderComponent";
 
 export default function PackagesDetailsPage() {
   const id = useParams().id;
-  const { data, loading, error } = useFetch(`/packages/${id}`);
+  const { data, loading, error } = useFetch(`/package/${id}`);
   const item = data?.data?.package;
 
   return (
@@ -28,12 +28,10 @@ export default function PackagesDetailsPage() {
                 {item.title}
               </h1>
               <figure className="w-full bg-blue-500 relative">
-                <a href="#" className="relative">
                   {/* <img className="w-full" src="/images/img27.jpg" alt="" /> */}
                   {item.image.length > 0 && (
                     <SliderComponent slides={item.image} />
                   )}
-                </a>
                 <div className="absolute top-[93%] inset-x-0 z-10 py-3 bg-secondary text-white text-sm flex justify-center items-center">
                   <ul className="flex justify-between [&>li>i]:pe-2 [&>li]:ps-4 divide-x gap-x-4">
                     <li>
