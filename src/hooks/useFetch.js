@@ -14,6 +14,8 @@ export default function useFetch(url, query) {
       setError(null);
       try {
         const { data } = await Axios.get(`${url}`);
+        console.log(data);
+        
         setData(data);
       } catch (err) {
         console.log(`route : ${url}, error : ${err}`);
