@@ -1,82 +1,172 @@
-import React, { useState } from "react";
-import PaginationApp from "../../components/pagination";
-import { Badge, Blockquote } from "flowbite-react";
-import MarkdownEditor from "@uiw/react-markdown-editor";
-import { blogContent } from "../../../public/data/blog";
+// import React, { useState } from "react";
+// import PaginationApp from "../../components/pagination";
+// import { Badge, Blockquote } from "flowbite-react";
+// import MarkdownEditor from "@uiw/react-markdown-editor";
+// import { blogContent } from "../../../public/data/blog";
+// import { useParams } from "react-router-dom";
 
-export default function BlogDetailsPage() {
-  return (
-          <div className="md:col-span-4 p-4">
-            {/* <figure className="w-full bg-blue-500">
-              <a href="#">
-                <img
-                  className="w-full h-[50vh] md:h-[60vh]"
-                  src="/images/img17.jpg"
-                  alt=""
-                />
-              </a>
-            </figure> */}
-            <section className="space-y-4 mt-3">
-              <div>
-                <MarkdownEditor.Markdown className='ps-1 pe-4' source={blogContent} />
-              </div>
-              <div className="flex gap-3 mt-2 items-center">
-                <span className="font-bold">Tags:</span>
-                <Badge color={"blue"}>
-                  jkc njnjo
-                </Badge>
-                <Badge>
-                  jkc njnjo
-                </Badge>
-                <Badge>
-                  jkc njnjo
-                </Badge>
-                <Badge>
-                  jkc njnjo
-                </Badge>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 [&>a]:w-full text-white my-4">
-                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} target="_blank" className="flex bg-red-200">
-                      <i className="bg-[#3b5998] px-2 py-3 fab fa-facebook-f w-8"></i>{" "}
-                      <span className="bg-[#3b5998]/95 p-2 w-full flex items-center">
-                        Facebook
-                      </span>
-                    </a>
-                    {/* TODO: images Pinterest */}
-                    <a href={`https://pinterest.com/pin/create/button/?url=${window.location.href}&media=IMAGE_URL&description=View blog`} target="_blank" className="flex">
-                      <i className="bg-[#bd081c] px-2 py-3 fab fa-pinterest"></i>{" "}
-                      <span className="bg-[#bd081c]/95 p-2 w-full flex items-center">
-                        Pinterest
-                      </span>
-                    </a>
-                    <a href={`https://api.whatsapp.com/send?text=View%20blogout!%20${window.location.href}`} target="_blank" className="flex">
-                      <i className="bg-[#25d366] px-2 py-3 fab fa-whatsapp w-8"></i>{" "}
-                      <span className="bg-[#25d366]/95 p-2 w-full flex items-center">
-                        WhatsApp
-                      </span>
-                    </a>
-                    <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`} target="_blank" className="flex">
-                      <i className="bg-[#0077b5] px-2 py-3 fab fa-linkedin w-8"></i>{" "}
-                      <span className="bg-[#0077b5]/95 p-2 w-full flex items-center">
-                        Linkedin
-                      </span>
-                    </a>
-                    <a href={`https://twitter.com/share?url=${window.location.href}&via=travel_app&text=View blog`} target="_blank" className="flex">
-                      <i className="bg-[#1da1f2] px-2 py-3 fab fa-twitter w-8"></i>
-                      <span className="bg-[#1da1f2]/95 p-2 w-full flex items-centerl">
-                        Twitter
-                      </span>
-                    </a>
-                    <a href={`https://mail.google.com/mail/?view=cm&fs=1&to&su=Travel&body=View%20blog%20link:%20${window.location.href}`} target="_blank" className="flex">
-                      <i className="bg-[#dd4b39] p-2 fab fa-google w-8 flex items-center"></i>
-                      <span className="bg-[#dd4b39]/95 p-2 w-full flex items-center">
-                        Google
-                      </span>
-                    </a>
-                  </div>
-            </section>
-          </div>
+// export default function BlogDetailsPage() {
+//   return (
+//           <div className="md:col-span-4 p-4">
+//             {/* <figure className="w-full bg-blue-500">
+//               <a href="#">
+//                 <img
+//                   className="w-full h-[50vh] md:h-[60vh]"
+//                   src="/images/img17.jpg"
+//                   alt=""
+//                 />
+//               </a>
+//             </figure> */}
+//             <section className="space-y-4 mt-3">
+//               <div>
+//                 <MarkdownEditor.Markdown className='ps-1 pe-4' source={blogContent} />
+//               </div>
+//               <div className="flex gap-3 mt-2 items-center">
+//                 <span className="font-bold">Tags:</span>
+//                 <Badge color={"blue"}>
+//                   jkc njnjo
+//                 </Badge>
+//                 <Badge>
+//                   jkc njnjo
+//                 </Badge>
+//                 <Badge>
+//                   jkc njnjo
+//                 </Badge>
+//                 <Badge>
+//                   jkc njnjo
+//                 </Badge>
+//               </div>
+//               <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 [&>a]:w-full text-white my-4">
+//                     <a href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} target="_blank" className="flex bg-red-200">
+//                       <i className="bg-[#3b5998] px-2 py-3 fab fa-facebook-f w-8"></i>{" "}
+//                       <span className="bg-[#3b5998]/95 p-2 w-full flex items-center">
+//                         Facebook
+//                       </span>
+//                     </a>
+//                     {/* TODO: images Pinterest */}
+//                     <a href={`https://pinterest.com/pin/create/button/?url=${window.location.href}&media=IMAGE_URL&description=View blog`} target="_blank" className="flex">
+//                       <i className="bg-[#bd081c] px-2 py-3 fab fa-pinterest"></i>{" "}
+//                       <span className="bg-[#bd081c]/95 p-2 w-full flex items-center">
+//                         Pinterest
+//                       </span>
+//                     </a>
+//                     <a href={`https://api.whatsapp.com/send?text=View%20blogout!%20${window.location.href}`} target="_blank" className="flex">
+//                       <i className="bg-[#25d366] px-2 py-3 fab fa-whatsapp w-8"></i>{" "}
+//                       <span className="bg-[#25d366]/95 p-2 w-full flex items-center">
+//                         WhatsApp
+//                       </span>
+//                     </a>
+//                     <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`} target="_blank" className="flex">
+//                       <i className="bg-[#0077b5] px-2 py-3 fab fa-linkedin w-8"></i>{" "}
+//                       <span className="bg-[#0077b5]/95 p-2 w-full flex items-center">
+//                         Linkedin
+//                       </span>
+//                     </a>
+//                     <a href={`https://twitter.com/share?url=${window.location.href}&via=travel_app&text=View blog`} target="_blank" className="flex">
+//                       <i className="bg-[#1da1f2] px-2 py-3 fab fa-twitter w-8"></i>
+//                       <span className="bg-[#1da1f2]/95 p-2 w-full flex items-centerl">
+//                         Twitter
+//                       </span>
+//                     </a>
+//                     <a href={`https://mail.google.com/mail/?view=cm&fs=1&to&su=Travel&body=View%20blog%20link:%20${window.location.href}`} target="_blank" className="flex">
+//                       <i className="bg-[#dd4b39] p-2 fab fa-google w-8 flex items-center"></i>
+//                       <span className="bg-[#dd4b39]/95 p-2 w-full flex items-center">
+//                         Google
+//                       </span>
+//                     </a>
+//                   </div>
+//             </section>
+//           </div>
          
 
+//   );
+// }
+
+import React, { useEffect, useState } from "react";
+import { Badge } from "flowbite-react";
+import MarkdownEditor from "@uiw/react-markdown-editor";
+import { useParams } from "react-router-dom";
+import Loading from "../../components/global/Loading"; // تأكد من مسار الاستيراد الصحيح
+import ErrorComponent from "../../components/global/Error"; // تأكد من مسار الاستيراد الصحيح
+import EmptyData from "../../components/global/empty"; // تأكد من مسار الاستيراد الصحيح
+
+export default function BlogDetailsPage() {
+  const { id } = useParams(); // الحصول على معرف المقالة من المعلمات
+  const [post, setPost] = useState(null); // حالة لتخزين بيانات المقالة
+  const [loading, setLoading] = useState(true); // حالة لتحميل البيانات
+  const [error, setError] = useState(null); // حالة لتخزين الأخطاء
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await fetch(`http://194.164.77.238:8003/api/v1/posts/${id}`);
+        const data = await response.json();
+
+        if (data.status === "SUCCESS") {
+          setPost(data.data.post);
+        } else {
+          setError("فشل في جلب بيانات المقالة.");
+        }
+      } catch (error) {
+        setError("حدث خطأ أثناء جلب بيانات المقالة.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
+
+  if (loading) {
+    return <Loading />; // استخدم مكون Loading عند التحميل
+  }
+
+  if (error) {
+    return <ErrorComponent error={error} small />; // عرض الخطأ إن وجد
+  }
+
+  if (!post) {
+    return <EmptyData text="Post not found." />; // عرض رسالة إذا لم توجد مقالة
+  }
+
+  return (
+    <div className="md:col-span-4 p-4">
+      {/* عرض العنوان */}
+      <h1 className="text-3xl font-bold">{post.title}</h1>
+      <p className="mt-2 text-gray-700">{post.description}</p>
+      
+      <section className="space-y-4 mt-3">
+        <div>
+          <MarkdownEditor.Markdown className='ps-1 pe-4' source={post.content} />
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 [&>a]:w-full text-white my-4">
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} target="_blank" className="flex bg-red-200">
+            <i className="bg-[#3b5998] px-2 py-3 fab fa-facebook-f w-8"></i>{" "}
+            <span className="bg-[#3b5998]/95 p-2 w-full flex items-center">Facebook</span>
+          </a>
+          <a href={`https://pinterest.com/pin/create/button/?url=${window.location.href}&media=IMAGE_URL&description=View blog`} target="_blank" className="flex">
+            <i className="bg-[#bd081c] px-2 py-3 fab fa-pinterest"></i>{" "}
+            <span className="bg-[#bd081c]/95 p-2 w-full flex items-center">Pinterest</span>
+          </a>
+          <a href={`https://api.whatsapp.com/send?text=View%20blogout!%20${window.location.href}`} target="_blank" className="flex">
+            <i className="bg-[#25d366] px-2 py-3 fab fa-whatsapp w-8"></i>{" "}
+            <span className="bg-[#25d366]/95 p-2 w-full flex items-center">WhatsApp</span>
+          </a>
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`} target="_blank" className="flex">
+            <i className="bg-[#0077b5] px-2 py-3 fab fa-linkedin w-8"></i>{" "}
+            <span className="bg-[#0077b5]/95 p-2 w-full flex items-center">Linkedin</span>
+          </a>
+          <a href={`https://twitter.com/share?url=${window.location.href}&via=travel_app&text=View blog`} target="_blank" className="flex">
+            <i className="bg-[#1da1f2] px-2 py-3 fab fa-twitter w-8"></i>
+            <span className="bg-[#1da1f2]/95 p-2 w-full flex items-center">Twitter</span>
+          </a>
+          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to&su=Travel&body=View%20blog%20link:%20${window.location.href}`} target="_blank" className="flex">
+            <i className="bg-[#dd4b39] p-2 fab fa-google w-8 flex items-center"></i>
+            <span className="bg-[#dd4b39]/95 p-2 w-full flex items-center">Google</span>
+          </a>
+        </div>
+      </section>
+    </div>
   );
 }

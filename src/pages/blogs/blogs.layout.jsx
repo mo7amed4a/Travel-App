@@ -2,6 +2,8 @@ import React from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import BlogsPage from "./blogs";
 import BlogDetailsPage from "./BlogsDetails";
+import BlogDetailsPage2 from "./BlogsDetails2";
+
 import SubHeader from "../../components/Sub-Header";
 
 export default function BLogsLayout() {
@@ -17,6 +19,7 @@ export default function BLogsLayout() {
         <Routes>
           <Route path="/" element={<BlogsPage />} />
           <Route path=":id" element={<BlogDetailsPage />} />
+          <Route path="/BlogDetailsPage2/:id" element={<BlogDetailsPage2></BlogDetailsPage2>} />
         </Routes>
 
         <div className="md:col-span-2">
