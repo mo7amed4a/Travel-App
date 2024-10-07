@@ -113,7 +113,7 @@ export default function BlogDetailsPage() {
         (post.status !== "SUCCESS" && <EmptyData text="Post not found." />)}
 
       {article?.image?.length > 0 && (
-        <SliderComponent slides={article?.image} cover={false} />
+        <SliderComponent slides={article?.image} />
       )}
       <h1 className="text-3xl font-bold">{title}</h1>
       <p className="mt-2 text-gray-700">{description}</p>
