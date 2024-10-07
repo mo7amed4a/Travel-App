@@ -7,6 +7,7 @@ import { blogContent } from "../../../public/data/blog";
 export default function BlogDetailsPage() {
   return (
           <div className="md:col-span-4 p-4">
+            wemfkefkwefklnwefklnwefknwefklnwefklnwefklnwefklwefnklwefnklwn
             {/* <figure className="w-full bg-blue-500">
               <a href="#">
                 <img
