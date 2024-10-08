@@ -48,7 +48,6 @@ export default function App() {
           </BrowserRouter>
         </UserContextProvider>
       </Flowbite>
->>>>>>> 34a2f4d630f5ff4ed5bab11ef0fa1d1d26ca5f82
     </>
   );
 }
