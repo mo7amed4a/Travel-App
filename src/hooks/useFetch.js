@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Axios } from "../lib/api/Axios";
+import toast from "react-hot-toast";
 
 export default function useFetch(url, query) {
   const [data, setData] = useState([]);
@@ -13,10 +14,8 @@ export default function useFetch(url, query) {
       setLoading(true);
       setError(null);
       try {
-        const { data } = await Axios.get(`${url}`);
-        console.log(data);
-        
-        setData(data);
+        const res = await Axios.get(`${url}`);
+        setData(res.data);
       } catch (err) {
         console.log(`route : ${url}, error : ${err}`);
         setError("An error occurred while fetching data.");

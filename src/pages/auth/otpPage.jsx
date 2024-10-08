@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Axios, baseURL } from '../../lib/api/Axios';
+import toast from 'react-hot-toast';
 
 export default function OtpPage() {
   let navigate = useNavigate();
@@ -12,23 +13,19 @@ export default function OtpPage() {
     otp: Yup.number().required('Otp is required'),
   });
 
-  // Function to send OTP verification request
   async function Otp(values) {
     try {
-      // Make sure the OTP is sent as a number
       const payload = { otp: parseInt(values.otp, 10) };
-
       const response = await Axios.post(`/auth/verify-otp`, payload);
-      console.log(response.data);
-
       if (response.data.message === "success") {
-        // Redirect to another page if OTP is verified
-        navigate("/auth/reset-password"); // Example redirection, change based on your flow
+        navigate("/auth/reset-password");
+        toast.success(response?.data?.message);
       } else {
         console.error('OTP verification failed:', response.data.message);
       }
     } catch (error) {
-      console.error('Error during OTP verification:', error.response?.data || error.message);
+      const err = ('Error during OTP verification:', error?.response?.data?.message || error?.message);
+      toast.error(err);
     }
   }
 

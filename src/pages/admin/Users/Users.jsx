@@ -1,126 +1,165 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import TableBooking from "../../../components/dashboard/TableBooking";
+import { Button, Modal, TextInput } from "flowbite-react";
+import useFetch from "../../../hooks/useFetch";
+import { Axios } from "../../../lib/api/Axios";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import PaginationApp from "../../../components/pagination";
+import toast from "react-hot-toast";
 
-const users = [
-  {
-    id: 1,
-    name: "Kathy Brown",
-    phone: "+01 3214 6522",
-    email: "chadengle@dummy.com",
-    country: "Australia",
-    listings: "02",
-    avatar: "https://dummyimage.com/50x50"
-  },
-  {
-    id: 2,
-    name: "John Doe",
-    phone: "+01 1234 5678",
-    email: "johndoe@dummy.com",
-    country: "USA",
-    listings: "03",
-    avatar: "https://dummyimage.com/50x50"
-  }
-];
-
-const Users = () => {
+export default function Users() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
+  const [selectedFaq, setSelectedFaq] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Function to open modal and set user data
-  const handleEditClick = (user) => {
-    setSelectedUser(user);
+  const { data, loading, error, setReload } = useFetch(
+    `/posts?pageNumber=${currentPage}&POST_PER_PAGE=10`
+  );
+
+  const posts = data?.data?.posts;
+
+  const validationSchema = Yup.object({
+    title: Yup.string(),
+    description: Yup.string(),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+        try {
+            const res = await Axios.patch(`/posts/${selectedFaq._id}`, {
+              title: values.title,
+              description: values.description,
+            });
+            setReload((prev) => !prev);
+            setIsModalOpen(false);
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+        }
+    },
+  });
+
+  const handleEditClick = (post) => {
+    setSelectedFaq(post);
     setIsModalOpen(true);
   };
 
-  // Function to close modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedUser(null);
+  const handleDeleteClick = (post) => {
+    setSelectedFaq(post);
+    setIsModalOpenDelete(true);
+  };
+
+  const deleteHandel = async () => {
+    try {
+        const res = await Axios.delete(`/posts/${selectedFaq._id}`);
+        console.log(res.data.message);
+        setReload((prev) => !prev);
+        setIsModalOpenDelete(false);
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6 w-full">
-      <div className="container mx-auto bg-white rounded-lg shadow-lg">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-2xl font-semibold text-gray-800">USER DETAILS</h2>
-          <p className="text-gray-500">Airport Hotels The Right Way To Start A Short Break Holiday</p>
-        </div>
+    posts && (
+      <div className="w-full">
+        <TableBooking
+          title={"Users"}
+          values={posts}
+          Buttons={(post) => (
+            <>
+              <Button onClick={() => handleEditClick(post)}>Edit</Button>
+              <Button color={"failure"} onClick={() => handleDeleteClick(post)}>
+                Delete
+              </Button>
+            </>
+          )}
+          description={"Users List"}
+          className="w-full"
+        />
+        <PaginationApp
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={data?.totalPages || 1}
+        />
 
-        {/* Responsive table container */}
-        <div className="overflow-x-auto w-full">
-          <table className="min-w-full bg-white table-auto">
-            <thead className="bg-gray-100 border-b">
-              <tr>
-                <th className="text-left py-3 px-4 font-medium text-gray-600">User</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-600">Name</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-600">Phone</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-600">Email</th>
-                <th className="text-left py-3 px-4 font-medium text-gray-600">Country</th>
-                <th className="text-center py-3 px-4 font-medium text-gray-600">Listings</th>
-                <th className="text-center py-3 px-4 font-medium text-gray-600">View</th>
-                <th className="text-center py-3 px-4 font-medium text-gray-600">Edit</th>
-                <th className="text-center py-3 px-4 font-medium text-gray-600">Delete</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-700">
-              {users?.map((user) => (
-                <tr key={user.id} className="border-b hover:bg-gray-100">
-                  <td className="py-3 px-4">
-                    <div className="flex items-center">
-                      <img className="w-10 h-10 rounded-full" src={user.avatar} alt="Avatar" />
-                    </div>
-                  </td>
-                  <td className="py-3 px-4">{user.name}</td>
-                  <td className="py-3 px-4">{user.phone}</td>
-                  <td className="py-3 px-4">{user.email}</td>
-                  <td className="py-3 px-4">{user.country}</td>
-                  <td className="py-3 px-4 text-center">
-                    <span className="bg-blue-500 text-white text-sm py-1 px-3 rounded-full">{user.listings}</span>
-                  </td>
-                  <td className="py-3 px-4 text-center">
-                    <button className="bg-green-500 text-white w-8 h-8 flex items-center justify-center rounded-full">
-                      👁️
-                    </button>
-                  </td>
-                  <td className="py-3 px-4 text-center">
-                    <button 
-                      className="bg-green-500 text-white w-8 h-8 flex items-center justify-center rounded-full"
-                      onClick={() => handleEditClick(user)}
-                    >
-                      ✏️
-                    </button>
-                  </td>
-                  <td className="py-3 px-4 text-center">
-                    <button className="bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-full">
-                      🗑️
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {selectedFaq && (
+          <Modal show={isModalOpen} onClose={() => setIsModalOpen((e) => !e)}>
+            <Modal.Header>Edit post</Modal.Header>
+            <Modal.Body className="space-y-4">
+              <div className="my-2 space-y-1">
+                <p>
+                  <span className="font-bold">Title:</span> {selectedFaq.title}
+                </p>
+              </div>
+              <TextInput
+                type="text"
+                name="title"
+                placeholder="Enter title here"
+                onChange={formik.handleChange}
+                value={formik.values.title}
+                className={`${
+                  formik.errors.title &&
+                  formik.touched.title &&
+                  "ring-2 rounded-lg ring-red-500"
+                }`}
+              />
+              {formik.touched.title && formik.errors.title ? (
+                <div className="text-red-500 text-sm pt-1">
+                  {formik.errors.title}
+                </div>
+              ) : null}
+              <TextInput
+                type="text"
+                name="description"
+                placeholder="Enter description here"
+                onChange={formik.handleChange}
+                value={formik.values.description}
+                className={`${
+                  formik.errors.description &&
+                  formik.touched.description &&
+                  "ring-2 rounded-lg ring-red-500"
+                }`}
+              />
+              {formik.touched.description && formik.errors.description ? (
+                <div className="text-red-500 text-sm pt-1">
+                  {formik.errors.description}
+                </div>
+              ) : null}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={formik.handleSubmit}>Save</Button>
+              <Button color="failure" onClick={() => setIsModalOpen((e) => !e)}>
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        )}
 
-        {/* Modal */}
-        {isModalOpen && selectedUser && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
-              <h3 className="text-xl font-semibold mb-4">Edit User</h3>
-              <p><strong>Name:</strong> {selectedUser.name}</p>
-              <p><strong>Phone:</strong> {selectedUser.phone}</p>
-              <p><strong>Email:</strong> {selectedUser.email}</p>
-              <p><strong>Country:</strong> {selectedUser.country}</p>
-              <button
-                className="mt-4 bg-red-500 text-white px-4 py-2 rounded-full"
-                onClick={closeModal}
-              >
-                Close
-              </button>
-            </div>
-          </div>
+        {selectedFaq && (
+          <Modal
+            show={isModalOpenDelete}
+            onClose={() => setIsModalOpenDelete((e) => !e)}
+          >
+            <Modal.Header>Delete post</Modal.Header>
+            <Modal.Body>Do you want delete this post?</Modal.Body>
+            <Modal.Footer>
+              <Button color="failure" onClick={deleteHandel}>
+                Delete
+              </Button>
+              <Button onClick={() => setIsModalOpenDelete((e) => !e)}>
+                Cancel
+              </Button>
+            </Modal.Footer>
+          </Modal>
         )}
       </div>
-    </div>
+    )
   );
-};
-
-export default Users;
+}

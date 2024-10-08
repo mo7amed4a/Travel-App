@@ -6,6 +6,7 @@ import { Axios } from "../../../lib/api/Axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import PaginationApp from "../../../components/pagination";
+import toast from "react-hot-toast";
 
 export default function BlogsDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,12 +32,16 @@ export default function BlogsDashboard() {
     },
     validationSchema,
     onSubmit: async (values) => {
-      const res = await Axios.patch(`/posts/${selectedFaq._id}`, {
-        title: values.title,
-        description: values.description,
-      });
-      setReload((prev) => !prev);
-      setIsModalOpen(false);
+        try {
+            const res = await Axios.patch(`/posts/${selectedFaq._id}`, {
+              title: values.title,
+              description: values.description,
+            });
+            setReload((prev) => !prev);
+            setIsModalOpen(false);
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+        }
     },
   });
 
@@ -51,10 +56,14 @@ export default function BlogsDashboard() {
   };
 
   const deleteHandel = async () => {
-    const res = await Axios.delete(`/posts/${selectedFaq._id}`);
-    console.log(res.data.message);
-    setReload((prev) => !prev);
-    setIsModalOpenDelete(false);
+    try {
+        const res = await Axios.delete(`/posts/${selectedFaq._id}`);
+        console.log(res.data.message);
+        setReload((prev) => !prev);
+        setIsModalOpenDelete(false);
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
   };
 
   return (

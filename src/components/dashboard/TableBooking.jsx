@@ -2,6 +2,7 @@ import { Avatar, Badge, Checkbox, Table, Modal, Button } from "flowbite-react";
 import React, { useState } from "react";
 import { baseURL } from "../../lib/api/Axios";
 import { deepSortObjectKeys } from "../../utils/sort";
+import { formatISODate } from "../../utils/formatDate";
 
 export default function TableBooking({
   title,
@@ -60,7 +61,7 @@ export default function TableBooking({
     setIsModalOpen(false);
     setModalData({});
   };
-  
+
   const sortedData = deepSortObjectKeys(values);
 
   return (
@@ -76,6 +77,7 @@ export default function TableBooking({
               .filter((key) => key !== "__v")
               .filter((key) => key !== "id")
               .filter((key) => key !== "_id")
+              .filter((key) => key !== "updatedAt")
               .map((key, index) => (
                 <Table.HeadCell key={index}>{key}</Table.HeadCell>
               ))}
@@ -89,7 +91,7 @@ export default function TableBooking({
                   .filter(([key]) => key !== "__v")
                   .filter(([key]) => key !== "id")
                   .filter(([key]) => key !== "_id")
-                  // .filter(([key]) => key !== "description")
+                  .filter(([key]) => key !== "updatedAt")
                   .map(([key, value], index) => (
                     <Table.Cell key={index}>
                       {key === "select" && value === true ? (
@@ -109,14 +111,21 @@ export default function TableBooking({
                         <p className="text-sm line-clamp-1 w-24">{value}</p>
                       ) : (typeof value === "object" && value !== null) ||
                         key === "description" ? (
-                        <Button size={"xs"} className="text-xs" onClick={() => openModal(value, key)}>
+                        <Button
+                          size={"xs"}
+                          color={"primary"}
+                          className="text-xs"
+                          onClick={() => openModal(value, key)}
+                        >
                           Show
                         </Button>
                       ) : key === "isPin" ? (
                         <span>{value ? "True .." : "False .."}</span>
-                        // <span>{"True"}</span>
-                      ) : 
-                      <span>{value}</span>}
+                      ) : key === "createdAt" ? (
+                        <span>{formatISODate(value)}</span>
+                      ) : (
+                        <span>{value}</span>
+                      )}
                     </Table.Cell>
                   ))}
                 {Buttons && (
@@ -130,8 +139,8 @@ export default function TableBooking({
         </Table>
       </div>
 
-      <Modal show={isModalOpen} onClose={closeModal}>
-        <Modal.Header>{modalDataKey} Details</Modal.Header>
+      <Modal dismissible show={isModalOpen} onClose={closeModal}>
+        <Modal.Header className="uppercase">{modalDataKey} details</Modal.Header>
         <Modal.Body>
           <Table striped={true}>
             <Table.Body>
@@ -142,15 +151,33 @@ export default function TableBooking({
               ) : (
                 Object.entries(modalData).map(([key, value], index) => (
                   <Table.Row key={index}>
-                    <Table.Cell className="font-medium">
+                    <Table.Cell className="text-primary font-bold">
                       {isNaN(key) ? key : parseInt(key) + 1}
                     </Table.Cell>
                     <Table.Cell>
-                      {typeof value === "object" ? (
-                        <img src={baseURL + value?.url} className="w-24 h-24" />
-                      ) : (
-                        value
-                      )}
+                      <div className="divide-y-2 space-y-2">
+                        {key === "programItem" &&
+                          value.map((item, index) => (
+                            <div className="flex flex-col">
+                              <p>
+                                <span className="font-bold text-primary">Day: </span>
+                                <span>{item.day}</span>
+                              </p>
+                              <p>
+                                <span className="font-bold text-primary">Description: </span>
+                                <span>{item.description}</span>
+                              </p>
+                            </div>
+                          ))}
+                      </div>
+                      {typeof value === "object"
+                        ? key != "programItem" && (
+                            <img
+                              src={baseURL + value?.url}
+                              className="w-24 h-24"
+                            />
+                          )
+                        : value}
                     </Table.Cell>
                   </Table.Row>
                 ))

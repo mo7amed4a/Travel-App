@@ -1,18 +1,14 @@
 import { useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import DashoardPage from "../pages/admin/Dashoard";
-import LoginPage from "../pages/auth/login";
-import ForgotPasswordPage from "../pages/auth/ForgotPassword";
 import NavbarAdmin from "../components/dashboard/Header/NavbarAdmin";
 import SidenavAdmin from "../components/dashboard/Header/SidenavAdmin";
 import UsersPage from "../pages/admin/Users/Users";
 import { Footer } from "flowbite-react";
 import BlogsDashboard from "../pages/admin/blogs/blogs";
-import PackegeEdit from "../pages/admin/packege/packege-edit";
 import PackegeAdd from "../pages/admin/packege/packege-add";
 import PackageDashboard from "../pages/admin/packege/packege";
 import BlogsAdd from "../pages/admin/blogs/blogs-add";
-// import BlogsEdit from "../pages/admin/blogs/blogs-edit";
 import Allfaqs from "../pages/admin/Faq/Allfaqs";
 import Answer from "../pages/admin/Faq/Answer";
 import ImagesPage from "../pages/admin/images/ImagesPage";
@@ -35,7 +31,6 @@ export default function DashoardLayout() {
             <Route path="/" element={<DashoardPage />} />
             <Route path="/packages" element={<PackageDashboard />} />
             <Route path="/new-package" element={<PackegeAdd />} />
-            <Route path="/packages/:id" element={<PackegeEdit />} />
             <Route path="/Answer" element={<Answer></Answer>} />
             <Route path="/blogs" element={<BlogsDashboard />} />
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />
