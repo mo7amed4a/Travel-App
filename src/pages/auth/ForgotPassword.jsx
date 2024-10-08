@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import {  useNavigate } from 'react-router-dom';
 import { Axios, baseURL } from "../../lib/api/Axios";
+import toast from "react-hot-toast";
 
 export default function ForgotPasswordPage() {
   let navigate= useNavigate()
@@ -16,16 +17,13 @@ export default function ForgotPasswordPage() {
   async function forgetpassword(values) {
     try {
       const response = await Axios.post(`/auth/forget-password`, values);
-      console.log(response.data);
-   
       if (response.data.status === "success") {
-   
-        
         navigate("/auth/otp");
       }
+      toast.success(response?.data?.message);
     } catch (error) {
-      console.error('Error during login:', error);
-
+      const err = (error?.response?.data?.message || error?.message);
+      toast.error(err);
     }
   }
 

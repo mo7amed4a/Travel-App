@@ -4,15 +4,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { UserContext } from "../../components/Context/Usercontext";
 import { Axios, baseURL } from '../../lib/api/Axios';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
   let { setAuthorization, setUserdata } = useContext(UserContext);
   let navigate = useNavigate();
 
-  // حالة لتتبع الأخطاء
   const [errorMessage, setErrorMessage] = useState('');
 
-  // تعريف مخطط التحقق باستخدام Yup
   const validationSchema = Yup.object({
     email: Yup.string()
       .email('Invalid email address')
@@ -22,7 +21,6 @@ export default function LoginPage() {
       .min(6, "Password must be at least 6 characters"),
   });
 
-  // وظيفة تسجيل الدخول
   async function login(values) {
     try {
       const response = await Axios.post(`/auth/login`, values);
@@ -31,12 +29,14 @@ export default function LoginPage() {
         localStorage.setItem("Authorization", response.data.token);
         setUserdata(response.data.data.user);
         setAuthorization(response.data.token);
-        navigate("/"); 
+        navigate("/");
+        toast.success("Login successful");
       } else {
         setErrorMessage(response.data.message || "Login failed. Please try again.");
       }
     } catch (error) {
       const errorMsg = error.response ? error.response.data.message : "An unexpected error occurred.";
+      toast.error(errorMsg);
       setErrorMessage(errorMsg);
     }
   }
@@ -66,7 +66,6 @@ export default function LoginPage() {
             </a>
           </h1>
 
-          {/* رسالة الخطأ */}
           {errorMessage && (
             <p className="text-red-500 text-center">{errorMessage}</p>
           )}

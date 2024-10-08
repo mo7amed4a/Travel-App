@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Axios, baseURL } from '../../lib/api/Axios';
+import toast from 'react-hot-toast';
 export default function SignUpPage() {
 let navigate=useNavigate()
 
@@ -40,17 +41,15 @@ let navigate=useNavigate()
     onSubmit: async (values) => {
         try {
           const response = await Axios.post(`/auth/register`, values);
-          console.log(response.data);
-      
-        
           if (response.data.status === "SUCCESS") {
             navigate("/auth/login");
+            toast.success(response?.data?.message);
           } else {
-       
-            console.error('Registration failed:', response.data.message || 'Unknown error');
+            toast.error(response?.data?.message);
           }
         } catch (error) {
-          console.error('Error during registration:', error.response ? error.response.data : error);
+          const err = (error?.response?.data?.message || error?.message);
+          toast.error(err);
         }
       },
       

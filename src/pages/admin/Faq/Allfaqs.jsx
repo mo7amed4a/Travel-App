@@ -3,9 +3,10 @@ import TableBooking from "../../../components/dashboard/TableBooking";
 import { Button, Modal, TextInput } from "flowbite-react";
 import useFetch from "../../../hooks/useFetch";
 import { Axios } from "../../../lib/api/Axios";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 import { useFormik } from "formik";
 import PaginationApp from "../../../components/pagination";
+import toast from "react-hot-toast";
 
 export default function Answer() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,28 +14,34 @@ export default function Answer() {
   const [selectedFaq, setSelectedFaq] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, loading, error , setReload } = useFetch(`/faq?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`);
-  
-  const faqs = data?.data?.faqs
+  const { data, loading, error, setReload } = useFetch(
+    `/faq?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
+  );
+
+  const faqs = data?.data?.faqs;
 
   const validationSchema = Yup.object({
-    answer: Yup.string().required('Answer is required for edit'),
+    answer: Yup.string().required("Answer is required for edit"),
   });
 
   const formik = useFormik({
     initialValues: {
-      answer: '',
+      answer: "",
     },
     validationSchema,
     onSubmit: async (values) => {
-      const res = await Axios.patch(`/faq/${selectedFaq._id}`, {
-        answer: values.answer
-      })
-      setReload((prev) => !prev);
-      setIsModalOpen(false);
+      try {
+        const res = await Axios.patch(`/faq/${selectedFaq._id}`, {
+          answer: values.answer,
+        });
+        setReload((prev) => !prev);
+        setIsModalOpen(false);
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+      
     },
   });
-
 
   const handleEditClick = (faq) => {
     setSelectedFaq(faq);
@@ -46,12 +53,15 @@ export default function Answer() {
     setIsModalOpenDelete(true);
   };
 
-
   const deleteHandel = async () => {
-    const res = await Axios.delete(`/faq/${selectedFaq._id}`)
-    console.log(res.data.message);
-    setReload((prev) => !prev);
-    setIsModalOpenDelete(false);
+    try {
+      const res = await Axios.delete(`/faq/${selectedFaq._id}`);
+      console.log(res.data.message);
+      setReload((prev) => !prev);
+      setIsModalOpenDelete(false);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -71,17 +81,25 @@ export default function Answer() {
           description={"Faqs List"}
           className="w-full"
         />
-        <PaginationApp currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalPages={3}/>
+        <PaginationApp
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPages={3}
+        />
 
         {selectedFaq && (
           <Modal show={isModalOpen} onClose={() => setIsModalOpen((e) => !e)}>
             <Modal.Header>Edit FAQ</Modal.Header>
             <Modal.Body>
               <div className="my-2 space-y-1">
-                <p><span className="font-bold">Question:</span> {selectedFaq.question}</p>
-                <p><span className="font-bold">Answer:</span> {selectedFaq.answer}</p>
+                <p>
+                  <span className="font-bold">Question:</span>{" "}
+                  {selectedFaq.question}
+                </p>
+                <p>
+                  <span className="font-bold">Answer:</span>{" "}
+                  {selectedFaq.answer}
+                </p>
               </div>
               <TextInput
                 type="text"
@@ -89,10 +107,16 @@ export default function Answer() {
                 placeholder="Enter your FAQ question here"
                 onChange={formik.handleChange}
                 value={formik.values.answer}
-                className={`${formik.errors.answer && formik.touched.answer && 'ring-2 rounded-lg ring-red-500'}`}
+                className={`${
+                  formik.errors.answer &&
+                  formik.touched.answer &&
+                  "ring-2 rounded-lg ring-red-500"
+                }`}
               />
               {formik.touched.answer && formik.errors.answer ? (
-                <div className="text-red-500 text-sm pt-1">{formik.errors.answer}</div>
+                <div className="text-red-500 text-sm pt-1">
+                  {formik.errors.answer}
+                </div>
               ) : null}
             </Modal.Body>
             <Modal.Footer>

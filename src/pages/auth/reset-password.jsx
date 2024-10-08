@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Axios, baseURL } from '../../lib/api/Axios';
+import toast from 'react-hot-toast';
 export default function ResetPasswordPage() {
   let navigate = useNavigate();
 
@@ -29,15 +30,15 @@ export default function ResetPasswordPage() {
           password: values.password,
           confirmPassword: values.confirmPassword,
         });
-        console.log(response.data);
-
         if (response.data.status === "success") {
           navigate("/auth/login");
+          toast.success(response?.data?.message);
         } else {
-          console.error('Password reset failed:', response.data.message || 'Unknown error');
+          toast.error(response?.data?.message);
         }
       } catch (error) {
-        console.error('Error during password reset:', error.response ? error.response.data : error);
+        const err = (error?.response?.data?.message || error?.message);
+        toast.error(err);
       }
     },
   });

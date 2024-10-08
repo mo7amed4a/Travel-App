@@ -47,12 +47,6 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                   packages
                 </Sidebar.Item>
                 <Sidebar.Item
-                  as={Link} to="/admin/packages/1" 
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  Edit package
-                </Sidebar.Item>
-                <Sidebar.Item
                 as={Link} to="/admin/new-package" 
                   className="side-link hover:bg-gray-300/20"
                 >
