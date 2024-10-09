@@ -140,7 +140,9 @@ export default function TableBooking({
       </div>
 
       <Modal dismissible show={isModalOpen} onClose={closeModal}>
-        <Modal.Header className="uppercase">{modalDataKey} details</Modal.Header>
+        <Modal.Header className="uppercase">
+          {modalDataKey} details
+        </Modal.Header>
         <Modal.Body>
           <Table striped={true}>
             <Table.Body>
@@ -160,24 +162,36 @@ export default function TableBooking({
                           value.map((item, index) => (
                             <div className="flex flex-col">
                               <p>
-                                <span className="font-bold text-primary">Day: </span>
+                                <span className="font-bold text-primary">
+                                  Day:{" "}
+                                </span>
                                 <span>{item.day}</span>
                               </p>
                               <p>
-                                <span className="font-bold text-primary">Description: </span>
+                                <span className="font-bold text-primary">
+                                  Description:{" "}
+                                </span>
                                 <span>{item.description}</span>
                               </p>
                             </div>
                           ))}
                       </div>
-                      {typeof value === "object"
-                        ? key != "programItem" && (
-                            <img
-                              src={baseURL + value?.url}
-                              className="w-24 h-24"
-                            />
-                          )
-                        : value}
+                      {typeof value === "object" ? (
+                        key != "programItem" && (
+                          <img
+                            src={baseURL + value?.url}
+                            className="w-24 h-24"
+                          />
+                        )
+                      ) : modalDataKey === "user" ? (
+                        key === "isAdmin" ? (
+                          <span>{value ? "Admin" : "User"}</span>
+                        ) : (
+                          value
+                        )
+                      ) : (
+                        value
+                      )}
                     </Table.Cell>
                   </Table.Row>
                 ))
