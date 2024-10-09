@@ -1,8 +1,7 @@
 import React from "react";
 import { TabForPackageDetail } from "../../components/TabForPackageDetail";
-import { MdOutlineStarBorder } from "react-icons/md";
-import { MdOutlineStar } from "react-icons/md";
-import { Checkbox, Datepicker, Label } from "flowbite-react";
+import { MdOutlineStarBorder, MdOutlineStar } from "react-icons/md";
+import { Checkbox, Label } from "flowbite-react";
 import SubHeader from "../../components/Sub-Header";
 import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
@@ -10,11 +9,52 @@ import EmptyData from "../../components/global/empty";
 import ErrorComponent from "../../components/global/Error";
 import Loading from "../../components/global/Loading";
 import SliderComponent from "../../components/SliderComponent";
+import { Axios } from '../../lib/api/Axios'; // تأكد من استيراد Axios بشكل صحيح
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 export default function PackagesDetailsPage() {
-  const id = useParams().id;
+  const {id} = useParams(); // الحصول على ID الحزمة
   const { data, loading, error } = useFetch(`/package/${id}`);
   const item = data?.data?.package;
+
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .required("Full Name is required")
+      .min(2, "Full Name must be at least 2 characters"),
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Email is required"),
+    number: Yup.string()
+      .required("Number is required"),
+    date: Yup.date()
+      .required("Date is required")
+      .nullable()
+      .min(new Date(), "Date must be in the future"),
+    message: Yup.string(),
+    packageId: Yup.string().required("Package ID is required"),
+    options: Yup.array().of(Yup.string()).required("At least one option is required"),
+  });
+
+  async function booking(values) {
+    console.log("Booking values:", values); 
+    try {
+      const res = await Axios.post(`/bookings`, values); 
+      console.log("Booking response:", res); 
+    } catch (error) {
+      console.error("Error booking:", error.response ? error.response.data : error); 
+    }
+  }
+
+  const initialValues = {
+    name: "",
+    email: "",
+    number: "",
+    message: "",
+    date: null,
+    packageId: id, 
+    options: [], 
+  };
 
   return (
     <div className="space-y-10">
@@ -28,7 +68,6 @@ export default function PackagesDetailsPage() {
                 {item.title}
               </h1>
               <figure className="w-full bg-blue-500 relative">
-                {/* <img className="w-full" src="/images/img27.jpg" alt="" /> */}
                 {item.image.length > 0 && (
                   <SliderComponent slides={item.image} />
                 )}
@@ -56,7 +95,6 @@ export default function PackagesDetailsPage() {
           <div className="md:col-span-2 space-y-10">
             <div className="bg-primary py-5 flex flex-col justify-center items-center space-y-3 text-white">
               <h3>
-                {/* TODO */}
                 <span className="text-2xl font-bold">$50</span> / per person
               </h3>
               <span className="flex text-xl items-center">
@@ -67,135 +105,150 @@ export default function PackagesDetailsPage() {
                 <MdOutlineStarBorder />
               </span>
             </div>
+
             <div className="bg-gray-100 p-4 space-y-4">
               <div className="bg-secondary text-center p-5 text-white text-xl font-semibold">
                 Booking
               </div>
-              <form className="space-y-4">
-                <input
-                  type="text"
-                  className="w-full p-2 border-gray-300"
-                  placeholder="Full Name"
-                />
-                <input
-                  type="email"
-                  className="w-full p-2 border-gray-300"
-                  placeholder="Email"
-                />
-                <input
-                  type="number"
-                  className="w-full p-2 border-gray-300"
-                  placeholder="Number"
-                />
-                <Datepicker />
-                <p>Add Options</p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id="tourguide"
-                      className="p-2.5 sm:text-base checked:bg-primary focus:ring-primary"
-                      defaultChecked
-                    />
-                    <Label htmlFor="tourguide" className="flex">
-                      Tour guide
-                    </Label>
-                  </div>
 
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id="insurance"
-                      className="p-2.5 sm:text-base checked:bg-primary focus:ring-primary"
-                      defaultChecked
-                    />
-                    <Label htmlFor="insurance" className="flex">
-                      Insurance
-                    </Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id="dinner"
-                      className="p-2.5 sm:text-base checked:bg-primary focus:ring-primary"
-                      defaultChecked
-                    />
-                    <Label htmlFor="dinner" className="flex">
-                      Dinner
-                    </Label>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Checkbox
-                      id="bikerent"
-                      className="p-2.5 sm:text-base checked:bg-primary focus:ring-primary"
-                      defaultChecked
-                    />
-                    <Label htmlFor="bikerent" className="flex">
-                      Bike rent
-                    </Label>
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="px-4 py-3 bg-primary text-white font-bold"
-                >
-                  Book Now
-                </button>
-              </form>
+              <Formik
+  initialValues={initialValues}
+  validationSchema={validationSchema}
+  onSubmit={booking}
+>
+  {({ setFieldValue, values }) => (
+    <Form className="space-y-4">
+      <div>
+        <Field
+          type="text"
+          name="name"
+          className="w-full p-2 border-gray-300"
+          placeholder="Full Name"
+        />
+        <ErrorMessage
+          name="name"
+          component="div"
+          className="text-red-500"
+        />
+      </div>
+      <div>
+        <Field
+          type="email"
+          name="email"
+          className="w-full p-2 border-gray-300"
+          placeholder="Email"
+        />
+        <ErrorMessage
+          name="email"
+          component="div"
+          className="text-red-500"
+        />
+      </div>
+      <div>
+        <Field
+          type="text"
+          name="number"
+          className="w-full p-2 border-gray-300"
+          placeholder="Number"
+        />
+        <ErrorMessage
+          name="number"
+          component="div"
+          className="text-red-500"
+        />
+      </div>
+      <div>
+        <Field
+          type="date"
+          name="date"
+          className="w-full p-2 border-gray-300"
+        />
+        <ErrorMessage
+          name="date"
+          component="div"
+          className="text-red-500"
+        />
+      </div>
+      <div>
+        <Field
+          as="textarea"
+          name="message"
+          className="w-full p-2 border-gray-300"
+          placeholder="Enter your message"
+        />
+      </div>
+
+      <p>Add Options</p>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex items-center gap-2">
+          <Field
+            type="checkbox"
+            name="options"
+            value="tour guide"
+            onChange={() => {
+              const newValue = values.options.includes("tour guide")
+                ? values.options.filter((option) => option !== "tour guide")
+                : [...values.options, "tour guide"];
+              setFieldValue("options", newValue);
+            }}
+          />
+          <Label htmlFor="tourguide" className="flex">
+            Tour guide
+          </Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Field
+            type="checkbox"
+            name="options"
+            value="meal"
+            onChange={() => {
+              const newValue = values.options.includes("meal")
+                ? values.options.filter((option) => option !== "meal")
+                : [...values.options, "meal"];
+              setFieldValue("options", newValue);
+            }}
+          />
+          <Label htmlFor="meal" className="flex">
+            Meal
+          </Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Field
+            type="checkbox"
+            name="options"
+            value="transport"
+            onChange={() => {
+              const newValue = values.options.includes("transport")
+                ? values.options.filter((option) => option !== "transport")
+                : [...values.options, "transport"];
+              setFieldValue("options", newValue);
+            }}
+          />
+          <Label htmlFor="transport" className="flex">
+            Transport
+          </Label>
+        </div>
+      </div> 
+
+      <button
+        type="submit"
+        className="w-full bg-blue-500 text-white py-2 rounded"
+      >
+        Book Now
+      </button>
+    </Form>
+  )}
+</Formik>
+
             </div>
-            <section className="flex flex-col justify-center text-center items-center space-y-4 bg-gray-100 p-4">
-              <h3 className="flex items-center text-sm font-bold text-primary">
-                <span className="w-10 h-0.5 inline-block bg-primary me-2"></span>
-                TRAVEL TIPS
-              </h3>
-              <h1 className="text-lg font-bold">
-                NEED TRAVEL RELATED TIPS & INFORMATION
-              </h1>
-              <p className="text-gray-800 text-center text-sm">
-                Mollit voluptatem perspiciatis convallis elementum corporis quo
-                veritatis aliquid blandit, blandit torquent, odit placeat.
-                Adipiscing repudiandae eius cursus? Nostrum magnis maxime curae
-                placeat.
-              </p>
-              <button className="px-4 py-3 bg-primary text-white font-semibold">
-                GET A QUOTE
-              </button>
-            </section>
-            <section className="flex flex-col justify-center text-center items-center space-y-4 bg-blue-950 text-white p-4">
-              <h3 className="flex items-center text-sm font-bold text-primary">
-                <span className="w-10 h-0.5 inline-block bg-primary me-2"></span>
-                MORE PACKAGES
-              </h3>
-              <h1 className="text-lg font-bold">OTHER TRAVEL PACKAGES</h1>
-              <p className="text-center text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-                tellus, luctus.
-              </p>
-              <ul className="flex flex-col items-start gap-y-3 w-full [&>li]:border-b [&>li]:pb-2">
-                <li className="flex gap-x-2 items-center w-full">
-                  <i className="far fa-arrow-alt-circle-right"></i>
-                  <span>Vacation packages</span>
-                </li>
-                <li className="flex gap-x-2 items-center w-full">
-                  <i className="far fa-arrow-alt-circle-right"></i>
-                  <span> Honeymoon packages</span>
-                </li>
-                <li className="flex gap-x-2 items-center w-full">
-                  <i className="far fa-arrow-alt-circle-right"></i>
-                  <span>New year packagess</span>
-                </li>
-                <li className="flex gap-x-2 items-center w-full">
-                  <i className="far fa-arrow-alt-circle-right"></i>
-                  <span>Weekend packages</span>
-                </li>
-              </ul>
-              <button className="px-4 py-3 bg-primary text-white font-semibold">
-                GET A QUOTE
-              </button>
-            </section>
           </div>
         </section>
       ) : (
-        !loading && <EmptyData text="No package found" />
+        error && <ErrorComponent error={error} />
       )}
-      {error && !data && <ErrorComponent error={error} />}
+      {data?.data?.package === null && !loading && !error && (
+        <EmptyData text="Package not found" />
+      )}
     </div>
   );
 }
