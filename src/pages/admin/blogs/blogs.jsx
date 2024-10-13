@@ -39,6 +39,7 @@ export default function BlogsDashboard() {
             });
             setReload((prev) => !prev);
             setIsModalOpen(false);
+            toast.success("Blog edited successfully");
         } catch (error) {
             toast.error(error?.response?.data?.message);
         }
@@ -70,7 +71,7 @@ export default function BlogsDashboard() {
     posts && (
       <div className="w-full">
         <TableBooking
-          title={"Posts"}
+          title={"Blogs"}
           values={posts}
           Buttons={(post) => (
             <>
@@ -80,7 +81,7 @@ export default function BlogsDashboard() {
               </Button>
             </>
           )}
-          description={"Posts List"}
+          description={"Blogs List"}
           className="w-full"
         />
         <PaginationApp
@@ -91,7 +92,7 @@ export default function BlogsDashboard() {
 
         {selectedFaq && (
           <Modal show={isModalOpen} onClose={() => setIsModalOpen((e) => !e)}>
-            <Modal.Header>Edit post</Modal.Header>
+            <Modal.Header>Edit blog</Modal.Header>
             <Modal.Body className="space-y-4">
               <div className="my-2 space-y-1">
                 <p>
@@ -147,8 +148,8 @@ export default function BlogsDashboard() {
             show={isModalOpenDelete}
             onClose={() => setIsModalOpenDelete((e) => !e)}
           >
-            <Modal.Header>Delete post</Modal.Header>
-            <Modal.Body>Do you want delete this post?</Modal.Body>
+            <Modal.Header>Delete blog</Modal.Header>
+            <Modal.Body>Do you want delete this blog?</Modal.Body>
             <Modal.Footer>
               <Button color="failure" onClick={deleteHandel}>
                 Delete

@@ -1,24 +1,36 @@
 export const deepSortObjectKeys = (obj) => {
     if (Array.isArray(obj)) {
-        return obj.map(deepSortObjectKeys); 
+        return obj.map(deepSortObjectKeys);
     } else if (obj !== null && typeof obj === 'object') {
         const sortedObj = {};
+
+        // Prioritize lastName and firstName
+        if (obj.profilePhoto) {
+            sortedObj.profilePhoto = obj.profilePhoto;
+        }
+        if (obj.firstName) {
+            sortedObj.firstName = obj.firstName;
+        }
+        if (obj.lastName) {
+            sortedObj.lastName = obj.lastName;
+        }
         if (obj.title) {
             sortedObj.title = obj.title;
         }
+
+        // Sort the rest of the keys, except lastName, firstName, title, createdAt, and updatedAt
         Object.keys(obj)
-            .filter(key => key !== 'title' && key !== 'createdAt' && key !== 'updatedAt')
+            .filter(key => key !== 'profilePhoto' && key !== 'firstName' && key !== 'lastName' && key !== 'title' && key !== 'createdAt' && key !== 'updatedAt')
             .sort((a, b) => b.localeCompare(a))
             .forEach(key => {
                 sortedObj[key] = deepSortObjectKeys(obj[key]);
             });
-        
+
+        // Add createdAt and updatedAt at the end if they exist
         if (obj.createdAt) {
             sortedObj.createdAt = obj.createdAt;
         }
-        if (obj.updatedAt) {
-            sortedObj.updatedAt = obj.updatedAt;
-        }
+        
 
         return sortedObj;
     }

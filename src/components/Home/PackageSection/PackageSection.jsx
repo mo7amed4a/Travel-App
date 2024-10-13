@@ -3,6 +3,7 @@ import img from "../../../images/wall122.jpg";
 import { Link } from "react-router-dom";
 import { Axios } from "../../../lib/api/Axios";
 import PackageComponent from "../../packageComponent";
+import { Button } from "flowbite-react";
 
 export default function PackageSection() {
   const [packages, setPackages] = useState([]);
@@ -13,8 +14,8 @@ export default function PackageSection() {
           data: { packages: data },
         },
       } = await Axios.get("/package?PACKAGE_PER_PAGE=1");
-      setPackages(data.slice(0, 3));
-      // console.log(data);
+      setPackages(data.filter(e => e.isPin === true));
+      console.log(data);
     };
     fetchData();
   }, []);
@@ -46,9 +47,9 @@ export default function PackageSection() {
       </div>
 
       <div className="flex justify-center text-center my-6 mx-4">
-        <button className="bg-red-500 text-white px-4 py-3 text-base md:text-lg lg:text-xl rounded-md w-full sm:w-auto">
+        <Button as={Link} to={'/packages'} className="rounded-none" color={"primary"} size={'xl'}>
           VIEW ALL PACKAGES
-        </button>
+        </Button>
       </div>
     </div>
   );

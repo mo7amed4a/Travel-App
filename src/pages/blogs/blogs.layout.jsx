@@ -5,6 +5,9 @@ import BlogDetailsPage from "./BlogsDetails";
 import BlogDetailsPage2 from "./BlogsDetails2";
 
 import SubHeader from "../../components/Sub-Header";
+import useFetch from "../../hooks/useFetch";
+import { formatISODate } from "../../utils/formatDate";
+import { baseURL } from "../../lib/api/Axios";
 
 export default function BLogsLayout() {
   const location = useLocation();
@@ -12,6 +15,10 @@ export default function BLogsLayout() {
   if (location.pathname.includes('/blogs/1')) {
     title = 'Blog Details'
   }
+  const { data, loading, error } = useFetch(
+    "/posts?pageNumber=1&POST_PER_PAGE=3"
+  );
+
   return (
     <section>
       <SubHeader title={title} />
@@ -25,7 +32,8 @@ export default function BLogsLayout() {
         <div className="md:col-span-2">
           <div className="w-full px-7">
             <div className="">
-              <aside className="">
+              {/* TODO : هات بينات المستخدم بتاع البلوج هاتها بالبروبس */}
+              {data?.data?.posts && <aside className="">
                 <h3 className="text-lg text-center font-semibold mb-4 px-1 border-2 border-secondary text-secondary">
                   ABOUT AUTHOR
                 </h3>
@@ -108,42 +116,42 @@ export default function BLogsLayout() {
                     </div>
                   </div>
                 </div>
-              </aside>
+              </aside>}
               <aside className="widget widget_latest_post widget-post-thumb mt-8">
                 <h3 className="widget-title text-xl font-semibold mb-4">
                   Recent Post
                 </h3>
                 <ul className="flex flex-col gap-y-2 divide-y-2">
-                  {[0, 1, 2].map((post, index) => (
+                  {data?.data?.posts && data?.data?.posts?.map((post, index) => (
                     <li className="flex gap-x-2 h-20 pt-2" key={index}>
                       <figure className="">
-                        <Link to={`/blogs/1`}>
-                          <img
-                            src="/images/img17.jpg"
-                            alt=""
-                            className="rounded-lg w-32 h-full"
-                          />
+                        <Link to={`/blogs/${post._id}`}>
+                           <img
+                              className="rounded-lg w-32 h-full"
+                              src={baseURL + post.image[0].url || "/images/default.jpg"} // صورة افتراضية إذا لم تكن الصورة موجودة
+                              alt={post.title || "Default Title"}
+                            />
                         </Link>
                       </figure>
                       <div className="flex flex-col justify-around w-full">
                         <h5 className="">
-                          <Link to={`/blogs/1`}
+                          <Link to={`/blogs/${post._id}`}
                             className="text-gray-800 hover:text-secondary"
                           >
-                            Someday I’m going to be free and travel {post}
+                            {post.title}
                           </Link>
                         </h5>
                         <div className="flex justify-between text-xs text-gray-500 mt-1">
                           <span className="posted-on">
                             <span className="hover:text-secondary">
-                              August 17, 2021
+                              {formatISODate(post.createdAt)}
                             </span>
                           </span>
-                          <span className="comments-link ml-2">
+                          {/* <span className="comments-link ml-2">
                             <span className="hover:text-secondary">
                               No Comments
                             </span>
-                          </span>
+                          </span> */}
                         </div>
                       </div>
                     </li>

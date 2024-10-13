@@ -24,7 +24,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
         />
       </Navbar.Brand>
       <div className="flex md:order-2">
-        <div>
+        {/* <div>
           <button className="block md:hidden  hover:text-secondary/90 py-2 px-4 hover:bg-gray-300/50 h-full">
             <i className="fa fa-search text-2xl" aria-hidden="true"></i>
           </button>
@@ -32,7 +32,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
             className="md:block hidden h-full border-2 m-0.5 px-2"
             placeholder="Search Now"
           />
-        </div>
+        </div> */}
         <Dropdown
           arrowIcon={false}
           inline

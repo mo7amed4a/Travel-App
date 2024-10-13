@@ -9,9 +9,8 @@ import BlogsDashboard from "../pages/admin/blogs/blogs";
 import PackegeAdd from "../pages/admin/packege/packege-add";
 import PackageDashboard from "../pages/admin/packege/packege";
 import BlogsAdd from "../pages/admin/blogs/blogs-add";
-import Allfaqs from "../pages/admin/Faq/Allfaqs";
+import FaqsPages from "../pages/admin/Faq/Allfaqs";
 import Answer from "../pages/admin/Faq/Answer";
-import ImagesPage from "../pages/admin/images/ImagesPage";
 import BookingDashboard from "../pages/admin/booking/booking";
 
 export default function DashoardLayout() {
@@ -35,8 +34,7 @@ export default function DashoardLayout() {
             <Route path="/blogs" element={<BlogsDashboard />} />
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />
             <Route path="/users" element={<UsersPage />} />
-            <Route path="/blog-images" element={<ImagesPage />} />
-            <Route path="/Allfaqs" element={<Allfaqs/>} />
+            <Route path="/faqs" element={<FaqsPages/>} />
             <Route path="/bookings" element={<BookingDashboard/>} />
             <Route path="/*" element={<DashoardPage />} />
           </Routes>

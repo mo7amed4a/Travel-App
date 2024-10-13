@@ -15,10 +15,10 @@ export default function Users() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, loading, error, setReload } = useFetch(
-    `/posts?pageNumber=${currentPage}&POST_PER_PAGE=10`
+    `/user?page=${currentPage}&limit=10`
   );
 
-  const posts = data?.data?.posts;
+  const posts = data?.data;
 
   const validationSchema = Yup.object({
     title: Yup.string(),
@@ -86,7 +86,7 @@ export default function Users() {
         <PaginationApp
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalPages={data?.totalPages || 1}
+          totalPages={data?.totalPages}
         />
 
         {selectedFaq && (

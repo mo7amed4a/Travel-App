@@ -15,10 +15,10 @@ export default function Answer() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, loading, error, setReload } = useFetch(
-    `/faq?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
+    `/faq/not-answer?page=${currentPage}&limit=10`
   );
 
-  const faqs = data?.data?.faqs?.filter((faq) => faq.answer === "no");
+  const faqs = data?.data?.faqs
 
   const validationSchema = Yup.object({
     answer: Yup.string().required("Answer is required"),
@@ -36,6 +36,7 @@ export default function Answer() {
         });
         setReload((prev) => !prev);
         setIsModalOpen(false);
+        toast.success("Answer added successfully");
       } catch (error) {
         toast.error(error?.response?.data?.message);
       }
@@ -58,6 +59,7 @@ export default function Answer() {
     console.log(res.data.message);
     setReload((prev) => !prev);
     setIsModalOpenDelete(false);
+    toast.success("FAQ deleted successfully");
   } catch (error) {
     toast.error(error?.response?.data?.message);
 }
@@ -83,7 +85,7 @@ export default function Answer() {
         <PaginationApp
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalPages={3}
+          totalPages={data?.totalPages || 1}
         />
 
         {selectedFaq && (

@@ -15,7 +15,7 @@ export default function Answer() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, loading, error, setReload } = useFetch(
-    `/faq?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
+    `/faq/answer?page=${currentPage}&limit=10`
   );
 
   const faqs = data?.data?.faqs;
@@ -36,6 +36,7 @@ export default function Answer() {
         });
         setReload((prev) => !prev);
         setIsModalOpen(false);
+        toast.success("Answer edited successfully");
       } catch (error) {
         toast.error(error?.response?.data?.message);
     }
@@ -59,6 +60,7 @@ export default function Answer() {
       console.log(res.data.message);
       setReload((prev) => !prev);
       setIsModalOpenDelete(false);
+      toast.success("FAQ deleted successfully");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -84,7 +86,7 @@ export default function Answer() {
         <PaginationApp
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalPages={3}
+          totalPages={data?.data?.totalPages || 1}
         />
 
         {selectedFaq && (

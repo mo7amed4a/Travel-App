@@ -4,15 +4,18 @@ import useFetch from "../../hooks/useFetch";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { Axios } from "../../lib/api/Axios";
+import PaginationApp from "../../components/pagination";
+import toast from "react-hot-toast";
 
 export default function FaqPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, loading, error } = useFetch(
-    `/faq?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
+    `/faq/answer?page=${currentPage}&limit=10`
   );
 
   const faqs = data?.data?.faqs;
+  
 
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -32,12 +35,18 @@ export default function FaqPage() {
     },
     validationSchema,
     onSubmit: async (values) => {
-      const res = await Axios.post(`/faq`, {
-        name: values.name,
-        email: values.email,
-        number: values.number,
-        question: values.question,
-      });
+      try {
+        const res = await Axios.post(`/faq`, {
+          name: values.name,
+          email: values.email,
+          number: values.number,
+          question: values.question,
+        });
+        toast.success(res?.data?.message);
+      }
+      catch (error) {
+        toast.error(error?.response?.data?.message);
+      }
     },
   });
 
@@ -83,6 +92,13 @@ export default function FaqPage() {
                 ))}
             </Accordion>
           </section>
+          <div className="flex justify-center">
+            <PaginationApp
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={data?.totalPages}
+            />
+          </div>
         </div>
         <div className="w-full h-auto md:col-span-2">
           <div className="p-8 bg-secondary text-white text-center space-y-5">
@@ -170,7 +186,7 @@ export default function FaqPage() {
           </div>
         </div>
       </section>
-      <section className="container-app w-full grid grid-cols-1 md:grid-cols-5 gap-10 my-20">
+      {/* <section className="container-app w-full grid grid-cols-1 md:grid-cols-5 gap-10 my-20">
         <div className="w-full h-auto md:col-span-2">
           <div className="relative md:h-[30rem] text-white">
             <img src="/images/img27.jpg" className="h-full w-full" alt="" />
@@ -210,7 +226,7 @@ export default function FaqPage() {
             </Accordion>
           </section>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

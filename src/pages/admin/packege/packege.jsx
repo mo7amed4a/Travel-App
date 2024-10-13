@@ -16,7 +16,7 @@ export default function PackageDashboard() {
   const [programDays, setProgramDays] = useState([]);
 
   const { data, loading, error, setReload } = useFetch(
-    `/package?pageNumber=${currentPage}&PACKAGE_PER_PAGE=2`
+    `/package?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
   );
 
   const packages = data?.data?.packages;
@@ -51,9 +51,7 @@ export default function PackageDashboard() {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        // إضافة الأيام الجديدة في البرنامج
         values.program.programItem = programDays;
-
         const res = await Axios.patch(`/package/${selectedFaq._id}`, {
           title: values.title,
           description: values.description,
@@ -61,6 +59,7 @@ export default function PackageDashboard() {
         });
         setReload((prev) => !prev);
         setIsModalOpen(false);
+        toast.success("Package edited successfully");
       } catch (error) {
         toast.error(error?.response?.data?.message);
       }
@@ -93,27 +92,41 @@ export default function PackageDashboard() {
       console.log(res.data.message);
       setReload((prev) => !prev);
       setIsModalOpenDelete(false);
+      setSelectedFaq(null);
+      toast.success("Package deleted successfully");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
   };
 
-  // Function to handle adding new day input
+  const togglePinPackageClick = (package_) => {
+    setSelectedFaq(package_);
+    selectedFaq && togglePinPackageHandel();
+  };
+
+  const togglePinPackageHandel = async () => {
+    try {
+      const res = await Axios.get(`/package/toggle-pin/${selectedFaq._id}`);
+      setReload((prev) => !prev);
+      setSelectedFaq(null);
+      toast.success("Package pin status toggled successfully");
+    } catch (error) {
+      console.log(error);
+      
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   const addDayInput = () => {
     const newDay = { day: programDays.length + 1, description: "" };
     const updatedDays = [...programDays, newDay];
-
-    // تحديث الـ state وكذلك القيم الخاصة بـ formik
     setProgramDays(updatedDays);
     formik.setFieldValue("program.programItem", updatedDays);
   };
 
-  // Function to handle changes in the description of each day
   const handleDayDescriptionChange = (index, value) => {
     const updatedDays = [...programDays];
     updatedDays[index].description = value;
-
-    // تحديث الـ state وكذلك القيم الخاصة بـ formik
     setProgramDays(updatedDays);
     formik.setFieldValue("program.programItem", updatedDays);
   };
@@ -126,6 +139,8 @@ export default function PackageDashboard() {
           values={packages}
           Buttons={(package_) => (
             <>
+             {package_.isPin === true ? <Button onClick={() => togglePinPackageClick(package_)} color={"success"}>Pinned</Button> :
+              <Button onClick={() => togglePinPackageClick(package_)} >unpin</Button>}
               <Button onClick={() => handleEditClick(package_)}>Edit</Button>
               <Button
                 color={"failure"}
