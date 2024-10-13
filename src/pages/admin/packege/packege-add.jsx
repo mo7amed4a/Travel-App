@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card } from 'flowbite-react';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup';
-import { toast } from 'react-toastify'; // إضافة مكتبة إشعارات
+import toast from "react-hot-toast";
 
 // إعداد Axios
 const Authorization = localStorage.getItem('Authorization');
