@@ -1,322 +1,245 @@
+import axios from "axios";
 import React, { useState } from 'react';
-import { Card, FileInput, Label } from "flowbite-react";
+import { Card } from 'flowbite-react';
+import { Formik, Form, Field, FieldArray } from 'formik';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify'; // إضافة مكتبة إشعارات
 
-export default function PackegeEdit() {
-  const [days, setDays] = useState(0);
-  const [nights, setNights] = useState(0);
-  const [tripDuration, setTripDuration] = useState(0);
+// إعداد Axios
+const Authorization = localStorage.getItem('Authorization');
+export const baseURL = "http://194.164.77.238:8003";
 
-  const handleDaysChange = (e) => {
-    const daysValue = parseInt(e.target.value, 10) || 0;
-    setDays(daysValue);
-    setTripDuration(daysValue + nights);
-  };
+export const Axios = axios.create({
+    baseURL: baseURL + '/api/v1',
+    headers: {
+        Authorization: `Bearer ${Authorization}`
 
-  const handleNightsChange = (e) => {
-    const nightsValue = parseInt(e.target.value, 10) || 0;
-    setNights(nightsValue);
-    setTripDuration(days + nightsValue);
-  };
+    }
+  });
+  
+          // Schema للتحقق من صحة النموذج 
+const PackageSchema = Yup.object().shape({
+    title: Yup.string().required('Title is required'),
+    description: Yup.string().required('Description is required'),
+    duration: Yup.object().shape({
+      day: Yup.number().required('Day is required').min(1),
+      nights: Yup.number().required('Nights are required').min(1),
+    }),
+    location: Yup.string().required('Location is required'),
+    category: Yup.string().required('Category is required'),
+    program: Yup.object().shape({
+        title: Yup.string().required('Program title is required'),
+        description: Yup.string().required('Program description is required'),
+        programItem: Yup.array().of(
+            Yup.object().shape({
+                day: Yup.number().required('Day is required').min(1),
+                description: Yup.string().required('Program item description is required'),
+            })
+        ).required('At least one program item is required'),
+    }),
+});
 
-  return (
-    <div className="container mx-auto mb-5">
-      <div className="grid  lg:grid-cols-6 gap-6 mt-9">
-        <section className="w-full lg:col-span-4">
-          <Card className=" ">
-            <form className="flex flex-col">
-              <div className="flex flex-col mb-4">
-                <label htmlFor="Title" className="mb-2">
-                  Title
-                </label>
-                <input
-                  type="text"
-                  id="Title"
-                  className="p-2 border border-gray-300 rounded"
-                />
-              </div>
+export default function PackageEdit() {
+    const [days, setDays] = useState(1); // تغيير القيمة الافتراضية
+    const [nights, setNights] = useState(1); // تغيير القيمة الافتراضية
 
-              <div className="flex flex-col mb-4">
-                <label htmlFor="Description" className="mb-2">
-                  Description
-                </label>
-                <textarea
-                  id="Description"
-                  rows="5"
-                  className="p-2 border border-gray-300 rounded resize-none"
-                  style={{ width: "100%", height: "200px" }}
-                />
-              </div>
+    const handleDaysChange = (e) => {
+        const daysValue = parseInt(e.target.value, 10) || 0;
+        setDays(daysValue);
+    };
 
-              <div className="flex flex-col mb-4">
-                <label htmlFor="TripDuration" className=" font-bold">
-                  Trip Duration
-                </label>
-              </div>
+    const handleNightsChange = (e) => {
+        const nightsValue = parseInt(e.target.value, 10) || 0;
+        setNights(nightsValue);
+    };
 
-              <div className="flex space-x-4 mb-4">
-                <div className="flex flex-col w-1/2">
-                  <label htmlFor="Days" className="mb-2">
-                    Days
-                  </label>
-                  <input
-                    type="text"
-                    id="Days"
-                    value={days}
-                    onChange={handleDaysChange}
-                    className="p-2 border border-gray-300 rounded"
-                  />
-                </div>
+    async function addPackage(values, { resetForm }) {
+        const packageData = {
+            title: values.title,
+            description: values.description,
+            duration: {
+                day: days, 
+                nights: nights,
+            },
+            location: values.location,
+            category: values.category,
+            program: {
+                title: values.program.title,
+                description: values.program.description,
+                programItem: values.program.programItem,
+            },
+        };
 
-                <div className="flex flex-col w-1/2">
-                  <label htmlFor="Nights" className="mb-2">
-                    Nights
-                  </label>
-                  <input
-                    type="text"
-                    id="Nights"
-                    value={nights}
-                    onChange={handleNightsChange}
-                    className="p-2 border border-gray-300 rounded"
-                  />
-                </div>
-              </div>
+        try {
+            const response = await Axios.post('/package', packageData);
+            console.log(response.data);
+            toast.success("Package created successfully!");
+            resetForm();
+        } catch (error) {
+            console.error(error.response ? error.response.data : error.message);
+            toast.error("Failed to create package.");
+        }
+    }
 
-              <div className="flex justify-around gap-x-4">
-                <div className="flex flex-col mb-4 w-full">
-                  <label htmlFor="Category" className="mb-2">
-                    Category
-                  </label>
-                  <select
-                    id="Category"
-                    className="p-2 border border-gray-300 rounded"
-                  >
-                    <option value="0">Adult</option>
-                    <option value="1">Child</option>
-                    <option value="2">Couple</option>
-                  </select>
-                </div>
+    return (
+        <div className="container mx-auto mb-5">
+            <Formik
+                initialValues={{
+                    title: '',
+                    description: '',
+                    duration: {
+                      day: 1,
+                      nights: 1,
+                    },
+                    location: '',
+                    category: '',
+                    program: {
+                        title: '',
+                        description: '',
+                        programItem: [{ day: 1, description: '' }],
+                    },
+                }}
+                validationSchema={PackageSchema}
+                onSubmit={addPackage}
+            >
+                {({ values, errors, touched }) => (
+                    <Form className="grid lg:grid-cols-6 gap-6 mt-9">
+                        <section className="w-full lg:col-span-4">
+                            <Card>
+                                <div className="flex flex-col">
+                                    {/* الحقول المختلفة */}
+                                    <div className="flex flex-col mb-4">
+                                        <label htmlFor="title" className="mb-2">Title</label>
+                                        <Field type="text" name="title" className="p-2 border border-gray-300 rounded" />
+                                        {errors.title && touched.title && (
+                                            <div className="text-red-500 text-sm">{errors.title}</div>
+                                        )}
+                                    </div>
 
-                <div className="flex flex-col w-1/3">
-                  <label htmlFor="Location" className="mb-2">
-                    Location
-                  </label>
-                  <input
-                    type="text"
-                    id="Location"
-                    className="p-2 border border-gray-300 rounded"
-                  />
-                </div>
-              </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label htmlFor="description" className="mb-2">Description</label>
+                                        <Field as="textarea" name="description" rows="5" className="p-2 border border-gray-300 rounded resize-none" />
+                                        {errors.description && touched.description && (
+                                            <div className="text-red-500 text-sm">{errors.description}</div>
+                                        )}
+                                    </div>
 
-              <div className="flex flex-col ">
-                <label htmlFor="TripDuration" className="mb-2 font-bold">
-                  Program
-                </label>
-              </div>
+                                    <div className="flex space-x-4 mb-4">
+                                        <div className="flex flex-col w-1/2">
+                                            <label htmlFor="days" className="mb-2">Days</label>
+                                            <Field type="number" name="days" value={days} onChange={handleDaysChange} className="p-2 border border-gray-300 rounded" />
+                                            {errors.days && touched.days && (
+                                                <div className="text-red-500 text-sm">{errors.days}</div>
+                                            )}
+                                        </div>
 
-              <div className="flex space-x-4 mb-4">
-                <div className="flex flex-col w-1/2">
-                  <label htmlFor="day" className="mb-2">
-                    Days
-                  </label>
-                  <input
-                    type="text"
-                    id="day"
-                    className="p-2 border border-gray-300 rounded"
-                  />
-                </div>
+                                        <div className="flex flex-col w-1/2">
+                                            <label htmlFor="nights" className="mb-2">Nights</label>
+                                            <Field type="number" name="nights" value={nights} onChange={handleNightsChange} className="p-2 border border-gray-300 rounded" />
+                                            {errors.nights && touched.nights && (
+                                                <div className="text-red-500 text-sm">{errors.nights}</div>
+                                            )}
+                                        </div>
+                                    </div>
 
-                <div className="flex flex-col w-1/2">
-                  <label htmlFor="disribution" className="mb-2">
-                    Disribution
-                  </label>
-                  <input
-                    type="text"
-                    id="disribution"
-                    className="p-2 border border-gray-300 rounded"
-                  />
-                </div>
-              </div>
-            </form>
-          </Card>
+                                    <div className="flex flex-col mb-4">
+                                        <label htmlFor="location" className="mb-2">Location</label>
+                                        <Field type="text" name="location" className="p-2 border border-gray-300 rounded" />
+                                        {errors.location && touched.location && (
+                                            <div className="text-red-500 text-sm">{errors.location}</div>
+                                        )}
+                                    </div>
 
-          <div className="flex gap-2 mt-6">
-            <div className="w-1/2">
-              <div className="flex  items-center justify-center">
-                <Label
-                  htmlFor="dropzone-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                    <svg
-                      className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                      />
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <FileInput id="dropzone-file" className="hidden" />
-                </Label>
-              </div>
-            </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label htmlFor="category" className="mb-2">Category</label>
+                                        <Field type="text" name="category" className="p-2 border border-gray-300 rounded" />
+                                        {errors.category && touched.category && (
+                                            <div className="text-red-500 text-sm">{errors.category}</div>
+                                        )}
+                                    </div>
 
-            <div className="w-1/2">
-              <div className="flex  items-center justify-center">
-                <Label
-                  htmlFor="dropzone-file"
-                  className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-                >
-                  <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                    <svg
-                      className="mb-4 h-8 w-8 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                      />
-                    </svg>
-                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span className="font-semibold">Click to upload</span> or
-                      drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
-                  </div>
-                  <FileInput id="dropzone-file" className="hidden" />
-                </Label>
-              </div>
-            </div>
+                                    <div className="flex flex-col mb-4">
+                                        <label htmlFor="program.title" className="mb-2">Program Title</label>
+                                        <Field type="text" name="program.title" className="p-2 border border-gray-300 rounded" />
+                                        {errors.program?.title && touched.program?.title && (
+                                            <div className="text-red-500 text-sm">{errors.program.title}</div>
+                                        )}
+                                    </div>
+
+                                    <div className="flex flex-col mb-4">
+                                        <label htmlFor="program.description" className="mb-2">Program Description</label>
+                                        <Field as="textarea" name="program.description" rows="3" className="p-2 border border-gray-300 rounded resize-none" />
+                                        {errors.program?.description && touched.program?.description && (
+                                            <div className="text-red-500 text-sm">{errors.program.description}</div>
+                                        )}
+                                    </div>
+
+                                    <FieldArray
+                                        name="program.programItem"
+                                        render={(arrayHelpers) => (
+                                            <div>
+                                                <label className="mb-2">Program Items</label>
+                                                {values.program.programItem && values.program.programItem.length > 0 ? (
+                                                    values.program.programItem.map((item, index) => (
+                                                        <div key={index} className="flex space-x-4 mb-2">
+                                                            <div className="w-1/2">
+                                                                <Field
+                                                                    type="number"
+                                                                    name={`program.programItem.${index}.day`}
+                                                                    placeholder={`Day ${index + 1}`}
+                                                                    className="p-2 border border-gray-300 rounded"
+                                                                />
+                                                                {errors.program?.programItem?.[index]?.day && touched.program?.programItem?.[index]?.day && (
+                                                                    <div className="text-red-500 text-sm">
+                                                                        {errors.program.programItem[index].day}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+
+                                                            <div className="w-full">
+                                                                <Field
+                                                                    type="text"
+                                                                    name={`program.programItem.${index}.description`}
+                                                                    placeholder="Program description"
+                                                                    className="p-2 border border-gray-300 rounded"
+                                                                />
+                                                                {errors.program?.programItem?.[index]?.description && touched.program?.programItem?.[index]?.description && (
+                                                                    <div className="text-red-500 text-sm">
+                                                                        {errors.program.programItem[index].description}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => arrayHelpers.remove(index)}
+                                                                className="text-red-500 hover:text-red-700"
+                                                            >
+                                                                Remove
+                                                            </button>
+                                                        </div>
+                                                    ))
+                                                ) : null}
+
+                                                <button
+                                                    type="button"
+                                                      onClick={() => arrayHelpers.push({ day: 1, description: '' })}
+                                                      className="mt-2 text-blue-500 hover:text-blue-700"
+                                                  >
+                                                      Add Program Item
+                                                  </button>
+                                              </div>
+                                          )}
+                                      />
+  
+                                      <button type="submit" className="mt-4 bg-blue-500 text-white p-2 rounded">Submit</button>
+                                  </div>
+                              </Card>
+                          </section>
+                      </Form>
+                  )}
+              </Formik>
           </div>
-        </section>
-
-        <section className="w-full lg:col-span-2 flex flex-col ">
-          <section className="flex flex-col md:flex-row md:space-x-4">
-            <Card href="#" className="w-full mb-6">
-              <h3 className="font-bold">Publish</h3>
-              <div className="flex justify-between mb-2">
-                <button className="border border-gray-300 py-1 px-3 hover:bg-[#007bff] hover:text-white transition duration-300">
-                  Save Draft
-                </button>
-                <button className="border border-gray-300 py-1 px-3 hover:bg-[#007bff] hover:text-white transition duration-300">
-                  Preview
-                </button>
-              </div>
-
-              <div className="flex justify-between">
-                <p>
-                  <span className="font-bold">Status:</span> Draft
-                </p>
-                <span>Edit</span>
-              </div>
-              <div className="flex justify-between">
-                <p>
-                  <span className="font-bold">Visibility:</span> Public
-                </p>
-                <span>Edit</span>
-              </div>
-              <div className="flex justify-between">
-                <p>
-                  <span className="font-bold">Visibility:</span> Public
-                </p>
-                <span>Edit</span>
-              </div>
-
-              <div className="flex justify-end">
-                <button className="border border-gray-300 py-1 px-3 bg-[#007bff] text-white hover:bg-blue-600 transition duration-300">
-                  Preview
-                </button>
-              </div>
-            </Card>
-          </section>
-
-          
-          <Card
-            href="#"
-            className="border rounded-lg p-4 bg-white shadow-md w-full"
-          >
-            {/* Popular Checkbox */}
-            <div className="mb-4">
-              <h2 className="font-semibold text-lg mb-2">Popular</h2>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="use-popular"
-                  className="form-checkbox h-4 w-4"
-                />
-                <label htmlFor="use-popular">Use Popular</label>
-              </div>
-            </div>
-
-            {/* Keywords Input */}
-            <div className="mb-4">
-              <h2 className="font-semibold text-lg mb-2">Keywords</h2>
-              <input
-                type="text"
-                placeholder="Keywords"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              />
-            </div>
-
-            {/* Category Checkbox */}
-            <div className="mb-4">
-              <h2 className="font-semibold text-lg mb-2">Category</h2>
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="hotel"
-                  className="form-checkbox h-4 w-4"
-                />
-                <label htmlFor="hotel">Hotel</label>
-              </div>
-              <div className="flex items-center space-x-2 mt-2">
-                <input
-                  type="checkbox"
-                  id="walking"
-                  className="form-checkbox h-4 w-4"
-                />
-                <label htmlFor="walking">Walking</label>
-              </div>
-              <a href="#" className="text-blue-500 text-sm mt-2 inline-block">
-                Add category
-              </a>
-            </div>
-
-            {/* Add Image */}
-            <div className="mb-4">
-              <h2 className="font-semibold text-lg mb-2">Add Image</h2>
-              <div className="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
-                <button className="text-white bg-red-500 px-4 py-2 rounded-md">
-                  Upload an image
-                </button>
-              </div>
-            </div>
-          </Card>
-        </section>
-      </div>
-    </div>
-  );
-}
+      );
+  }
+  
