@@ -12,7 +12,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@uiw/react-markdown-editor": "^6.1.2",
     "axios": "^1.7.7",
     "flowbite-react": "^0.10.1",
     "formik": "^2.4.6",
@@ -21,6 +20,7 @@
     "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.26.2",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@tailwindcss/typography": "^0.5.15",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

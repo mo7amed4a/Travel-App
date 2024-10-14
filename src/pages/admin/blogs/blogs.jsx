@@ -4,9 +4,10 @@ import { Button, Modal, TextInput } from "flowbite-react";
 import useFetch from "../../../hooks/useFetch";
 import { Axios } from "../../../lib/api/Axios";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { Form, Formik } from "formik"; // استخدام Form و Formik فقط
 import PaginationApp from "../../../components/pagination";
 import toast from "react-hot-toast";
+import RichBlog from "./RichBlog";
 
 export default function BlogsDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,29 +22,8 @@ export default function BlogsDashboard() {
   const posts = data?.data?.posts;
 
   const validationSchema = Yup.object({
-    title: Yup.string(),
-    description: Yup.string(),
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-    },
-    validationSchema,
-    onSubmit: async (values) => {
-        try {
-            const res = await Axios.patch(`/posts/${selectedFaq._id}`, {
-              title: values.title,
-              description: values.description,
-            });
-            setReload((prev) => !prev);
-            setIsModalOpen(false);
-            toast.success("Blog edited successfully");
-        } catch (error) {
-            toast.error(error?.response?.data?.message);
-        }
-    },
+    title: Yup.string().required("Title is required"), // إضافة تحقق للعنوان
+    description: Yup.string().required("Description is required"), // إضافة تحقق للوصف
   });
 
   const handleEditClick = (post) => {
@@ -58,12 +38,13 @@ export default function BlogsDashboard() {
 
   const deleteHandel = async () => {
     try {
-        const res = await Axios.delete(`/posts/${selectedFaq._id}`);
-        console.log(res.data.message);
-        setReload((prev) => !prev);
-        setIsModalOpenDelete(false);
+      const res = await Axios.delete(`/posts/${selectedFaq._id}`);
+      console.log(res.data.message);
+      setReload((prev) => !prev);
+      setIsModalOpenDelete(false);
+      toast.success("Blog deleted successfully");
     } catch (error) {
-        toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
@@ -91,7 +72,7 @@ export default function BlogsDashboard() {
         />
 
         {selectedFaq && (
-          <Modal show={isModalOpen} onClose={() => setIsModalOpen((e) => !e)}>
+          <Modal size="6xl" show={isModalOpen} onClose={() => setIsModalOpen(false)}>
             <Modal.Header>Edit blog</Modal.Header>
             <Modal.Body className="space-y-4">
               <div className="my-2 space-y-1">
@@ -99,62 +80,76 @@ export default function BlogsDashboard() {
                   <span className="font-bold">Title:</span> {selectedFaq.title}
                 </p>
               </div>
-              <TextInput
-                type="text"
-                name="title"
-                placeholder="Enter title here"
-                onChange={formik.handleChange}
-                value={formik.values.title}
-                className={`${
-                  formik.errors.title &&
-                  formik.touched.title &&
-                  "ring-2 rounded-lg ring-red-500"
-                }`}
-              />
-              {formik.touched.title && formik.errors.title ? (
-                <div className="text-red-500 text-sm pt-1">
-                  {formik.errors.title}
-                </div>
-              ) : null}
-              <TextInput
-                type="text"
-                name="description"
-                placeholder="Enter description here"
-                onChange={formik.handleChange}
-                value={formik.values.description}
-                className={`${
-                  formik.errors.description &&
-                  formik.touched.description &&
-                  "ring-2 rounded-lg ring-red-500"
-                }`}
-              />
-              {formik.touched.description && formik.errors.description ? (
-                <div className="text-red-500 text-sm pt-1">
-                  {formik.errors.description}
-                </div>
-              ) : null}
+
+              <Formik
+                initialValues={{
+                  title: selectedFaq.title || "", // تعيين القيم من selectedFaq
+                  description: selectedFaq.description || "", // تعيين القيم من selectedFaq
+                }}
+                validationSchema={validationSchema}
+                onSubmit={async (values) => {
+                  console.log(values);
+                  
+                  try {
+                    const res = await Axios.patch(`/posts/${selectedFaq._id}`, {
+                      title: values.title,
+                      description: values.description,
+                    });
+                    setReload((prev) => !prev);
+                    setIsModalOpen(false);
+                    toast.success("Blog edited successfully");
+                  } catch (error) {
+                    toast.error(error?.response?.data?.message);
+                  }
+                }}
+              >
+                {({ setFieldValue, values, errors, touched }) => (
+                  <Form>
+                    <TextInput
+                      type="text"
+                      name="title"
+                      placeholder="Enter title here"
+                      onChange={(e) => setFieldValue("title", e.target.value)} // استخدام setFieldValue مباشرة
+                      value={values.title}
+                      className={`${
+                        errors.title && touched.title && "ring-2 rounded-lg ring-red-500"
+                      }`}
+                    />
+                    <div className="my-2"></div>
+                    <RichBlog
+                      setFieldValue={setFieldValue}
+                      description={values.description}
+                    />
+                    {touched.description && errors.description && (
+                      <div className="text-red-500 text-sm pt-1">
+                        {errors.description}
+                      </div>
+                    )}
+                    <Modal.Footer>
+                      <Button type="submit">Save</Button>
+                      <Button color="failure" onClick={() => setIsModalOpen(false)}>
+                        Cancel
+                      </Button>
+                    </Modal.Footer>
+                  </Form>
+                )}
+              </Formik>
             </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={formik.handleSubmit}>Save</Button>
-              <Button color="failure" onClick={() => setIsModalOpen((e) => !e)}>
-                Cancel
-              </Button>
-            </Modal.Footer>
           </Modal>
         )}
 
         {selectedFaq && (
           <Modal
             show={isModalOpenDelete}
-            onClose={() => setIsModalOpenDelete((e) => !e)}
+            onClose={() => setIsModalOpenDelete(false)}
           >
             <Modal.Header>Delete blog</Modal.Header>
-            <Modal.Body>Do you want delete this blog?</Modal.Body>
+            <Modal.Body>Do you want to delete this blog?</Modal.Body>
             <Modal.Footer>
               <Button color="failure" onClick={deleteHandel}>
                 Delete
               </Button>
-              <Button onClick={() => setIsModalOpenDelete((e) => !e)}>
+              <Button onClick={() => setIsModalOpenDelete(false)}>
                 Cancel
               </Button>
             </Modal.Footer>

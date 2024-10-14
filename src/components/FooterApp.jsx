@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 export default function FooterApp() {
   let { posts } = useContext(DataContext);
-
+  const { data, loading, error} = posts;
+  
   return (
     <Footer bgDark container className="rounded-none mt-10">
       <div className="w-full text-center container-app">
@@ -53,14 +54,13 @@ export default function FooterApp() {
               Latest post from blog 
             </p>
             <div className="space-y-4">
-              {posts?.slice(0, 3).map((post, index) => (
+              {data?.data?.posts?.slice(0, 3).map((post, index) => (
                 <Link to={`/blog/${post.id}`} key={index}>
                   <h1 className="text-sm font-semibold line-clamp-1">
                     {post.title}
                   </h1>
                   <p className="text-xs text-gray-400 flex gap-x-2 divide-x-2 divide-gray-600">
                     <span>{formatISODate(post.createdAt)}</span>{" "}
-                    {/* <span className="ps-2">No Comments</span> */}
                   </p>
                 </Link>
               ))}

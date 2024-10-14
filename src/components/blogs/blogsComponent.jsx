@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import { baseURL } from "../../lib/api/Axios";
 import SliderComponent from "../SliderComponent";
 import { formatISODate } from "../../utils/formatDate";
+import ViewBlog from "../../pages/admin/blogs/ViewBlog";
 
-export default function BlogComponentApp({ article }) {
-  console.log(article);
-  
+export default function BlogComponentApp({ article }) {  
   return (
     <article className="p-4 w-full">
       <figure className="w-full h-[290px] bg-gray-200">
@@ -39,9 +38,12 @@ export default function BlogComponentApp({ article }) {
             <span>{article.commentsCount || "No"} Comments</span>
           </span> */}
         </div>
-        <p className="text-gray-700">
+        <div className="h-8 overflow-hidden">
+          <ViewBlog html={article.description} />
+        </div>
+        {/* <p className="text-gray-700">
           {article.description || "No description available."}
-        </p>
+        </p> */}
         <Link
           to={`/blogs/${article._id}`}
           className="text-secondary font-semibold"

@@ -5,21 +5,16 @@ export let DataContext = createContext();
 
 export default function DataContextProvider({ children }) {
     // const storedToken = localStorage.getItem("Authorization");
-    const [posts, setPosts] = useState(null);
+    const [posts, setPosts] = useState({data: [], loading : false, error : null});
+    const [selectPost, setSelectPost] = useState(null);
     const [packagesData, setPackagesData] = useState(null);
-    let {
-        data: postsData,
-        loading: postsLoading,
-        error: postsError,
-      } = useFetch("/posts");
+    let resPosts = useFetch("/posts");
     useEffect(() => {
-        if (postsData) {
-            setPosts(postsData?.data?.posts);
-        }
-    }, [postsData]);
+        resPosts && setPosts(resPosts);
+    }, [resPosts.data]);
 
     return (
-        <DataContext.Provider value={{ posts, setPosts, packagesData, setPackagesData }}>
+        <DataContext.Provider value={{ posts, setPosts, packagesData, setPackagesData, selectPost, setSelectPost }}>
             {children}
         </DataContext.Provider>
     );

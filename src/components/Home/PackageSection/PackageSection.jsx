@@ -15,7 +15,6 @@ export default function PackageSection() {
         },
       } = await Axios.get("/package?PACKAGE_PER_PAGE=1");
       setPackages(data.filter(e => e.isPin === true));
-      console.log(data);
     };
     fetchData();
   }, []);

@@ -80,7 +80,7 @@
 
 //   );
 // }
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Badge } from "flowbite-react";
 import MarkdownEditor from "@uiw/react-markdown-editor";
@@ -89,9 +89,13 @@ import ErrorComponent from "../../components/global/Error";
 import EmptyData from "../../components/global/empty";
 import useFetch from "../../hooks/useFetch";
 import SliderComponent from "../../components/SliderComponent";
+import { DataContext } from "../../Context/dataContext";
+import ViewBlog from "../admin/blogs/ViewBlog";
 
 export default function BlogDetailsPage() {
   const { id } = useParams();
+  let { setSelectPost } = useContext(DataContext);
+
 
   const {
     data: post,
@@ -105,6 +109,11 @@ export default function BlogDetailsPage() {
   const description = post?.data?.post?.description || "No Description";
   const content = post?.data?.post?.content || "No Content Available";
 
+  useEffect(() => {
+    setSelectPost(post?.data?.post);
+  }, [post?.data?.post])
+  
+
   return (
     <div className="md:col-span-4 p-4">
       {loading && <Loading />}
@@ -115,9 +124,8 @@ export default function BlogDetailsPage() {
       {article?.image?.length > 0 && (
         <SliderComponent slides={article?.image} />
       )}
-      <h1 className="text-3xl font-bold">{title}</h1>
-      <p className="mt-2 text-gray-700">{description}</p>
-
+      <h1 className="text-3xl font-bold my-4">{title}</h1>
+      <ViewBlog html={description}/>
       <section className="space-y-4 mt-3">
         <div></div>
 

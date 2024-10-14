@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import BlogsPage from "./blogs";
 import BlogDetailsPage from "./BlogsDetails";
@@ -8,16 +8,27 @@ import SubHeader from "../../components/Sub-Header";
 import useFetch from "../../hooks/useFetch";
 import { formatISODate } from "../../utils/formatDate";
 import { baseURL } from "../../lib/api/Axios";
+import { DataContext } from "../../Context/dataContext";
+import { Avatar, Card } from "flowbite-react";
 
 export default function BLogsLayout() {
   const location = useLocation();
+  const [selectBlog, setSelectBlog] = useState(null);
+  
   let title = 'Archive'  
   if (location.pathname.includes('/blogs/1')) {
     title = 'Blog Details'
   }
-  const { data, loading, error } = useFetch(
-    "/posts?pageNumber=1&POST_PER_PAGE=3"
-  );
+
+  let { posts } = useContext(DataContext);
+  let { selectPost } = useContext(DataContext);
+
+  const { data, loading, error } = posts
+
+  useEffect(() => {
+    console.log(selectPost);
+  }, [selectPost])
+  
 
   return (
     <section>
@@ -33,12 +44,46 @@ export default function BLogsLayout() {
           <div className="w-full px-7">
             <div className="">
               {/* TODO : هات بينات المستخدم بتاع البلوج هاتها بالبروبس */}
-              {data?.data?.posts && <aside className="">
+              {selectPost && <aside className="">
                 <h3 className="text-lg text-center font-semibold mb-4 px-1 border-2 border-secondary text-secondary">
                   ABOUT AUTHOR
                 </h3>
                 <div className="widget-content text-center">
-                  <div className="profile">
+                <Card className="shadow-none border-none">
+                      <div className="flex items-center space-x-4">
+                        <Avatar
+                          img="https://via.placeholder.com/150" // يمكنك استبدال هذا الرابط بصورة حقيقية
+                          rounded={true}
+                          alt="User avatar"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <h5 className="text-xl font-bold leading-tight text-secondary">
+                            {selectPost.user.firstName}{" "}
+                            {selectPost.user.lastName}
+                          </h5>
+                          <p className="text-sm text-gray-500 truncate">
+                            {selectPost.user.email}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-4 space-y-2">
+                        {/* <p className="text-md">
+                          <strong>Role:</strong> {selectPost.user.role}{" "}
+                          {selectPost.user.isAdmin ? "(Admin)" : ""}
+                        </p> */}
+                        <p className="text-md">
+                          <strong className="text-secondary">Mobile:</strong> {selectPost.user.mobile}
+                        </p>
+                        <p className="text-md">
+                          <strong className="text-secondary">Phone:</strong> {selectPost.user.phone}
+                        </p>
+                        <p className="text-md">
+                          <strong className="text-secondary">Location:</strong> {selectPost.user.city},{" "}
+                          {selectPost.user.country}
+                        </p>
+                      </div>
+                    </Card>
+                  {/* <div className="profile">
                     <figure className="avatar mb-4">
                       <a href="#">
                         <img
@@ -55,7 +100,7 @@ export default function BLogsLayout() {
                             href="https://demo.bosathemes.com/bosa/photography/james-watson/"
                             className="text-gray-800 hover:text-gray-600"
                           >
-                            James Watson
+                            {selectPost?.user?.firstName + " " + selectPost?.user?.lastName}
                           </a>
                         </h3>
                       </div>
@@ -114,7 +159,7 @@ export default function BLogsLayout() {
                         </li>
                       </ul>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </aside>}
               <aside className="widget widget_latest_post widget-post-thumb mt-8">
@@ -122,7 +167,7 @@ export default function BLogsLayout() {
                   Recent Post
                 </h3>
                 <ul className="flex flex-col gap-y-2 divide-y-2">
-                  {data?.data?.posts && data?.data?.posts?.map((post, index) => (
+                  {data?.data?.posts && data?.data?.posts?.slice(0, 3).map((post, index) => (
                     <li className="flex gap-x-2 h-20 pt-2" key={index}>
                       <figure className="">
                         <Link to={`/blogs/${post._id}`}>

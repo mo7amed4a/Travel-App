@@ -35,7 +35,7 @@ export default function Resentpostes() {
       {!data && <EmptyData text="Post not found." />}
       {data?.data?.posts && (
         <div className="container-app grid grid-cols-1 md:grid-cols-3">
-          {data?.data?.posts.map((article, index) => <BlogComponentApp article={article} />)}
+          {data?.data?.posts.map((article, index) => <BlogComponentApp key={index} article={article} />)}
         </div>
       )}
     </div>

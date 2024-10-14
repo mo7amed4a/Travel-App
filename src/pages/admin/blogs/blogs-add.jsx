@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, FileInput, Label } from "flowbite-react";
-import MarkdownEditor from "@uiw/react-markdown-editor";
 import { Formik, Form, Field, FieldArray } from "formik";
-import { Axios, baseURL } from '../../../lib/api/Axios';
+import { Axios } from '../../../lib/api/Axios';
 import toast from "react-hot-toast";
+import RichBlog from "./RichBlog";
 
 const BlogsAdd = () => {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState([])
+
 
   const handleImageChange = (event) => {
     const files = Array.from(event.target.files);
@@ -30,8 +31,7 @@ const BlogsAdd = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("Response:", response.data);
-      resetForm();
+      // resetForm();
       setImages([]);
       toast.success("Blog added successfully");
     } catch (error) {
@@ -41,7 +41,7 @@ const BlogsAdd = () => {
       );
       toast.error(error?.response?.data?.message);
     } finally {
-      setSubmitting(false);
+      // setSubmitting(false);
     }
   };
   
@@ -67,11 +67,11 @@ const BlogsAdd = () => {
         />
       </div>
 
-      <div className="flex flex-col mb-4">
+      <div className="flex flex-col mb-4 ">
         <label htmlFor="description" className="mb-2">Description</label>
-        <MarkdownEditor
-          className="min-h-[40vh]"
-          onChange={(value) => setFieldValue("description", value)}
+        <RichBlog 
+          setFieldValue={setFieldValue} 
+          description={values.description} // تمرير القيمة
         />
       </div>
 
