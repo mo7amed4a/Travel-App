@@ -23,8 +23,8 @@ const RichBlog = ({ setFieldValue, description }) => {
   };
 
   return (
-    <div>
-      <ReactQuill
+    <div className='mb-6'>
+      <ReactQuill className='h-[30vh]'
         value={description} // استخدام القيمة من Formik
         onChange={handleChange}
         modules={modules}

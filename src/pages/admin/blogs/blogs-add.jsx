@@ -21,7 +21,7 @@ const BlogsAdd = () => {
     formData.append("description", values.description);
   
     // إضافة كل وسم كحقل منفصل بنفس المفتاح 'tags'
-    values.tags.forEach((tag) => formData.append("tags", tag));
+    values.tags.forEach((tag) => formData.append("tags[]", tag));
   
     images.forEach((image) => formData.append("images", image));
   

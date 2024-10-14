@@ -224,11 +224,11 @@ export default function PackageDashboard() {
                 <Button onClick={() => togglePinPackageClick(package_)}>Unpin</Button>
               )}
               <Button onClick={() => handleEditClick(package_)}>Edit</Button>
-              <Button onClick={() => handleEditImageClick(package_)}>Edit Image</Button>
-              <Button onClick={() => handleDeleteClick(package_)}>Delete</Button>
+              <Button onClick={() => handleEditImageClick(package_)}>Image</Button>
               <Button onClick={() => { setSelectedFaq(package_); setIsModalOpenMultiImages(true); }}>
-                Multi Images
-              </Button> {/* زر رفع صور متعددة */}
+                map
+              </Button> 
+              <Button color={'failure'} onClick={() => handleDeleteClick(package_)}>Delete</Button>
             </>
           )}
           description={"Packages List"}

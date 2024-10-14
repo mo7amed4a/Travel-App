@@ -201,7 +201,7 @@ export default function HeaderApp({ scrollPage }) {
                 <Navbar.Link as={Link} to="/packages">
                   Packages
                 </Navbar.Link>
-                <Navbar.Link as={Link} to="/packages/1">
+                <Navbar.Link as={Link} to="/packages/670cd455a05759e847a115bc">
                   Packages Details
                 </Navbar.Link>
               </ul>
@@ -211,7 +211,7 @@ export default function HeaderApp({ scrollPage }) {
                 <Navbar.Link as={Link} to="/blogs">
                   Blogs
                 </Navbar.Link>
-                <Navbar.Link as={Link} to="/blogs/1">
+                <Navbar.Link as={Link} to="/blogs/670d2820a05759e847a16339">
                   Blogs Details
                 </Navbar.Link>
               </ul>

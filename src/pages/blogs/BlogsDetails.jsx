@@ -83,7 +83,6 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Badge } from "flowbite-react";
-import MarkdownEditor from "@uiw/react-markdown-editor";
 import Loading from "../../components/global/Loading";
 import ErrorComponent from "../../components/global/Error";
 import EmptyData from "../../components/global/empty";
@@ -95,7 +94,6 @@ import ViewBlog from "../admin/blogs/ViewBlog";
 export default function BlogDetailsPage() {
   const { id } = useParams();
   let { setSelectPost } = useContext(DataContext);
-
 
   const {
     data: post,
@@ -111,8 +109,7 @@ export default function BlogDetailsPage() {
 
   useEffect(() => {
     setSelectPost(post?.data?.post);
-  }, [post?.data?.post])
-  
+  }, [post?.data?.post]);
 
   return (
     <div className="md:col-span-4 p-4">
@@ -125,7 +122,17 @@ export default function BlogDetailsPage() {
         <SliderComponent slides={article?.image} />
       )}
       <h1 className="text-3xl font-bold my-4">{title}</h1>
-      <ViewBlog html={description}/>
+      <ViewBlog html={description} />
+      <div className="mt-4">
+        <h4 className="font-bold">Tags:</h4>
+        <div className="flex gap-2 -mt-3">
+          {article?.tags?.map((tag, index) => (
+            <Badge key={index} color="blue" className="my-4">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+      </div>
       <section className="space-y-4 mt-3">
         <div></div>
 
