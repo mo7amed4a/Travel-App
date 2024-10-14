@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { UserContext } from "../../Context/Usercontext";
-import { Axios, baseURL } from '../../lib/api/Axios';
+import { Axios } from '../../lib/api/Axios';
 import toast from 'react-hot-toast';
+import { UserContext } from '../../Context/Usercontext';
 
 export default function LoginPage() {
   let { setAuthorization, setUserdata } = useContext(UserContext);

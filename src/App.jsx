@@ -1,4 +1,3 @@
-import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./layout/app.layout";
 import DashboardLayout from "./layout/dashboard.layout";
@@ -9,8 +8,8 @@ import ProtectedRouteAuthNotRequired from "./Protectroute/Protectroute-auth";
 import { Toaster } from "react-hot-toast";
 
 import { Flowbite } from "flowbite-react";
-import UserContextProvider, { UserContext } from "./Context/Usercontext";
 import DataContextProvider from "./Context/dataContext";
+import UserContextProvider from "./Context/Usercontext";
 
 export default function App() {
   const customTheme = {
@@ -20,20 +19,12 @@ export default function App() {
       },
     },
   };
-
-
-  // let { posts, setPosts } = useContext(UserContext);
-
-  useEffect(() => {
-    // setPosts("ijfnjiwfifbwifbhwi")
-  }, [])
-  
   return (
     <>
       <Flowbite theme={{ theme: customTheme }}>
         <Toaster position="top-center" reverseOrder={false} />
-        <DataContextProvider>
-          <UserContextProvider>
+        <UserContextProvider>
+          <DataContextProvider>
             {/* {posts}  */}
             <BrowserRouter>
               <Routes>
@@ -57,8 +48,8 @@ export default function App() {
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </BrowserRouter>
-          </UserContextProvider>
-        </DataContextProvider>
+          </DataContextProvider>
+        </UserContextProvider>
       </Flowbite>
     </>
   );

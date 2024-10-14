@@ -11,7 +11,7 @@ export default function UserContextProvider({ children }) {
     const [posts, setPosts] = useState(null);
 
     return (
-        <UserContext.Provider value={{ posts, setPosts }}>
+        <UserContext.Provider value={{ Authorization, setAuthorization, setUserdata, Userdata}}>
             {children}
         </UserContext.Provider>
     );

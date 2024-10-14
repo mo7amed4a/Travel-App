@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {  useNavigate } from 'react-router-dom';
-import { Axios, baseURL } from "../../lib/api/Axios";
+import { Axios } from "../../lib/api/Axios";
 import toast from "react-hot-toast";
 
 export default function ForgotPasswordPage() {
