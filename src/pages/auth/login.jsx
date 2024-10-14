@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { UserContext } from "../../components/Context/Usercontext";
+import { UserContext } from "../../Context/Usercontext";
 import { Axios, baseURL } from '../../lib/api/Axios';
 import toast from 'react-hot-toast';
 

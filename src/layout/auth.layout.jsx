@@ -6,7 +6,7 @@ import ResetPasswordPage from "../pages/auth/reset-password";
 import OtpPage from "../pages/auth/otpPage";
 
 export default function AuthLayout() {
-
+  
  
   return (
     <div>

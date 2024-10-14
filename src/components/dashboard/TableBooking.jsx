@@ -2,7 +2,7 @@ import { Avatar, Badge, Checkbox, Table, Modal, Button } from "flowbite-react";
 import React, { useState } from "react";
 import { baseURL } from "../../lib/api/Axios";
 import { deepSortObjectKeys } from "../../utils/sort";
-import { formatISODate } from "../../utils/formatDate";
+import { formatDate, formatISODate } from "../../utils/formatDate";
 import { deleteTypePackages } from "../../methods/typePackages";
 import { Link } from "react-router-dom";
 
@@ -360,7 +360,7 @@ export default function TableBooking({
                           />
                         )
                       ) : key === "date" ? (
-                        <span>{formatISODate(value)}</span>
+                        <span>{formatDate(value)}</span>
                       ) : key === "createdAt" ? (
                         <span>{formatISODate(value)}</span>
                       ) : (

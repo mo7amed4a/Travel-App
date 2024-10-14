@@ -8,9 +8,10 @@ export default function UserContextProvider({ children }) {
 
     const [Authorization, setAuthorization] = useState(storedToken || null);
     const [Userdata, setUserdata] = useState(JSON.parse(storedUserData || null));
+    const [posts, setPosts] = useState(null);
 
     return (
-        <UserContext.Provider value={{ Authorization, setAuthorization, setUserdata, Userdata }}>
+        <UserContext.Provider value={{ posts, setPosts }}>
             {children}
         </UserContext.Provider>
     );

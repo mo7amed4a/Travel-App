@@ -1,6 +1,12 @@
 import { Button, Footer, Label, TextInput } from "flowbite-react";
+import { DataContext } from "../Context/dataContext";
+import { useContext } from "react";
+import { formatISODate } from "../utils/formatDate";
+import { Link } from "react-router-dom";
 
 export default function FooterApp() {
+  let { posts } = useContext(DataContext);
+
   return (
     <Footer bgDark container className="rounded-none mt-10">
       <div className="w-full text-center container-app">
@@ -10,8 +16,7 @@ export default function FooterApp() {
               About Travel
             </h1>
             <p className="w-5/6 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-              tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+              Lorem ipsum dolor sit amet, consectetur
             </p>
           </div>
           <div className="text-white text-start space-y-4 w-full">
@@ -19,7 +24,7 @@ export default function FooterApp() {
               CONTACT INFORMATION
             </h1>
             <p className="w-5/6 text-sm">
-              Lorem ipsum dolor sit amet, consectetur
+              click to contact us
             </p>
             <ul className="space-y-2">
               <li>
@@ -29,14 +34,14 @@ export default function FooterApp() {
                 </a>
               </li>
               <li>
-                <a href="#" className="flex gap-x-2 items-center">
+                <a href="emailto:company@domain.com" className="flex gap-x-2 items-center">
                   <i className="fas fa-envelope text-primary"></i>
                   company@domain.com
                 </a>
               </li>
               <li className="flex gap-x-2 items-center">
                 <i className="fas fa-map-marker-alt text-primary"></i>
-                3146 Koontz, California
+                10 cairo, Egypt
               </li>
             </ul>
           </div>
@@ -45,19 +50,19 @@ export default function FooterApp() {
               Latest Post
             </h1>
             <p className="w-5/6 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+              Latest post from blog 
             </p>
             <div className="space-y-4">
-              {[1, 2].map((item, index) => (
-                <a href="#" key={index}>
+              {posts?.slice(0, 3).map((post, index) => (
+                <Link to={`/blog/${post.id}`} key={index}>
                   <h1 className="text-sm font-semibold line-clamp-1">
-                    {item} Life is a beautiful journey not a destination
+                    {post.title}
                   </h1>
                   <p className="text-xs text-gray-400 flex gap-x-2 divide-x-2 divide-gray-600">
-                    <span>August 17, 2021</span>{" "}
-                    <span className="ps-2">No Comments</span>
+                    <span>{formatISODate(post.createdAt)}</span>{" "}
+                    {/* <span className="ps-2">No Comments</span> */}
                   </p>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -72,7 +77,7 @@ export default function FooterApp() {
               SUBSCRIBE US
             </h1>
             <p className="w-5/6 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
+              send your email for news
             </p>
             <form className="max-w-md">
               <div className="mb-2 block">
