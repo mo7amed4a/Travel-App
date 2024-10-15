@@ -57,7 +57,7 @@ export default function SignUpPage() {
       <form className="flex flex-col space-y-1 md:space-y-5" onSubmit={formik.handleSubmit}>
         <h1 className="py-3 md:py-5">
           <Link to="/" className="flex items-center justify-center">
-            <img src="/images/admin/logo.png" alt="Logo" className="w-24" />
+            <img src="/images/logoapp.png" alt="Logo" className="w-32" />
           </Link>
         </h1>
 

@@ -60,10 +60,10 @@ export default function LoginPage() {
   return (
     <div className="shadow-2xl rounded bg-white p-4 w-full mx-4 md:w-3/4 lg:w-2/4 xl:w-1/4">
       <form className="flex flex-col space-y-5" onSubmit={formik.handleSubmit}>
-        <h1 className="flex justify-center py-5">
-          <a href="#">
-            <img src="/images/admin/logo.png" alt="Logo" />
-          </a>
+        <h1 className="py-3 md:py-5">
+          <Link to="/" className="flex items-center justify-center">
+            <img src="/images/logoapp.png" alt="Logo" className="w-32" />
+          </Link>
         </h1>
 
         {errorMessage && (

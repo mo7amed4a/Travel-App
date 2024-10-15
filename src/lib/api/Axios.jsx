@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const Authorization = localStorage.getItem('Authorization');
-export const baseURL = "http://194.164.77.238:8003"; 
+export const baseURL = "https://gheno.webbing-agency.com"; 
 
 export const Axios = axios.create({
     baseURL: baseURL + '/api/v1',

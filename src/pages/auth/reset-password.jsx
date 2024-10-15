@@ -50,10 +50,10 @@ export default function ResetPasswordPage() {
   return (
     <div className="shadow-lg rounded-lg bg-white p-6 w-full mx-4 md:w-3/4 lg:w-2/4 xl:w-1/3">
       <form className="flex flex-col space-y-5" onSubmit={formik.handleSubmit}>
-        <h1 className="flex justify-center py-5">
-          <a href="#">
-            <img src="/images/admin/logo.png" alt="Logo" className="w-1/2" />
-          </a>
+        <h1 className="py-3 md:py-5">
+          <Link to="/" className="flex items-center justify-center">
+            <img src="/images/logoapp.png" alt="Logo" className="w-32" />
+          </Link>
         </h1>
 
         {/* Email */}

@@ -18,7 +18,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
     <Navbar fluid rounded className="py-0">
       <Navbar.Brand as={Link} to="/" className="py-2">
         <img
-          src="/images/admin/logo.png"
+          src="/images/logoapp.png"
           className="mr-3 h-6 sm:h-9"
           alt="Travil app"
         />
