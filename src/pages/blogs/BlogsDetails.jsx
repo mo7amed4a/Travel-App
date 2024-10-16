@@ -99,7 +99,7 @@ export default function BlogDetailsPage() {
     data: post,
     loading,
     error,
-  } = useFetch(`http://194.164.77.238:8003/api/v1/posts/${id}`);
+  } = useFetch(`/posts/${id}`);
 
   const article = post?.data?.post || {};
   const imageUrl = post?.data?.post?.image || "https://via.placeholder.com/150";
