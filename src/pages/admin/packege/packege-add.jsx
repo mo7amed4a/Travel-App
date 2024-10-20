@@ -277,6 +277,9 @@ export default function PackageEdit() {
                                       <button
                                         type="button"
                                         onClick={() =>
+                                          values.program.programItem.length === 1 ? 
+                                          values.program.programItem[0].day = 1
+                                          :
                                           arrayHelpers.remove(index)
                                         }
                                         className="text-red-500 hover:text-red-700"
@@ -311,11 +314,9 @@ export default function PackageEdit() {
                               </div>
                             ))
                           : null}
-
                         <button
                           type="button"
                           onClick={() =>
-                            values.program.programItem.length === 1 ? null :
                             arrayHelpers.push({
                               day: values.program.programItem.length + 1,
                               description: "",
