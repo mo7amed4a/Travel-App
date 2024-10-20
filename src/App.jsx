@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 import { Flowbite } from "flowbite-react";
 import DataContextProvider from "./Context/dataContext";
 import UserContextProvider from "./Context/Usercontext";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   const customTheme = {
@@ -27,6 +28,7 @@ export default function App() {
           <DataContextProvider>
             {/* {posts}  */}
             <BrowserRouter>
+              <ScrollToTop />
               <Routes>
                 <Route path="/*" element={<AppLayout />} />
                 <Route

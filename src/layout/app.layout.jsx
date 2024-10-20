@@ -8,6 +8,8 @@ import PackagesDetailsPage from '../pages/packages/packages-details'
 import HomePage from '../pages/Home/home'
 import NotFoundPage from '../pages/not-found/NotFound'
 import FaqPage from '../pages/faq/faqPage'
+import ProfilePage from '../pages/profile/profile'
+import ProtectedRouteAuthRequired from '../Protectroute/Protectroute'
 export default function AppLayout() {
     const [scrollPage, setScrollPage] = useState(false);
   useEffect(() => {
@@ -32,8 +34,8 @@ export default function AppLayout() {
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/packages/:id" element={<PackagesDetailsPage />} />
-            {/* <Route path="/users" element={<Users></Users>} /> */}
-
+            <Route path="/profile" element={<ProtectedRouteAuthRequired><ProfilePage /></ProtectedRouteAuthRequired>} />
+            
             <Route path="/*" element={<NotFoundPage />} />
         </Routes>
         <FooterApp />

@@ -64,5 +64,5 @@ export function formatISODate(isoDateString, isShort = false) {
   }
 
   export function formatDate(date) {
-    return moment(date).format('DD/MM/YYYY hh:mm A');
+    return moment(date).format('DD/MM/YYYY');
   }

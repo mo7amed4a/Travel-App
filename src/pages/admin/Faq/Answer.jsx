@@ -79,7 +79,7 @@ export default function Answer() {
               </Button>
             </>
           )}
-          description={"Faqs List"}
+          description={"Faqs list without answer"}
           className="w-full"
         />
         <PaginationApp

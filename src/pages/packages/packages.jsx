@@ -26,7 +26,7 @@ export default function PackagesPage() {
           <section>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-3 gap-y-8 px-4 mx-auto max-w-[1100px]">
               {data?.data?.packages?.map((item, index) => (
-                <Link to={`/package/${item.id}`} key={index}> 
+                <Link to={`/packages/${item.id}`} key={index}> 
                   <PackageComponent packageItem={item} />
                 </Link>
               ))}

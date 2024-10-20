@@ -10,9 +10,6 @@ export default function SignUpPage() {
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First Name is required"),
     lastName: Yup.string().required("Last Name is required"),
-    phone: Yup.string().required("Phone number is required"),
-    city: Yup.string().required("City is required"),
-    country: Yup.string().required("Country is required"),
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -28,9 +25,6 @@ export default function SignUpPage() {
     initialValues: {
       firstName: "",
       lastName: "",
-      phone: "",
-      city: "",
-      country: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -109,79 +103,7 @@ export default function SignUpPage() {
             ) : null}
           </div>
         </div>
-
-        {/* Mobile and Phone */}
-        <div className="flex gap-2">
-          <div className="flex flex-col w-full">
-            <label htmlFor="phone" className="text-sm pb-1 text-gray-700">
-              Phone
-            </label>
-            <input
-              id="phone"
-              name="phone"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.phone}
-              className={`border rounded p-2 ${
-                formik.errors.phone && formik.touched.phone
-                  ? "border-red-500"
-                  : "border-gray-300"
-              }`}
-            />
-            {formik.touched.phone && formik.errors.phone ? (
-              <div className="text-red-500 text-sm">{formik.errors.phone}</div>
-            ) : null}
-          </div>
-        </div>
-
-        {/* City and Country */}
-        <div className="grid grid-cols-2 gap-2">
-          <div className="flex flex-col w-full">
-            <label htmlFor="city" className="text-sm pb-1 text-gray-700">
-              City
-            </label>
-            <input
-              id="city"
-              name="city"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.city}
-              className={`border rounded p-2 ${
-                formik.errors.city && formik.touched.city
-                  ? "border-red-500"
-                  : "border-gray-300"
-              }`}
-            />
-            {formik.touched.city && formik.errors.city ? (
-              <div className="text-red-500 text-sm">{formik.errors.city}</div>
-            ) : null}
-          </div>
-
-          <div className="flex flex-col w-full">
-            <label htmlFor="country" className="text-sm pb-1 text-gray-700">
-              Country
-            </label>
-            <input
-              id="country"
-              name="country"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.country}
-              className={`border rounded p-2 ${
-                formik.errors.country && formik.touched.country
-                  ? "border-red-500"
-                  : "border-gray-300"
-              }`}
-            />
-            {formik.touched.country && formik.errors.country ? (
-              <div className="text-red-500 text-sm">
-                {formik.errors.country}
-              </div>
-            ) : null}
-          </div>
-        </div>
-
-        {/* Email and Confirm Email */}
+        {/* Email */}
         <div className="flex flex-col md:flex-row gap-2">
           <div className="flex flex-col w-full">
             <label htmlFor="email" className="text-sm pb-1 text-gray-700">

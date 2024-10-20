@@ -2,12 +2,11 @@ import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import img1 from "/images/img21.jpg";
 import img2 from "/images/img27.jpg";
 import { baseURL } from "../lib/api/Axios";
 
 export default function SliderComponent({
-  slides = [{ url: img1 }, { url: img2 }],
+  slides = [{ url: img2 }],
   cover = true,
   small = false,
 }) {
@@ -45,7 +44,7 @@ export default function SliderComponent({
             className={`relative ${small ? "h-[290px]" : "h-96"}`}
           >
             <img
-              src={baseURL + slide.url}
+              src={slide.url === "/images/img27.jpg" ? slide.url : baseURL + slide.url}
               alt={`slide-${index}`}
               className={`w-full h-full bg-black ${
                 cover ? "object-cover" : "object-contain"

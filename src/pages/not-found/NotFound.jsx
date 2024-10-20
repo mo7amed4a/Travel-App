@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function NotFoundPage({page}) {
   return (
-    <div className='flex justify-center items-center -mt-36 w-full'>
+    <div className='flex justify-center items-center -mt-36 -mb-10 w-full'>
       <div className={`h-screen bg-blue-900/70 flex justify-center items-center ${page === 'dashboard' ? 'w-full mt-40' : 'w-screen'}`}>
 
         <div className='relative text-center md:text-start w-full md:w-auto'>

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 
 
 
-function ProtectedRoute(props) {
+function ProtectedRouteAuthRequired(props) {
     if(localStorage.getItem('Authorization') !== null){
         return props.children
     }
@@ -13,4 +13,4 @@ function ProtectedRoute(props) {
 
 }
 
-export default ProtectedRoute
+export default ProtectedRouteAuthRequired

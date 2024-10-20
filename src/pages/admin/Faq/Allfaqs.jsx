@@ -80,13 +80,13 @@ export default function Answer() {
               </Button>
             </>
           )}
-          description={"Faqs List"}
+          description={"Faqs list with answer"}
           className="w-full"
         />
         <PaginationApp
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
-          totalPages={data?.data?.totalPages || 1}
+          totalPages={data?.totalPages || 1}
         />
 
         {selectedFaq && (

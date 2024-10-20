@@ -1,6 +1,7 @@
 import { Tabs } from "flowbite-react";
 import { baseURL } from "../lib/api/Axios";
 import SliderComponent from "./SliderComponent";
+import TypePackageComponent from "./TypePackageComponent";
 
 export function TabForPackageDetail({ packageData }) {
   return (
@@ -14,6 +15,9 @@ export function TabForPackageDetail({ packageData }) {
           <h4 className="text-lg font-bold">{packageData.title}</h4>
           <p className="leading-relaxed">{packageData.description}</p>
         </div>
+      </Tabs.Item>
+      <Tabs.Item title="PRICEING" className="rounded-none">
+        <TypePackageComponent typePackages={packageData.typePackages} />
       </Tabs.Item>
       <Tabs.Item title="PROGRAM">
         <div className="space-y-3">

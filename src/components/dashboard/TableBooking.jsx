@@ -5,8 +5,10 @@ import { deepSortObjectKeys } from "../../utils/sort";
 import { formatDate, formatISODate } from "../../utils/formatDate";
 import { deleteTypePackages } from "../../methods/typePackages";
 import { Link } from "react-router-dom";
+import EditTypeModal from "../../pages/admin/packege/EditType";
 
 export default function TableBooking({
+  setReload=null,
   title,
   description,
   Buttons,
@@ -191,6 +193,15 @@ export default function TableBooking({
   const [modalData, setModalData] = useState({});
   const [modalDataKey, setModalDataKey] = useState({});
 
+  const [isModalOpenEditType, setIsModalOpenEditType] = useState(false);
+  const [modalEditType, setModalEditType] = useState(null);
+
+
+  const openModalEditType = (e) => {
+    setIsModalOpenEditType(perv => !perv);
+    setModalEditType(e)
+  };
+
   const openModal = (data, key) => {
     setModalData(data);
     setModalDataKey(key);
@@ -267,7 +278,7 @@ export default function TableBooking({
                       ) : key === "profilePhoto" ? (
                         <Avatar
                           className="[&>*>img]:w-8 [&>*>img]:h-8"
-                          img={value}
+                          img={value?.startsWith('http') ? value : `${baseURL }${value}`}
                           alt="User Avatar"
                           rounded
                         />
@@ -363,6 +374,8 @@ export default function TableBooking({
                         <span>{formatDate(value)}</span>
                       ) : key === "createdAt" ? (
                         <span>{formatISODate(value)}</span>
+                      ) : key === "email" ? (
+                        <a className="hover:text-primary hover:underline" href={`mailto:${value}`}>{value}</a>
                       ) : (
                         <span>{value}</span>
                       )}
@@ -411,10 +424,14 @@ export default function TableBooking({
                         ))}
                       </div>
                     </Table.Cell>
-                    <Table.Cell
-                      onClick={() => deleteTypePackages(packageItem?._id)}
-                    >
-                      Delete
+                    <Table.Cell className="flex gap-x-2">
+                      {modalEditType && <EditTypeModal setModalEditType={setModalEditType} isModalOpenEditType={isModalOpenEditType} setIsModalOpenEditType={setIsModalOpenEditType} closeModal={closeModal} setReload={setReload} selected={modalEditType} />}
+                      <Button onClick={() => openModalEditType(packageItem)}>
+                        Edit
+                      </Button>
+                      <Button color="failure" onClick={() => deleteTypePackages(packageItem?._id)}>
+                        Delete
+                      </Button>
                     </Table.Cell>
                   </Table.Row>
                 ))

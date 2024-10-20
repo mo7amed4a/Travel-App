@@ -7,12 +7,12 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
     <>
       {asideToggle && (
         <div
-          className="bg-black bg-opacity-45 fixed inset-0 lg:hidden"
+          className="bg-black bg-opacity-45 fixed inset-0 z-10 lg:hidden"
           onClick={() => setAsideToggle((e) => !e)}
         ></div>
       )}
       <aside
-        className={`bg-[#292929] text-white shadow-md w-[25rem] h-screen fixed left-0 top-0 lg:sticky lg:-translate-x-0 duration-200 z-50 ${
+        className={`bg-[#292929] text-white shadow-md w-[20rem] md:w-[25rem] h-screen fixed left-0 top-0 lg:sticky lg:-translate-x-0 duration-200 z-50 ${
           asideToggle ? "translate-x-0" : "-translate-x-full"
         }`}
       >

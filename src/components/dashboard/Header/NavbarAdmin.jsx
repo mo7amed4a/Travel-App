@@ -2,6 +2,8 @@ import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/Usercontext";
+import useFetch from "../../../hooks/useFetch";
+import { baseURL } from "../../../lib/api/Axios";
 
 export default function NavbarAdmin({ setAsideToggle }) {
   const { Userdata, setAuthorization, setUserdata } = useContext(UserContext);
@@ -14,6 +16,13 @@ export default function NavbarAdmin({ setAsideToggle }) {
     setAuthorization(null);
     navigate("/auth/login");
   };
+
+  const {
+    data: faqData,
+    loading: faqLoading,
+    error: faqError,
+  } = useFetch("/faq/not-answer");
+  const faqLength = faqData?.length;
   return Userdata && (
     <Navbar fluid rounded className="py-0">
       <Navbar.Brand as={Link} to="/" className="py-2">
@@ -33,7 +42,14 @@ export default function NavbarAdmin({ setAsideToggle }) {
             placeholder="Search Now"
           />
         </div> */}
-        <Dropdown
+          <Link to={'/admin/faqs'} className="relative hover:text-secondary hover:bg-gray-300 py-2 px-4 rounded-none">
+            {faqLength > 0 && <span className="absolute top-0.5 right-2 z-10 text-white bg-primary rounded-full px-1.5 text-[10px] font-bold py-0.5">
+              {faqLength}
+            </span>
+            }
+            <i className="far fa-q text-4xl" aria-hidden="true"></i>
+          </Link>
+        {/* <Dropdown
           arrowIcon={false}
           inline
           className="w-64"
@@ -63,8 +79,8 @@ export default function NavbarAdmin({ setAsideToggle }) {
               </Avatar>
             </Dropdown.Item>
           ))}
-        </Dropdown>
-        <Dropdown
+        </Dropdown> */}
+        {/* <Dropdown
           arrowIcon={false}
           inline
           className="w-64"
@@ -94,7 +110,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
               </Avatar>
             </Dropdown.Item>
           ))}
-        </Dropdown>
+        </Dropdown> */}
         <Dropdown
           arrowIcon={false}
           inline
@@ -102,10 +118,10 @@ export default function NavbarAdmin({ setAsideToggle }) {
             <Avatar
               alt={`${Userdata?.firstName}`}
               className="hover:bg-gray-300 py-2 px-2 pe-0 rounded-none"
-              img={Userdata.profilePhoto}
+              img={Userdata?.profilePhoto?.startsWith('http') ? Userdata.profilePhoto : `${baseURL}${Userdata.profilePhoto}`}
               rounded
             >
-              <span className="font-bold hidden md:block">{`${Userdata?.firstName}`}</span>
+              <span className="font-bold hidden md:block pe-2">{`${Userdata?.firstName}`}</span>
             </Avatar>
           }
         >
@@ -116,7 +132,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
             </span>
           </Dropdown.Header>
           <Dropdown.Item as={Link} to="/">Home</Dropdown.Item>
-          <Dropdown.Item as={Link} to="/admin/profile">Profile</Dropdown.Item>
+          <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
         </Dropdown>

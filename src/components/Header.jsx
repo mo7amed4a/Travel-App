@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Badge,
   Button,
   Dropdown,
   Label,
@@ -12,12 +13,13 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom"; // استيراد useNavigate
 import DropdownComponent from "./DropdownComponent";
 import { UserContext } from "../Context/Usercontext";
+import { baseURL } from "../lib/api/Axios";
 
 export default function HeaderApp({ scrollPage }) {
   const { Userdata, setUserdata, setAuthorization } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const LintForDropdown = ({ title, to = "" }) => {
     return (
@@ -151,22 +153,27 @@ export default function HeaderApp({ scrollPage }) {
             <img alt="" src="/images/logoapp.png" className="mr-3 h-6 sm:h-9" />
           </Navbar.Brand>
           {/* <div className="flex md:order-1 items-center gap-x-2"> */}
-            <div className="flex md:order-2 gap-x-2">
-            <Button
-              as={Link}
-              to={"/packages"}
-              className="bg-primary hover:bg-primary/90 focus:bg-primary/80 rounded-none"
-            >
-              BOOK NOW
-            </Button>
-              {Userdata && <Dropdown
+          <div className="flex md:order-2 gap-x-1 md:gap-x-2">
+              <Link
+                to={"/packages"}
+                className="bg-primary flex items-center hover:bg-primary/90 focus:bg-primary/80 rounded-none text-xs md:text-sm px-2 md:px-3 py-2"
+              >
+                BOOK NOW
+              </Link>
+            {Userdata && (
+              <Dropdown
                 arrowIcon={false}
                 inline
                 className="w-44"
                 label={
                   <Avatar
                     alt={Userdata.firstName}
-                    img={Userdata.profilePhoto}
+                    className="[&>div>img]:w-9 md:[&>div>img]:w-10 [&>div>img]:h-9 md:[&>div>img]:h-10"
+                    img={
+                      Userdata?.profilePhoto?.startsWith("http")
+                        ? Userdata.profilePhoto
+                        : `${baseURL}${Userdata.profilePhoto}`
+                    }
                     rounded
                   />
                 }
@@ -177,13 +184,20 @@ export default function HeaderApp({ scrollPage }) {
                     {Userdata.email}
                   </span>
                 </Dropdown.Header>
-                {Userdata?.isAdmin && <Dropdown.Item as={Link} to={"/admin"}>Dashboard</Dropdown.Item>}
-                <Dropdown.Item as={Link} to={"/profile"}>Profile</Dropdown.Item>
+                {Userdata?.isAdmin && (
+                  <Dropdown.Item as={Link} to={"/admin"}>
+                    Dashboard
+                  </Dropdown.Item>
+                )}
+                <Dropdown.Item as={Link} to={"/profile"}>
+                  Profile
+                </Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
-              </Dropdown>}
-              <Navbar.Toggle />
-            </div>
+              </Dropdown>
+            )}
+            <Navbar.Toggle />
+          </div>
           <Navbar.Collapse
             className={`[&>ul]:space-x-0 [&>ul]:gap-x-4 [&>*>*>*]:uppercase [&>*>*>*]:font-bold bg-white md:bg-transparent ${
               scrollPage
@@ -194,46 +208,45 @@ export default function HeaderApp({ scrollPage }) {
             <Navbar.Link as={Link} to="/" href="#">
               Home
             </Navbar.Link>
-            <DropdownComponent
+            <Navbar.Link as={Link} to="/packages">
+              Packages
+            </Navbar.Link>
+            {/* <DropdownComponent
               ButtonLink={<LintForDropdown title={"Packages"} />}
             >
               <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/packages">
-                  Packages
-                </Navbar.Link>
-                <Navbar.Link as={Link} to="/packages/670cd455a05759e847a115bc">
-                  Packages Details
-                </Navbar.Link>
               </ul>
-            </DropdownComponent>
-            <DropdownComponent ButtonLink={<LintForDropdown title={"Blogs"} />}>
+            </DropdownComponent> */}
+            <Navbar.Link as={Link} to="/blogs">
+              Blogs
+            </Navbar.Link>
+            {/* <DropdownComponent ButtonLink={<LintForDropdown title={"Blogs"} />}>
               <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/blogs">
-                  Blogs
-                </Navbar.Link>
-                <Navbar.Link as={Link} to="/blogs/670d2820a05759e847a16339">
-                  Blogs Details
-                </Navbar.Link>
               </ul>
-            </DropdownComponent>
-            
-            <DropdownComponent
-              ButtonLink={<LintForDropdown title={"more pages"} to="/" />}
-            >
-              <ul className="text-black space-y-4">
-                <Navbar.Link as={Link} to="/faq">
-                  Faq
-                </Navbar.Link>
-                <Navbar.Link as={Link} to="/not-found">
-                  Not Found
-                </Navbar.Link>
+            </DropdownComponent> */}
+            <Navbar.Link as={Link} to="/faq">
+              Faq
+            </Navbar.Link>
+            {!Userdata && (
+              <>
                 <Navbar.Link as={Link} to="/auth/login">
                   Login
                 </Navbar.Link>
                 <Navbar.Link as={Link} to="/auth/signup">
                   Sign Up
-                </Navbar.Link>{" "}
-                {/* Corrected spelling */}
+                </Navbar.Link>
+              </>
+            )}
+            {/* <DropdownComponent
+              ButtonLink={<LintForDropdown title={"more pages"} to="/" />}
+            >
+              <ul className="text-black space-y-4">
+                <Badge color={"warning"}>
+                  {"هيتم حذف اللينكات دي في الاخر"}
+                </Badge>
+                <Navbar.Link as={Link} to="/not-found">
+                  Not Found
+                </Navbar.Link>
                 <Navbar.Link as={Link} to="/auth/reset-password">
                   Reset Password
                 </Navbar.Link>
@@ -244,7 +257,7 @@ export default function HeaderApp({ scrollPage }) {
                   Forgot Password
                 </Navbar.Link>
               </ul>
-            </DropdownComponent>
+            </DropdownComponent> */}
           </Navbar.Collapse>
         </div>
       </MegaMenu>

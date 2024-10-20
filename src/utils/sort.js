@@ -23,6 +23,9 @@ export const deepSortObjectKeys = (obj) => {
         if (obj.email) {
             sortedObj.email = obj.email;
         }
+        if (obj.keyword) {
+            sortedObj.keyword = obj.keyword;
+        }
 
         // Sort the rest of the keys, except lastName, firstName, title, createdAt, and updatedAt
         Object.keys(obj)

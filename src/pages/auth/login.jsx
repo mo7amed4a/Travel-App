@@ -25,13 +25,15 @@ export default function LoginPage() {
     try {
       const response = await Axios.post(`/auth/login`, values);
       if (response.data.status === "SUCCESS") {
+        const user = { ...response?.data?.data?.user, password: undefined };
+        const token = response?.data?.token
         localStorage.setItem(
           "Userdata",
-          JSON.stringify(response.data.data.user)
+          JSON.stringify(user)
         );
-        localStorage.setItem("Authorization", response.data.token);
-        setUserdata(response.data.data.user);
-        setAuthorization(response.data.token);
+        localStorage.setItem("Authorization", token);
+        setUserdata(user);
+        setAuthorization(token);
         navigate("/");
         toast.success("Login successful");
       } else {

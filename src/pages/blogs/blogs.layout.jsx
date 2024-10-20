@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext} from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import BlogsPage from "./blogs";
 import BlogDetailsPage from "./BlogsDetails";
 import BlogDetailsPage2 from "./BlogsDetails2";
 
 import SubHeader from "../../components/Sub-Header";
-import useFetch from "../../hooks/useFetch";
 import { formatISODate } from "../../utils/formatDate";
 import { baseURL } from "../../lib/api/Axios";
 import { DataContext } from "../../Context/dataContext";
@@ -13,7 +12,6 @@ import { Avatar, Card } from "flowbite-react";
 
 export default function BLogsLayout() {
   const location = useLocation();
-  const [selectBlog, setSelectBlog] = useState(null);
   
   let title = 'Archive'  
   if (location.pathname.includes('/blogs/1')) {
@@ -24,11 +22,6 @@ export default function BLogsLayout() {
   let { selectPost } = useContext(DataContext);
 
   const { data, loading, error } = posts
-
-  useEffect(() => {
-    console.log(selectPost);
-  }, [selectPost])
-  
 
   return (
     <section>

@@ -22,16 +22,17 @@ export default function FaqPage() {
     email: Yup.string()
       .email("Invalid email address")
       .required("Email is required"),
-    number: Yup.number().required("Number is required"),
+    phone: Yup.string().required("Phone is required"),
     question: Yup.string().required("Question is required"),
   });
 
   const formik = useFormik({
+    
     initialValues: {
       name: "",
       email: "",
-      number: "",
-      question: "",
+      phone: "",
+      question: ""
     },
     validationSchema,
     onSubmit: async (values) => {
@@ -39,7 +40,7 @@ export default function FaqPage() {
         const res = await Axios.post(`/faq`, {
           name: values.name,
           email: values.email,
-          number: values.number,
+          phone: values.phone.toString(),
           question: values.question,
         });
         toast.success(res?.data?.message);
@@ -148,16 +149,16 @@ export default function FaqPage() {
               <div className="text-start">
                 <input
                   type="number"
-                  name="number"
-                  placeholder="Your number*"
+                  name="phone"
+                  placeholder="Your phone*"
                   onChange={formik.handleChange}
-                  value={formik.values.number}
-                  className={`w-full ${formik.errors.number && formik.touched.number && 'border border-red-500'}`}
+                  value={formik.values.phone}
+                  className={`w-full ${formik.errors.phone && formik.touched.phone && 'border border-red-500'}`}
               
                 />
-                {formik.touched.number && formik.errors.number ? (
+                {formik.touched.phone && formik.errors.phone ? (
                   <div className="text-red-500 text-sm pt-1">
-                    {formik.errors.number}
+                    {formik.errors.phone}
                   </div>
                 ) : null}
               </div>

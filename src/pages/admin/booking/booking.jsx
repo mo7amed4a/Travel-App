@@ -69,6 +69,7 @@ export default function Users() {
       console.log(res.data.message);
       setReload((prev) => !prev);
       setIsModalOpenDelete(false);
+      toast.success("Booking deleted successfully");
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
@@ -82,7 +83,7 @@ export default function Users() {
           values={bookings}
           Buttons={(booking) => (
             <>
-              <Button onClick={() => handleEditClick(booking)}>Edit</Button>
+              {/* <Button onClick={() => handleEditClick(booking)}>Edit</Button> */}
               <Button color={"failure"} onClick={() => handleDeleteClick(booking)}>
                 Delete
               </Button>

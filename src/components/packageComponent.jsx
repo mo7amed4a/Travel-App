@@ -7,17 +7,17 @@ export default function PackageComponent({ packageItem }) {
     packageItem && (
       <div>
         <figure className="w-full relative">
-          <div className="absolute top-[20px] end-0 bg-primary p-1.5 text-white">
+         {packageItem?.typePackages?.length > 0 &&  <div className="absolute top-[20px] end-0 bg-primary p-1.5 text-white">
             <h6 className="text-sm">
               <span className="font-bold text-xl">
-                {/* TODO */}${packageItem.price} 50{" "}
+                ${packageItem?.typePackages?.length > 0 && packageItem?.typePackages[0]?.pricing[0]?.pricePerUser}
               </span>{" "}
-              / per person
+              / {packageItem?.typePackages?.length > 0 && packageItem?.typePackages[0]?.pricing[0]?.numUser}
             </h6>
-          </div>
+          </div>}
           <Link to={`/packages/${packageItem._id}`}>
             {packageItem.image.length != 0 ? (
-              packageItem.image.length > 1 && (
+              packageItem.image.length >= 1 && (
                 <img
                   src={baseURL + packageItem.image[0].url}
                   alt="destination"
@@ -52,7 +52,7 @@ export default function PackageComponent({ packageItem }) {
         </figure>
         <div className="pt-8 px-4">
           <div className="space-y-3">
-            <Link to={`/packages/1`}>
+            <Link to={`/packages/${packageItem.id}`}>
               <h3 className="font-bold text-xl">{packageItem.title}</h3>
             </Link>
             <div className="flex gap-x-2 text-gray-400 text-xs">

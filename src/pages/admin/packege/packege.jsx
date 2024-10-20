@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import PaginationApp from "../../../components/pagination";
 import toast from "react-hot-toast";
+import AddTypeModal from "./AddTypeModal";
 
 export default function PackageDashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,12 +17,29 @@ export default function PackageDashboard() {
   const [selectedFaq, setSelectedFaq] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [programDays, setProgramDays] = useState([]);
+  const [isModalOpenAddType, setIsModalOpenAddType] = useState(false);
 
   const { data, loading, error, setReload } = useFetch(
     `/package?pageNumber=${currentPage}&PACKAGE_PER_PAGE=10`
   );
 
   const packages = data?.data?.packages;
+
+
+  
+
+  const handleAddTypeClick = (package_) => {
+    setSelectedFaq(package_);
+    setIsModalOpenAddType(true);
+  };
+
+  const handleAddTypeSubmit = (values) => {
+    console.log("Submitted values: ", values);
+    // هنا من الممكن أن تضيف منطق الحفظ في الـ API
+    setReload((prev) => !prev);
+    setIsModalOpenAddType(false);
+  };
+
 
   // Schema التحقق من الصحة لـ Formik
   const validationSchema = Yup.object({
@@ -67,6 +85,8 @@ export default function PackageDashboard() {
       }
     },
   });
+  
+  // عايز اضافة التايب يبقا هنا 
 
   // دالة لمعالجة تعديل الحزمة
   const handleEditClick = (package_) => {
@@ -212,6 +232,7 @@ export default function PackageDashboard() {
     packages && (
       <div className="w-full">
         <TableBooking
+          setReload={setReload}
           title={"Packages"}
           values={packages}
           Buttons={(package_) => (
@@ -224,9 +245,10 @@ export default function PackageDashboard() {
                 <Button onClick={() => togglePinPackageClick(package_)}>Unpin</Button>
               )}
               <Button onClick={() => handleEditClick(package_)}>Edit</Button>
-              <Button onClick={() => handleEditImageClick(package_)}>Image</Button>
+              <Button onClick={() => handleAddTypeClick(package_)}>Type+</Button>
+              <Button onClick={() => handleEditImageClick(package_)}>Image+</Button>
               <Button onClick={() => { setSelectedFaq(package_); setIsModalOpenMultiImages(true); }}>
-                map
+                map+
               </Button> 
               <Button color={'failure'} onClick={() => handleDeleteClick(package_)}>Delete</Button>
             </>
@@ -354,6 +376,15 @@ export default function PackageDashboard() {
               <Button onClick={() => setIsModalOpenMultiImages(false)}>Close</Button>
             </Modal.Footer>
           </Modal>
+        )}
+
+        {selectedFaq && (
+          <AddTypeModal
+            isOpen={isModalOpenAddType}
+            onClose={() => setIsModalOpenAddType(false)}
+            onSubmit={handleAddTypeSubmit}
+            selectedFaq={selectedFaq}
+          />
         )}
 
         {/* نافذة تأكيد الحذف */}
