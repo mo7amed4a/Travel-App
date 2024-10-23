@@ -11,6 +11,7 @@ import PackageDashboard from "../pages/admin/packege/packege";
 import BlogsAdd from "../pages/admin/blogs/blogs-add";
 import FaqsPages from "../pages/admin/Faq/Allfaqs";
 import Answer from "../pages/admin/Faq/Answer";
+import Profile from "../pages/admin/Profile/Profile";
 import BookingDashboard from "../pages/admin/booking/booking";
 
 export default function DashoardLayout() {
@@ -32,6 +33,7 @@ export default function DashoardLayout() {
             <Route path="/new-package" element={<PackegeAdd />} />
             <Route path="/Answer" element={<Answer></Answer>} />
             <Route path="/blogs" element={<BlogsDashboard />} />
+            <Route path="/profile" element={<Profile></Profile>} />
             <Route path="/blogs/new-blog" element={<BlogsAdd />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/faqs" element={<FaqsPages/>} />

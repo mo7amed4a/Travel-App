@@ -97,12 +97,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 >
                   Bookings
                 </Sidebar.Item>
-                {/* <Sidebar.Item
-                  as={Link} to="/admin/edit-booking" 
-                  className="side-link hover:bg-gray-300/20"
-                >
-                  Edit booking
-                </Sidebar.Item> */}
+               
               </Sidebar.Collapse>
             </Sidebar.ItemGroup>
           </Sidebar.Items>

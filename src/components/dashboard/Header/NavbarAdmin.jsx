@@ -17,22 +17,14 @@ export default function NavbarAdmin({ setAsideToggle }) {
   return Userdata && (
     <Navbar fluid rounded className="py-0">
       <Navbar.Brand as={Link} to="/" className="py-2">
-        <img
+        <img 
           src="/images/admin/logo.png"
           className="mr-3 h-6 sm:h-9"
           alt="Travil app"
         />
       </Navbar.Brand>
       <div className="flex md:order-2">
-        {/* <div>
-          <button className="block md:hidden  hover:text-secondary/90 py-2 px-4 hover:bg-gray-300/50 h-full">
-            <i className="fa fa-search text-2xl" aria-hidden="true"></i>
-          </button>
-          <input
-            className="md:block hidden h-full border-2 m-0.5 px-2"
-            placeholder="Search Now"
-          />
-        </div> */}
+   
         <Dropdown
           arrowIcon={false}
           inline
@@ -117,6 +109,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
           </Dropdown.Header>
           <Dropdown.Item as={Link} to="/">Home</Dropdown.Item>
           <Dropdown.Item as={Link} to="/admin/profile">Profile</Dropdown.Item>
+
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
         </Dropdown>

@@ -29,6 +29,7 @@ export default function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/*" element={<AppLayout />} />
+                
                 <Route
                   path="/auth/*"
                   element={

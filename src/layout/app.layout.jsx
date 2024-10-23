@@ -7,6 +7,8 @@ import PackagesPage from '../pages/packages/packages'
 import PackagesDetailsPage from '../pages/packages/packages-details'
 import HomePage from '../pages/Home/home'
 import NotFoundPage from '../pages/not-found/NotFound'
+
+import Profile from "../pages/admin/Profile/Profile";
 import FaqPage from '../pages/faq/faqPage'
 export default function AppLayout() {
     const [scrollPage, setScrollPage] = useState(false);
@@ -28,6 +30,7 @@ export default function AppLayout() {
 
         <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/profile" element={<Profile></Profile>} />
             <Route path="/blogs/*" element={<BLogsLayout />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/packages" element={<PackagesPage />} />
