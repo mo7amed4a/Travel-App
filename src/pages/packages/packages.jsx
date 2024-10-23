@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 export default function PackagesPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [search, setSearch] = useState(''); // Initially set to empty string
+  const [search, setSearch] = useState(''); 
 
   const {
     data: g,
