@@ -37,6 +37,17 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 </Sidebar.Item>
               </Sidebar.Collapse>
               <Sidebar.Collapse
+                label="Pages"
+                className="side-link hover:bg-gray-300/20"
+              >
+                <Sidebar.Item
+                as={Link} to="/admin/pages" 
+                  className="side-link hover:bg-gray-300/20"
+                >
+                  Pages
+                </Sidebar.Item>
+              </Sidebar.Collapse>
+              <Sidebar.Collapse
                 label="packages"
                 className="side-link hover:bg-gray-300/20"
               >

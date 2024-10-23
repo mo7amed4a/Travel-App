@@ -13,6 +13,7 @@ import FaqsPages from "../pages/admin/Faq/Allfaqs";
 import Answer from "../pages/admin/Faq/Answer";
 import Profile from "../pages/admin/Profile/Profile";
 import BookingDashboard from "../pages/admin/booking/booking";
+import Pages from "../pages/admin/Pages/Pages";
 
 export default function DashoardLayout() {
   const [asideToggle, setAsideToggle] = useState(false);
@@ -30,6 +31,7 @@ export default function DashoardLayout() {
           <Routes>
             <Route path="/" element={<DashoardPage />} />
             <Route path="/packages" element={<PackageDashboard />} />
+            <Route path="/pages" element={<Pages></Pages>} />
             <Route path="/new-package" element={<PackegeAdd />} />
             <Route path="/Answer" element={<Answer></Answer>} />
             <Route path="/blogs" element={<BlogsDashboard />} />
