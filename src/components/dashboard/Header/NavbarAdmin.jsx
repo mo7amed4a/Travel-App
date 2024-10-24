@@ -1,20 +1,21 @@
+'use client'
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../../Context/Usercontext";
 import useFetch from "../../../hooks/useFetch";
 import { baseURL } from "../../../lib/api/Axios";
+import Link from "next/link";
 
 export default function NavbarAdmin({ setAsideToggle }) {
   const { Userdata, setAuthorization, setUserdata } = useContext(UserContext);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("Userdata");
     localStorage.removeItem("Authorization");
     setUserdata(null);
     setAuthorization(null);
-    navigate("/auth/login");
+    // navigate("/auth/login");
   };
 
   const {
@@ -25,7 +26,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
   const faqLength = faqData?.length;
   return Userdata && (
     <Navbar fluid rounded className="py-0">
-      <Navbar.Brand as={Link} to="/" className="py-2">
+      <Navbar.Brand as={Link} href="/" className="py-2">
         <img
           src="/images/logoapp.png"
           className="mr-3 h-6 sm:h-9"
@@ -42,7 +43,7 @@ export default function NavbarAdmin({ setAsideToggle }) {
             placeholder="Search Now"
           />
         </div> */}
-          <Link to={'/admin/faqs'} className="relative hover:text-secondary hover:bg-gray-300 py-2 px-4 rounded-none">
+          <Link href={'/dashboard/faqs/answer'} className="relative hover:text-secondary hover:bg-gray-300 py-2 px-4 rounded-none">
             {faqLength > 0 && <span className="absolute top-0.5 right-2 z-10 text-white bg-primary rounded-full px-1.5 text-[10px] font-bold py-0.5">
               {faqLength}
             </span>
@@ -131,8 +132,8 @@ export default function NavbarAdmin({ setAsideToggle }) {
               {Userdata?.email}
             </span>
           </Dropdown.Header>
-          <Dropdown.Item as={Link} to="/">Home</Dropdown.Item>
-          <Dropdown.Item as={Link} to="/profile">Profile</Dropdown.Item>
+          <Dropdown.Item as={Link} href="/">Home</Dropdown.Item>
+          <Dropdown.Item as={Link} href="/profile">Profile</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
         </Dropdown>

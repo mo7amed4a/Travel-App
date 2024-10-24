@@ -1,6 +1,6 @@
 import { Sidebar } from "flowbite-react";
+import Link from "next/link";
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
   return (
@@ -22,7 +22,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
         >
           <Sidebar.Items className="w-[100%]">
             <Sidebar.ItemGroup className="[&>*>*>*]:text-white  [&>*>*>*>*]:text-white w-full">
-              <Sidebar.Item as={Link} to="/admin" className="side-link hover:bg-gray-300/20">
+              <Sidebar.Item as={Link} href="/dashboard" className="side-link hover:bg-gray-300/20">
                 Dashboard
               </Sidebar.Item>
               <Sidebar.Collapse
@@ -30,7 +30,7 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/users" 
+                as={Link} href="/dashboard/users" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   users
@@ -41,13 +41,13 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/packages" 
+                as={Link} href="/dashboard/packages" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   packages
                 </Sidebar.Item>
                 <Sidebar.Item
-                as={Link} to="/admin/new-package" 
+                as={Link} href="/dashboard/packages/add" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   New package
@@ -58,13 +58,13 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/blogs" 
+                as={Link} href="/dashboard/blogs" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   Blogs
                 </Sidebar.Item>
                 <Sidebar.Item
-                as={Link} to="/admin/blogs/new-blog" 
+                as={Link} href="/dashboard/blogs/add" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   New blog
@@ -75,14 +75,14 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/faqs" 
+                as={Link} href="/dashboard/faqs" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   All
                 </Sidebar.Item>
                 <Sidebar.Item
                 className="side-link hover:bg-gray-300/20"
-                as={Link} to="/admin/Answer" 
+                as={Link} href="/dashboard/faqs/answer" 
                 >
                  Answers
                 </Sidebar.Item>
@@ -92,18 +92,24 @@ export default function SidenavAdmin({ asideToggle, setAsideToggle }) {
                 className="side-link hover:bg-gray-300/20"
               >
                 <Sidebar.Item
-                as={Link} to="/admin/bookings" 
+                as={Link} href="/dashboard/bookings" 
                   className="side-link hover:bg-gray-300/20"
                 >
                   Bookings
                 </Sidebar.Item>
                 {/* <Sidebar.Item
-                  as={Link} to="/admin/edit-booking" 
+                  as={Link} href="/dashboard/edit-booking" 
                   className="side-link hover:bg-gray-300/20"
-                >
+                  >
                   Edit booking
-                </Sidebar.Item> */}
+                  </Sidebar.Item> */}
               </Sidebar.Collapse>
+                  <Sidebar.Item
+                  as={Link} href="/dashboard/images" 
+                    className="side-link hover:bg-gray-300/20"
+                  >
+                    Images
+                  </Sidebar.Item>
             </Sidebar.ItemGroup>
           </Sidebar.Items>
         </Sidebar>

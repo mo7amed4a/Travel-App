@@ -1,6 +1,6 @@
+"use client";
 import {
   Avatar,
-  Badge,
   Button,
   Dropdown,
   Label,
@@ -10,44 +10,20 @@ import {
   TextInput,
 } from "flowbite-react";
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // استيراد useNavigate
-import DropdownComponent from "./DropdownComponent";
 import { UserContext } from "../Context/Usercontext";
 import { baseURL } from "../lib/api/Axios";
+import Link from "next/link";
+import LogoutApp from "./header/logout/logout";
 
 export default function HeaderApp({ scrollPage }) {
   const { Userdata, setUserdata, setAuthorization } = useContext(UserContext);
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate();
-
-  const LintForDropdown = ({ title, to = "" }) => {
-    return (
-      <Navbar.Link
-        as={Link}
-        to={to === "" ? title : to}
-        className={`cursor-pointer ${
-          scrollPage ? "text-black" : "text-black md:text-white"
-        }`}
-      >
-        {title}
-      </Navbar.Link>
-    );
-  };
 
   const handleSearch = () => {
     if (searchText.length >= 1) {
       window.location.href = `/blogs?search=${searchText}`;
     }
-  };
-
-  const handleLogout = () => {
-    console.log("Logging out...");
-    localStorage.removeItem("Userdata");
-    localStorage.removeItem("Authorization");
-    setUserdata(null);
-    setAuthorization(null);
-    navigate("/auth/login");
   };
 
   return (
@@ -149,17 +125,17 @@ export default function HeaderApp({ scrollPage }) {
         <div
           className={`flex container-app flex-wrap items-center justify-between py-4 md:gap-x-8`}
         >
-          <Navbar.Brand as={Link} to="/packages">
+          <Navbar.Brand as={Link} href="/">
             <img alt="" src="/images/logoapp.png" className="mr-3 h-6 sm:h-9" />
           </Navbar.Brand>
           {/* <div className="flex md:order-1 items-center gap-x-2"> */}
           <div className="flex md:order-2 gap-x-1 md:gap-x-2">
-              <Link
-                to={"/packages"}
-                className="bg-primary flex items-center hover:bg-primary/90 focus:bg-primary/80 rounded-none text-xs md:text-sm px-2 md:px-3 py-2"
-              >
-                BOOK NOW
-              </Link>
+            <Link
+              href={"/packages"}
+              className="bg-primary flex items-center hover:bg-primary/90 focus:bg-primary/80 rounded-none text-xs md:text-sm px-2 md:px-3 py-2"
+            >
+              BOOK NOW
+            </Link>
             {Userdata && (
               <Dropdown
                 arrowIcon={false}
@@ -185,15 +161,17 @@ export default function HeaderApp({ scrollPage }) {
                   </span>
                 </Dropdown.Header>
                 {Userdata?.isAdmin && (
-                  <Dropdown.Item as={Link} to={"/admin"}>
+                  <Dropdown.Item as={Link} href={"/dashboard"}>
                     Dashboard
                   </Dropdown.Item>
                 )}
-                <Dropdown.Item as={Link} to={"/profile"}>
+                <Dropdown.Item as={Link} href={"/profile"}>
                   Profile
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
+                <LogoutApp>
+                  <Dropdown.Item>Sign out</Dropdown.Item>
+                </LogoutApp>
               </Dropdown>
             )}
             <Navbar.Toggle />
@@ -205,10 +183,10 @@ export default function HeaderApp({ scrollPage }) {
                 : "[&>*>*>*>a]:text-black [&>*>*>*]:text-black md:[&>*>*>*>a]:text-white md:[&>*>*>*]:text-white"
             }`}
           >
-            <Navbar.Link as={Link} to="/" href="#">
+            <Navbar.Link as={Link} href="/">
               Home
             </Navbar.Link>
-            <Navbar.Link as={Link} to="/packages">
+            <Navbar.Link as={Link} href="/packages">
               Packages
             </Navbar.Link>
             {/* <DropdownComponent
@@ -217,43 +195,43 @@ export default function HeaderApp({ scrollPage }) {
               <ul className="text-black space-y-4">
               </ul>
             </DropdownComponent> */}
-            <Navbar.Link as={Link} to="/blogs">
+            <Navbar.Link as={Link} href="/blogs">
               Blogs
             </Navbar.Link>
             {/* <DropdownComponent ButtonLink={<LintForDropdown title={"Blogs"} />}>
               <ul className="text-black space-y-4">
               </ul>
             </DropdownComponent> */}
-            <Navbar.Link as={Link} to="/faq">
+            <Navbar.Link as={Link} href="/faq">
               Faq
             </Navbar.Link>
             {!Userdata && (
               <>
-                <Navbar.Link as={Link} to="/auth/login">
+                <Navbar.Link as={Link} href="/auth/login">
                   Login
                 </Navbar.Link>
-                <Navbar.Link as={Link} to="/auth/signup">
+                <Navbar.Link as={Link} href="/auth/signup">
                   Sign Up
                 </Navbar.Link>
               </>
             )}
             {/* <DropdownComponent
-              ButtonLink={<LintForDropdown title={"more pages"} to="/" />}
+              ButtonLink={<LintForDropdown title={"more pages"} href="/" />}
             >
               <ul className="text-black space-y-4">
                 <Badge color={"warning"}>
                   {"هيتم حذف اللينكات دي في الاخر"}
                 </Badge>
-                <Navbar.Link as={Link} to="/not-found">
+                <Navbar.Link as={Link} href="/not-found">
                   Not Found
                 </Navbar.Link>
-                <Navbar.Link as={Link} to="/auth/reset-password">
+                <Navbar.Link as={Link} href="/auth/reset-password">
                   Reset Password
                 </Navbar.Link>
-                <Navbar.Link as={Link} to="/auth/otp">
+                <Navbar.Link as={Link} href="/auth/otp">
                   OTP Page
                 </Navbar.Link>
-                <Navbar.Link as={Link} to="/auth/forgot-password">
+                <Navbar.Link as={Link} href="/auth/forgot-password">
                   Forgot Password
                 </Navbar.Link>
               </ul>

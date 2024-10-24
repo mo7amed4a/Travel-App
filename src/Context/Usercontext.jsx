@@ -1,15 +1,14 @@
-import { createContext, useState, useEffect } from "react";
+"use client";
+import Cookies from "js-cookie";
+import { createContext, useState } from "react";
 
 export let UserContext = createContext();
 
 export default function UserContextProvider({ children }) {
-    const storedUserData = localStorage.getItem("Userdata");
-    const storedToken = localStorage.getItem("Authorization");
-
-    const [Authorization, setAuthorization] = useState(storedToken || null);
-    const [Userdata, setUserdata] = useState(JSON.parse(storedUserData || null));
-    const [posts, setPosts] = useState(null);
-
+    
+    const [Authorization, setAuthorization] = useState(Cookies.get("Authorization") || null);
+    const [Userdata, setUserdata] = useState(JSON.parse(Cookies.get("Userdata") || null));
+    
     return (
         <UserContext.Provider value={{ Authorization, setAuthorization, setUserdata, Userdata}}>
             {children}

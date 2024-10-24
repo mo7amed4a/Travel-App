@@ -1,5 +1,6 @@
+"use client";
+import useFetch from "@/hooks/useFetch";
 import { createContext, useState, useEffect } from "react";
-import useFetch from "../hooks/useFetch";
 
 export let DataContext = createContext();
 

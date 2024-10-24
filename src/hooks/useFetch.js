@@ -1,6 +1,6 @@
+'use client';
 import { useState, useEffect } from "react";
 import { Axios } from "../lib/api/Axios";
-import toast from "react-hot-toast";
 
 export default function useFetch(url, query) {
   const [data, setData] = useState([]);
